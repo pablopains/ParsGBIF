@@ -2,6 +2,7 @@ Package: ParsGBIF
 Type: Package
 Title: An R package for parsing species occurrence records based on GBIF issues, WCVP names and collector information
 Version: 1.0.0.0
+Date: 2023-06-04
 Authors@R: 
     person("Pablo Hendrigo", "Melo", email = "pablopains@yahoo.com.br", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3004-2984"))
@@ -11,7 +12,7 @@ Authors@R:
            comment = c(ORCID = "0000-0003-4013-3804"))
 Maintainer: "Pablo Melo <pablopains@yahoo.com.br>"
 Description: 1. Preparar arquivo de ocorrências para fluxo de trabalho, 2. Verificar nomes com WCVP, 4. Aplicar Dicionário de coletores, 5. Agrupar duplicatas e selecionar voucher digital, 6. Selecionar identificação taxonômica da amostra, 7. Exportar dados para analises
-License: GPL (>= 3)
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
