@@ -6,6 +6,7 @@
 \usage{
 get_wcvp(
   url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
+  read_only_to_memory = FALSE,
   path_results = "C:/ParsGBIF",
   update = FALSE,
   load_distribution = FALSE
@@ -14,11 +15,13 @@ get_wcvp(
 \arguments{
 \item{url_source}{http://sftp.kew.org/pub/data-repositories/WCVP/}
 
-\item{path_results}{download destination folder}
+\item{read_only_to_memory}{TRUE to in-memory read-only, not writing a copy to local disk}
 
-\item{update}{TRUE to update and load files, FALSE to keep local version and load files}
+\item{path_results}{download destination folder, if read_only_to_memory FALSE}
 
-\item{load_distribution}{TRUE to load file with geographical distribution of species}
+\item{update}{TRUE to update and load files, FALSE to keep local version and load files, if read_only_to_memory FALSE}
+
+\item{load_distribution}{TRUE to load file with geographical distribution of species, if read_only_to_memory FALSE}
 }
 \value{
 README_WCVP.xlsx,
@@ -33,7 +36,8 @@ http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure 
 }
 \examples{
 wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                 path_results = 'C:/Dados/Kew/data',
+                 read_only_to_memory = FALSE,
+                 path_results = "C:/ParsGBIF",
                  update = FALSE,
                  load_distribution = FALSE)
 

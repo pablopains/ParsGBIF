@@ -4,9 +4,10 @@
 #' @description Download World Checklist of Vascular Plants (WCVP) database
 #'
 #' @param url_source http://sftp.kew.org/pub/data-repositories/WCVP/
-#' @param path_results download destination folder
-#' @param update TRUE to update and load files, FALSE to keep local version and load files
-#' @param load_distribution TRUE to load file with geographical distribution of species
+#' @param read_only_to_memory TRUE to in-memory read-only, not writing a copy to local disk
+#' @param path_results download destination folder, if read_only_to_memory FALSE
+#' @param update TRUE to update and load files, FALSE to keep local version and load files, if read_only_to_memory FALSE
+#' @param load_distribution TRUE to load file with geographical distribution of species, if read_only_to_memory FALSE
 #'
 #' @details http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure File Transfer Protocol) site of the Royal Botanic Gardens, Kew. This space contains data resources publicly accessible to the user `anonymous'.  No password required for access. Use of data made available via this site may be subject to legal and licensing restrictions. The README in the top-level directory for each data resource provides specific information about its terms of use.
 #'   
@@ -23,31 +24,38 @@
 #'
 #' @examples
 #' wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-#'                  path_results = 'C:/Dados/Kew/data',
+#'                  read_only_to_memory = FALSE,
+#'                  path_results = "C:/ParsGBIF",
 #'                  update = FALSE,
 #'                  load_distribution = FALSE)
 #'
 #' @export
 get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
+                     read_only_to_memory = FALSE,
                      path_results = 'C:/ParsGBIF',
                      update = FALSE,
                      load_distribution = FALSE)
 {  
   require(dplyr)
-
-  # criar pasta para salvar raultados do dataset
-  path_results <- paste0(path_results,'/WCVP')
-  if (!dir.exists(path_results)){dir.create(path_results)}
   
+  if(read_only_to_memory==TRUE)
+  {
+    # criar pasta para salvar raultados do dataset
+    if (!dir.exists(path_results)){dir.create(path_results)}
+    path_results <- paste0(path_results,'/WCVP')
+    if (!dir.exists(path_results)){dir.create(path_results)}
+  }else
+  {
+    path_results <- tempdir()
+  }
   
   # ultima versao
   nomes <- 'wcvp.zip'
   destfile <- paste0(path_results,'/',nomes)
   
-  
   # update?
   
-  if((!file.exists(destfile)) | update == TRUE)
+  if((!file.exists(destfile)) | update == TRUE | read_only_to_memory == TRUE)
   {
     url_d <- paste0(url_source,'/',nomes)
     
@@ -86,6 +94,13 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
   }
   else
   {wcvp_distribution = NA}
+  
+  
+  if(read_only_to_memory==TRUE)
+  {
+    files.rem <- list.files(path = path_results, full.names = TRUE)
+    file.remove(files.rem)
+  }
   
   return(list(wcvp_names = wcvp_names,
               wcvp_distribution =  wcvp_distribution))
