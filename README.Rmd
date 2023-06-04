@@ -17,7 +17,6 @@ ParsGBIF is a package for parsing species occurrence records based on GBIF issue
 You can install the development version of ParsGBIF from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
 devtools::install_github("pablopains/ParsGBIF")
 ```
 
