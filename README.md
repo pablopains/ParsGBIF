@@ -37,9 +37,11 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
                                                          load_distribution = TRUE)
   head(wcvp$wcvp_names)
   head(wcvp$wcvp_distribution)
+
+  # or 
+  wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
   
-  wcvp_names <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                                                         read_only_to_memory = TRUE)$wcvp_names
+  colnames(wcvp_names)
   
   head(wcvp_names)
   

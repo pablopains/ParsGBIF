@@ -3,7 +3,8 @@
   rm(list = ls())
   
   library(devtools)
-  setwd("C:\\ParsGBIF")
+  setwd("C:\\ParsGBIF - github.com")
+  
   # create("ParsGBIF", rstudio = FALSE)
   
   devtools::load_all()
@@ -16,6 +17,10 @@
   help(update_lastNameRecordedBy)
   help(extract_gbif_issue)
   help(select_digital_voucher_and_sample_identification)
+  
+  
+  devtools::install_github("pablopains/ParsGBIF")
+  library(ParsGBIF)
   
 }
 
@@ -66,16 +71,35 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
   
 }
 
+#' @details Install or load ParsGBIF
+{
+  rm(list = ls())
+  
+  devtools::install_github("pablopains/ParsGBIF")
+  library(ParsGBIF)
+  
+  help(standardize_scientificName)
+  help(get_wcvp)
+  help(checkName_wcvp)
+  help(prepere_lastNameRecordedBy)
+  help(update_lastNameRecordedBy)
+  help(extract_gbif_issue)
+  help(select_digital_voucher_and_sample_identification)
+  
+  
+  
+}
 
 #' @details Get WCVP
 {
   help(get_wcvp)
-  wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                                                         path_results = path_data,
-                                                         update = FALSE,
-                                                         load_distribution = FALSE)
-  wcvp$wcvp_names
-  wcvp$wcvp_distribution
+  wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+  
+  colnames(wcvp_names)
+  
+  head(wcvp_names)
+  
+  
 }
 
 
@@ -381,6 +405,8 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 
 #' @details Check names in WCVP
 {
+  
+  help(checkName_wcvp)
   if(!file.exists(wcvp_result_file))
   {
     index <- occ$Ctrl_taxonRank %>% toupper() %in%
