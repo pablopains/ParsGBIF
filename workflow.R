@@ -4,7 +4,7 @@
 
   library(devtools)
 
-  devtools::install_github("pablopains/ParsGBIF", force = TRUE)
+  devtools::install_github("pablopains/ParsGBIF")
   library(ParsGBIF)
 
   help(standardize_scientificName)
@@ -23,6 +23,8 @@ path_root <- 'C:/ParsGBIF'
 family <- 'Achatocarpaceae'
 name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDictionary_checked.csv'
 
+
+checkName_wcvp('Gaddnerina angustata')
 
 #' @details Paths prepare
 {

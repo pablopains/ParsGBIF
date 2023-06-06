@@ -46,7 +46,7 @@ prepere_lastNameRecordedBy <- function(occ=NA,
   require(stringr)
   require(googlesheets4)
 
-  if(!is.na(collectorDictionary))
+  if(is.na(collectorDictionary))
   {
     if(is.na(collectorDictionary_url) | collectorDictionary_url == '')
     {
@@ -55,16 +55,16 @@ prepere_lastNameRecordedBy <- function(occ=NA,
 
     collectorDictionary <- googlesheets4::read_sheet(collectorDictionary_url)
 
-    collectorDictionary <- collectorDictionary %>%
-      dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
-      data.frame()
-
   }
 
   if(NROW(collectorDictionary)==0)
   {
     stop("CollectorDictionary is empty!")
   }
+
+  collectorDictionary <- collectorDictionary %>%
+    dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
+    data.frame()
 
   if(NROW(occ)==0)
   {
