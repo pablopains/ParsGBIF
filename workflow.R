@@ -80,6 +80,8 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
   help(extract_gbif_issue)
   help(select_digital_voucher_and_sample_identification)
 
+  help(select_gbif_fields)
+
 
 
 }
@@ -99,6 +101,8 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 
 #' @details Select GBIF fields
 {
+  help(select_gbif_fields)
+
   col_sel <- select_gbif_fields(columns = 'standard')
 
 }
