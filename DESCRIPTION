@@ -30,7 +30,8 @@ Imports:
 	jsonlite,
 	sqldf,
 	DT,	
-	downloader
+	downloader,
+	googlesheets4
 Remotes: 
     github::pablopains/ParsGBIF
 Roxygen: list(markdown = TRUE)

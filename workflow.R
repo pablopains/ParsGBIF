@@ -66,7 +66,7 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 
 }
 
-#' @details Get WCVP
+#' @examples Get WCVP
 {
   help(get_wcvp)
   wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
@@ -238,6 +238,14 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 {
 
   help(prepere_lastNameRecordedBy)
+
+
+  collectorDictionary <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link')
+
+  collectorDictionary <- collectorDictionary %>%
+    dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
+    data.frame()
+
 
   collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ,
                                                                 collectorDictionary_file=collectorDictionary_file)

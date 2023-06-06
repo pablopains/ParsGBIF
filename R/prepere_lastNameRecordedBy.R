@@ -3,13 +3,14 @@
 #'
 #' @description Returns the last name of the primary collector.
 #' If recordedBy is present in the collector's dictionary, it returns the checked name, if not, it returns the last name of the main collector, extracted from the recordedBy field.
-#'   
-#' @param occ GBIF occurrence file with selected columns
-#' @param collectorDictionary_file Collector's dictionary file
+#'
+#' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
+#' @param collectorDictionary_url Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'
+#' @param collectorDictionary Collector's dictionary in data.frame format with the fields: Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy, Ctrl_notes, collectorDictionary, Ctrl_update, collectorName, Ctrl_fullName, Ctrl_fullNameII, CVStarrVirtualHerbarium_PersonDetails
 #'
 #' @details ....
-#'   
-#' @return 
+#'
+#' @return
 #' Ctrl_nameRecordedBy_Standard,
 #' Ctrl_recordedBy,
 #' Ctrl_notes,
@@ -24,67 +25,72 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[readr]{read_csv}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
 #'
 #' @examples
-#' collectorDictionary <- readr::read_csv('Collectors Dictionary.csv', 
-#'                                        locale = readr::locale(encoding = "UTF-8"))
-#'  
 #' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ,
-#'                                                               collectorDictionary=collectorDictionary)
-#' 
+#'                                                               collectorDictionary_url='https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link')
+#'
+#'#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ)
+#'
 #' @export
-prepere_lastNameRecordedBy <- function(occ=NA, 
-                                       collectorDictionary_file=NA)
-{  
+prepere_lastNameRecordedBy <- function(occ=NA,
+                                       collectorDictionary_url='https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link',
+                                       collectorDictionary = NA)
+{
 
   require(stringr)
-  if(!file.exists(collectorDictionary_file))
+
+  if(!is.na(collectorDictionary))
   {
-    stop("CollectorDictionary file not found!")
-  }  
-  
-  collectorDictionary <- readr::read_csv(collectorDictionary_file, 
-                                         locale = readr::locale(encoding = "UTF-8"),
-                                         show_col_types = FALSE) %>%
-    dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
-    data.frame()   
-  
+    if(is.na(collectorDictionary_url) | collectorDictionary_url == '')
+    {
+      stop("CollectorDictionary url not found!")
+    }
+
+    collectorDictionary <- googlesheets4::read_sheet(collectorDictionary_url)
+
+    collectorDictionary <- collectorDictionary %>%
+      dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
+      data.frame()
+
+  }
+
   if(NROW(collectorDictionary)==0)
   {
     stop("CollectorDictionary is empty!")
-  }  
-  
+  }
+
   if(NROW(occ)==0)
   {
     stop("Occurrence is empty!")
-  }  
-  
+  }
+
    collectorDictionary <- collectorDictionary %>%
       dplyr::rename(Ctrl_nameRecordedBy_Standard_CNCFlora = Ctrl_nameRecordedBy_Standard)
-   
-   
-   Ctrl_lastNameRecordedBy <- lapply(occ$Ctrl_recordedBy %>% 
+
+
+   Ctrl_lastNameRecordedBy <- lapply(occ$Ctrl_recordedBy %>%
                                         toupper() %>%
-                                        unique(), 
-                                     get_lastNameRecordedBy) %>% 
+                                        unique(),
+                                     get_lastNameRecordedBy) %>%
       do.call(rbind.data.frame, .)
-   
+
    recordedBy_Standart <- data.frame(
       Ctrl_nameRecordedBy_Standard =  textclean::replace_non_ascii(toupper(Ctrl_lastNameRecordedBy[,1])),
       Ctrl_recordedBy = occ$Ctrl_recordedBy %>% toupper() %>% unique(),
-      stringsAsFactors = FALSE) 
+      stringsAsFactors = FALSE)
 
    recordedBy_Standart <- left_join(recordedBy_Standart,
                    collectorDictionary,
                    by = c('Ctrl_recordedBy')) %>%
-      # dplyr::mutate(collectorDictionary='') %>% 
+      # dplyr::mutate(collectorDictionary='') %>%
       dplyr::mutate(collectorDictionary=ifelse(!is.na(Ctrl_nameRecordedBy_Standard_CNCFlora),
                                        'Banco de Coletores OK',
                                        '')) %>%
       dplyr::mutate(Ctrl_nameRecordedBy_Standard = ifelse(collectorDictionary=='Banco de Coletores OK',
                                                           Ctrl_nameRecordedBy_Standard_CNCFlora,
-                                                          Ctrl_nameRecordedBy_Standard)) %>% 
+                                                          Ctrl_nameRecordedBy_Standard)) %>%
       dplyr::arrange(collectorDictionary, Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy) %>%
    dplyr::mutate(Ctrl_notes = Ctrl_notes %>% as.character(),
                  Ctrl_update = Ctrl_update %>% as.character(),
@@ -111,16 +117,16 @@ prepere_lastNameRecordedBy <- function(occ=NA,
                  Ctrl_fullName,
                  Ctrl_fullNameII,
                  CVStarrVirtualHerbarium_PersonDetails)
-   
+
 
    # # colnames(recordedBy_Standart)
    # xn <- nrow((recordedBy_Standart))
    # recordedBy_Standart <- recordedBy_Standart %>%
    #   dplyr::distinct_('Ctrl_recordedBy', .keep_all =TRUE)
    #   # dplyr::distinct('Ctrl_recordedBy', .keep_all =TRUE)
-   # 
-   # 
+   #
+   #
    # print( paste0(' Ctrl_recordedBy repetidos na base: ',xn-nrow(recordedBy_Standart)))
-   
+
    return(recordedBy_Standart)
 }
