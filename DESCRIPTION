@@ -36,5 +36,5 @@ Remotes:
     github::pablopains/ParsGBIF
 Roxygen: list(markdown = TRUE)
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5.0)
 RoxygenNote: 7.2.2
