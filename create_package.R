@@ -8,7 +8,7 @@
                                          show_col_types = FALSE)
 
   save(EnumOccurrenceIssue,
-       file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.rda",
+       file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.RData",
        ascii = TRUE)
 
 
@@ -17,7 +17,7 @@
                                          show_col_types = FALSE)
 
   save(EnumOccurrenceIssue,
-       file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.rda",
+       file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.r",
        ascii = TRUE)
 
 
