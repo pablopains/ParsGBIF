@@ -25,9 +25,8 @@
 #' @examples
 #' # load package
 #' library(ParsGBIF)
-#' # function help
+#'
 #' help(get_wcvp)
-#' # get_wcvp()
 #'
 #' # 1.1) download wcvp database to local disk
 #' path_root <- 'C:/ParsGBIF'
@@ -43,6 +42,7 @@
 #'
 #' head(wcvp$wcvp_distribution)
 #' colnames(wcvp$wcvp_distribution)
+#'
 #'
 #' # 1.2) or, just load it into memory
 #' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names

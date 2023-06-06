@@ -50,26 +50,29 @@
 #' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 #'
 #' @examples
+#' #' # load package
+#' library(ParsGBIF)
+#'
 #' help(checkName_wcvp)
 #'
 #' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 #'
-#' # Updated
+#' # 1) Updated
 #' checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # Accepted
+#' # 2) Accepted
 #' checkName_wcvp(searchedName = 'Hemistylus boehmerioides Wedd. ex Warm.',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # Unplaced - taxon_status = Unplaced
+#' # 3) Unplaced - taxon_status = Unplaced
 #' checkName_wcvp(searchedName = 'Leucosyke australis Unruh',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # Accepted among homonyms - When author is not informed. In this case, one of the homonyms, taxon_status is accepted
+#' # 4) Accepted among homonyms - When author is not informed. In this case, one of the homonyms, taxon_status is accepted
 #' checkName_wcvp(searchedName = 'Parietaria cretica',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
@@ -84,7 +87,7 @@
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # Homonyms - When author is not informed. In this case, none of the homonyms, taxon_status is Accepted
+#' # 5) Homonyms - When author is not informed. In this case, none of the homonyms, taxon_status is Accepted
 #' checkName_wcvp(searchedName = 'Laportea peltata',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
