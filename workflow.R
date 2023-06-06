@@ -4,7 +4,7 @@
 
   library(devtools)
 
-  devtools::install_github("pablopains/ParsGBIF")
+  devtools::install_github("pablopains/ParsGBIF", force = TRUE)
   library(ParsGBIF)
 
   help(standardize_scientificName)

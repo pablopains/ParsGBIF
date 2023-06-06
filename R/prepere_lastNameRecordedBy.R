@@ -40,6 +40,7 @@ prepere_lastNameRecordedBy <- function(occ=NA,
 {
 
   require(stringr)
+  require(googlesheets4)
 
   if(!is.na(collectorDictionary))
   {
