@@ -10,6 +10,8 @@ Maintainer: Pablo Melo <pablopains@yahoo.com.br>
 Description: 1. Preparar arquivo de ocorrências para fluxo de trabalho, 2. Verificar nomes com WCVP, 4. Aplicar Dicionário de coletores, 5. Agrupar duplicatas e selecionar voucher digital, 6. Selecionar identificação taxonômica da amostra, 7. Exportar dados para analises
 License: GPL (>= 2)
 Encoding: UTF-8
+LazyData: true
+LazyDataCompression: xz
 Imports: 
 	plyr,
         readxl,
