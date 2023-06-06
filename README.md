@@ -25,6 +25,7 @@ devtools::install_github("pablopains/ParsGBIF")
 ParsGBIF makes it easy to get species occurrence records based on GBIF.
 
 ```{r example, eval=FALSE}
+
   library(ParsGBIF)
   
   help(get_wcvp)

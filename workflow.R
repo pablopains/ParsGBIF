@@ -1,15 +1,12 @@
 #' @details ParsGBIF - package creation - Only in development times
 {
   rm(list = ls())
-  
+
   library(devtools)
-  setwd("C:\\ParsGBIF - github.com")
-  
-  # create("ParsGBIF", rstudio = FALSE)
-  
-  devtools::load_all()
-  devtools::document()
-  
+
+  devtools::install_github("pablopains/ParsGBIF")
+  library(ParsGBIF)
+
   help(standardize_scientificName)
   help(get_wcvp)
   help(checkName_wcvp)
@@ -17,11 +14,11 @@
   help(update_lastNameRecordedBy)
   help(extract_gbif_issue)
   help(select_digital_voucher_and_sample_identification)
-  
-  
-  devtools::install_github("pablopains/ParsGBIF")
-  library(ParsGBIF)
-  
+
+
+
+
+
 }
 
 path_root <- 'C:/ParsGBIF'
@@ -31,35 +28,35 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 
 #' @details Paths prepare
 {
-  
+
   path_data <- paste0(path_root,'/data')
 
   path_dataGBIF <- paste0(path_root,'/dataGBIF')
   if (!dir.exists(path_dataGBIF)){dir.create(path_dataGBIF)}
-  
+
   path_dataGBIF_family <- paste0(path_dataGBIF,'/',family)
   if (!dir.exists(path_dataGBIF_family)){dir.create(path_dataGBIF_family)}
-  
-  
+
+
   gbif_file <- paste0(path_dataGBIF_family,'/occurrence.txt')
   gbif_sel_file <- paste0(path_dataGBIF_family,'/ParsGBIF_1_occurrence.csv')
-  
+
   wcvp_result_file <- paste0(path_dataGBIF_family,'/ParsGBIF_2_checkName_wcvp.csv')
-  
-  
+
+
   collectorDictionary_file <- paste0(path_data,'/CollectorsDictionary.csv')
-  collectorsDictionaryFromDataset_file <- paste0(path_dataGBIF_family,'/ParsGBIF_3_collectorsDictionary_raw.csv') 
-  
-  collectorsDictionaryFromDataset_checked_file <- paste0(path_dataGBIF_family,'/',name_checked_collectorsDictionaryFromDataset_file) 
-  
-  
+  collectorsDictionaryFromDataset_file <- paste0(path_dataGBIF_family,'/ParsGBIF_3_collectorsDictionary_raw.csv')
+
+  collectorsDictionaryFromDataset_checked_file <- paste0(path_dataGBIF_family,'/',name_checked_collectorsDictionaryFromDataset_file)
+
+
   collectorsDictionary_summary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_collectorsDictionary_summary.csv')
 
   collectorsDictionary_new_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_collectorsDictionary_new.csv')
 
   occurrence_collectorsDictionary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_occurrence_collectorsDictionary.csv')
-  
-  
+
+
   enumOccurrenceIssue_file <- paste0(path_data,'/EnumOccurrenceIssue.csv')
 
   issueGBIFSummary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_5_occurrence_issueGBIF_summary.csv')
@@ -68,16 +65,16 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 
 
   result_file <- paste0(path_dataGBIF_family,'/ParsGBIF_6_result.csv')
-  
+
 }
 
 #' @details Install or load ParsGBIF
 {
   rm(list = ls())
-  
+
   devtools::install_github("pablopains/ParsGBIF")
   library(ParsGBIF)
-  
+
   help(standardize_scientificName)
   help(get_wcvp)
   help(checkName_wcvp)
@@ -85,47 +82,47 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
   help(update_lastNameRecordedBy)
   help(extract_gbif_issue)
   help(select_digital_voucher_and_sample_identification)
-  
-  
-  
+
+
+
 }
 
 #' @details Get WCVP
 {
   help(get_wcvp)
   wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
-  
+
   colnames(wcvp_names)
-  
+
   head(wcvp_names)
-  
-  
+
+
 }
 
 
 #' @details Select GBIF fields
 {
   col_sel <- c(
-    # gbifID	
-    # abstract	
-    # accessRights	
-    # accrualMethod	
-    # accrualPeriodicity	
-    # accrualPolicy	
-    # alternative	
-    # audience	
-    # available	
-    'bibliographicCitation',	
-    # conformsTo	
-    # contributor	
-    # coverage	
-    # created	
-    # creator	
-    # date	
-    # dateAccepted	
-    # dateCopyrighted	
-    # dateSubmitted	
-    # description	
+    # gbifID
+    # abstract
+    # accessRights
+    # accrualMethod
+    # accrualPeriodicity
+    # accrualPolicy
+    # alternative
+    # audience
+    # available
+    'bibliographicCitation',
+    # conformsTo
+    # contributor
+    # coverage
+    # created
+    # creator
+    # date
+    # dateAccepted
+    # dateCopyrighted
+    # dateSubmitted
+    # description
     # educationLevel
     # extent
     # format
@@ -245,9 +242,9 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
     'locationRemarks', # when countryCode is empty
     'decimalLatitude',
     'decimalLongitude',
-    
+
     # 'coordinateUncertaintyInMeters', # only if georeferencedDate no empty
-    
+
     # coordinatePrecision
     # pointRadiusSpatialFit
     'verbatimCoordinateSystem', # dicas sobre sistema geografico
@@ -349,9 +346,9 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
     # speciesKey
     # species
     # acceptedScientificName
-    'verbatimScientificName', 
+    'verbatimScientificName',
     # typifiedName
-    # protocol	
+    # protocol
     # lastParsed
     # lastCrawled
     # repatriated
@@ -366,12 +363,12 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
     'level3Name'
     # iucnRedListCategory
   )
-  
-  
+
+
 }
 
 
-#' @details Load GBIF occurrence file and choose GBIF fields 
+#' @details Load GBIF occurrence file and choose GBIF fields
 {
 
   if(!file.exists(gbif_sel_file))
@@ -380,32 +377,32 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
                                  delim = '\t',
                                  locale = readr::locale(encoding = "UTF-8"),
                                  show_col_types = FALSE)
-  
+
   occ <- occ[ ,col_sel]
 
   colnames(occ) <- paste0('Ctrl_',colnames(occ))
-  
-  write.csv(occ, 
-            gbif_sel_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
+
+  write.csv(occ,
+            gbif_sel_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
             na = "")
-  
+
   }else
-  {  
+  {
   occ <- readr::read_delim(file = gbif_sel_file,
                            delim = ',',
                            locale = readr::locale(encoding = "UTF-8"),
                            show_col_types = FALSE)
   }
-  
+
   NROW(occ)
 }
 
 
 #' @details Check names in WCVP
 {
-  
+
   help(checkName_wcvp)
   if(!file.exists(wcvp_result_file))
   {
@@ -414,7 +411,7 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
                 'VARIETY',
                 'SUBSPECIES',
                 'FORM'))
-    
+
     wcvp_na <- data.frame(wcvp_plant_name_id  = NA,
                           # wcvp_ipni_id = NA,
                           wcvp_taxon_rank = NA,
@@ -422,27 +419,27 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
                           wcvp_family = NA,
                           # wcvp_genus_hybrid = NA,
                           # wcvp_genus = NA,
-                          # wcvp_species_hybrid = NA,         
+                          # wcvp_species_hybrid = NA,
                           # wcvp_species = NA,
                           # wcvp_infraspecific_rank = NA,
                           # wcvp_infraspecies = NA,
                           # wcvp_parenthetical_author = NA,
                           # wcvp_primary_author = NA,
-                          # wcvp_publication_author = NA,  
+                          # wcvp_publication_author = NA,
                           # wcvp_place_of_publication = NA,
-                          # wcvp_volume_and_page = NA,        
+                          # wcvp_volume_and_page = NA,
                           # wcvp_first_published = NA,
                           # wcvp_nomenclatural_remarks = NA,
-                          # wcvp_geographic_area = NA, 
-                          # wcvp_lifeform_description = NA,   
+                          # wcvp_geographic_area = NA,
+                          # wcvp_lifeform_description = NA,
                           # wcvp_climate_description = NA,
-                          wcvp_taxon_name = NA,  
+                          wcvp_taxon_name = NA,
                           wcvp_taxon_authors = NA,
                           wcvp_accepted_plant_name_id = NA,
                           # wcvp_basionym_plant_name_id = NA,
                           # wcvp_replaced_synonym_author = NA,
                           # wcvp_homotypic_synonym = NA,
-                          # wcvp_parent_plant_name_id = NA,   
+                          # wcvp_parent_plant_name_id = NA,
                           # wcvp_powo_id = NA,
                           # wcvp_hybrid_formula = NA,
                           wcvp_reviewed = NA,
@@ -454,56 +451,56 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
                           wcvp_verified_author = NA,
                           wcvp_verified_speciesName = NA,
                           wcvp_searchNotes = NA)
-    
+
     colunas_wcvp_sel <- colnames(wcvp_na)
-    
+
     occ_all <- cbind(occ, wcvp_na) %>%
       dplyr::mutate(wcvp_searchedName = Ctrl_scientificName) %>%
       dplyr::select(all_of(colunas_wcvp_sel))
-    
+
     name_search_wcvp <- occ_all[index==TRUE,]$wcvp_searchedName %>% unique() %>% as.character()
-    
+
     # https://powo.science.kew.org/about-wcvp#unplacednames
-    
+
     x <- {}
     i <- 1
     tot_rec <- NROW(name_search_wcvp)
-    
+
     for(i in 1:tot_rec)
     {
       sp_tmp <- name_search_wcvp[i]
-      
+
       print( paste0( i, '-',tot_rec ,' ',  sp_tmp))
-      
+
       x_tmp <- checkName_wcvp(searchedName = sp_tmp,
                                  wcvp_names = wcvp$wcvp_names,
                                  if_author_fails_try_without_combinations = TRUE)
-      
+
       x <- rbind(x,
                  cbind(x_tmp[,
                              all_of(colunas_wcvp_sel)]))
-      
-      
+
+
       # n_reg <- NROW(occ_all[index==TRUE,])
       # print( str_c( i, ' - WCVP: ', name_search_wcvp[i], ' : ',n_reg, ' registros - ', ifelse(is.na(x_tmp$wcvp_taxon_name),'',x_tmp$wcvp_taxon_name),' ',x_tmp$wcvp_verified_author,' ',x_tmp$wcvp_verified_speciesName ,' : ', x_tmp$wcvp_searchNotes))
-      
-      
+
+
       index <- occ_all$wcvp_searchedName %in% sp_tmp #name_search_wcvp[i]  # wcvp_searchedName == Ctrl_scientificName
       occ_all[index==TRUE, all_of(colunas_wcvp_sel)] <- x_tmp[, all_of(colunas_wcvp_sel)]
-      
+
       # # aqui
       # print( str_c( i, '-',tot_rec , ' - WCVP: ', sp_tmp,' -> ' ,ifelse(is.na(x_tmp$wcvp_taxon_name),'',x_tmp$wcvp_taxon_name),' ',x_tmp$wcvp_verified_author,' ',x_tmp$wcvp_verified_speciesName ,' : ', x_tmp$wcvp_searchNotes))
-      
+
       # japrocessado[i] <- TRUE
     }
-    
+
     wcvpSummary <<- x
     occ_wcpv <<- occ_all[,all_of(colunas_wcvp_sel)]
-    
-    write.csv(occ_wcpv, 
-              wcvp_result_file, 
-              row.names = FALSE, 
-              fileEncoding = "UTF-8", 
+
+    write.csv(occ_wcpv,
+              wcvp_result_file,
+              row.names = FALSE,
+              fileEncoding = "UTF-8",
               na = "")
   }else
   {
@@ -512,97 +509,97 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
                              locale = readr::locale(encoding = "UTF-8"),
                              show_col_types = FALSE)
   }
-  
+
   NROW(occ_wcpv)
 }
 
 
 #' @details Prepare the collector dictionary from the data set
 {
-  
+
   help(prepere_lastNameRecordedBy)
-  
+
   collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ,
                                                                 collectorDictionary_file=collectorDictionary_file)
-  
-  write.csv(collectorsDictionaryFromDataset, 
-            collectorsDictionaryFromDataset_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
+
+  write.csv(collectorsDictionaryFromDataset,
+            collectorsDictionaryFromDataset_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
             na = "")
-  
+
 }
 
 
 #' @details Apply the collector dictionary from the data set
 {
-  
+
   help(update_lastNameRecordedBy)
-  
+
   mainCollectorLastName <- update_lastNameRecordedBy(occ=occ,
                                                      collectorDictionary_checked_file=collectorsDictionaryFromDataset_checked_file,
                                                      collectorDictionary_file=collectorDictionary_file)
-  
+
   collectorsDictionary_new <<- mainCollectorLastName[['MainCollectorLastNameDB_new']]
-  
+
   occ <<- mainCollectorLastName[['occ']]
-  
+
   collectorsDictionary_summary <<- mainCollectorLastName[['summary']]
-  
- 
-  
+
+
+
   collectorsDictionary_summary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_collectorsDictionary_summary.csv')
-  
+
   collectorsDictionary_new_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_collectorsDictionary_new.csv')
-  
+
   occurrence_collectorsDictionary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_occurrence_collectorsDictionary.csv')
-  
-  write.csv(collectorsDictionary_summary, 
-            collectorsDictionary_summary_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
-            na = "")
-  
 
-  write.csv(collectorsDictionary_new, 
-            collectorsDictionary_new_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
+  write.csv(collectorsDictionary_summary,
+            collectorsDictionary_summary_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
             na = "")
 
-  
-  write.csv(occ, 
-            occurrence_collectorsDictionary_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
+
+  write.csv(collectorsDictionary_new,
+            collectorsDictionary_new_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
             na = "")
-  
-   
+
+
+  write.csv(occ,
+            occurrence_collectorsDictionary_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
+            na = "")
+
+
 }
 
 
 #' @details Extract GBIF's issue
 {
-  
+
   enumOccurrenceIssue_file <- paste0(path_data,'/EnumOccurrenceIssue.csv')
-  
+
   help(extract_gbif_issue)
-  
+
   gbif_issue <- extract_gbif_issue(occ=occ,
                                    enumOccurrenceIssue_file = enumOccurrenceIssue_file) #"C:/ParsGBIF/data/EnumOccurrenceIssue.csv")
 
-  
-  write.csv(gbif_issue$issueGBIFSummary, 
-            issueGBIFSummary_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
+
+  write.csv(gbif_issue$issueGBIFSummary,
+            issueGBIFSummary_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
             na = "")
 
-  
-  write.csv(gbif_issue$issueGBIFOccurrence, 
-            issueGBIFOccurrence_file, 
-            row.names = FALSE, 
-            fileEncoding = "UTF-8", 
+
+  write.csv(gbif_issue$issueGBIFOccurrence,
+            issueGBIFOccurrence_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
             na = "")
 }
 
@@ -610,27 +607,27 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 #' @details Selection of digital voucher and sample identification
 {
 
-  
+
   help(select_digital_voucher_and_sample_identification)
-    
+
   occ <- select_digital_voucher_and_sample_identification(occurrence_collectorsDictionary_file = occurrence_collectorsDictionary_file,
                                                           issueGBIFOccurrence_file = issueGBIFOccurrence_file,
                                                           wcvp_occurence_file = wcvp_result_file,
                                                           enumOccurrenceIssue_file = enumOccurrenceIssue_file)
-    
-    
-  write.csv(occ, 
-            result_file, 
-            fileEncoding = "UTF-8", 
-            na = "", 
+
+
+  write.csv(occ,
+            result_file,
+            fileEncoding = "UTF-8",
+            na = "",
             row.names = FALSE)
-  
+
   occ  %>%
     # dplyr::filter(Ctrl_matchStatusDuplicates != '') %>%
     dplyr::arrange(Ctrl_key_family_recordedBy_recordNumber) %>%
     View()
-  
-  
-  
-  
+
+
+
+
 }
