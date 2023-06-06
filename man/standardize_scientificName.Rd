@@ -30,6 +30,10 @@ subspecies to subsp.,
 FORM to f.,
 hybrid separator separate x from the specific epithet.
 }
+\examples{
+standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
+
+}
 \seealso{
 \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
 }

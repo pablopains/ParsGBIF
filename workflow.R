@@ -16,9 +16,6 @@
   help(select_digital_voucher_and_sample_identification)
 
 
-
-
-
 }
 
 path_root <- 'C:/ParsGBIF'

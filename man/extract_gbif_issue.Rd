@@ -4,15 +4,12 @@
 \alias{extract_gbif_issue}
 \title{extract_gbif_issue}
 \usage{
-extract_gbif_issue(
-  occ = NA,
-  enumOccurrenceIssue_file = "C:/ParsGBIF/data/EnumOccurrenceIssue.csv"
-)
+extract_gbif_issue(occ = NA, EnumOccurrenceIssue = NA)
 }
 \arguments{
 \item{occ}{GBIF occurrence file with selected columns}
 
-\item{enumOccurrenceIssue_file}{An enumeration of validation rules for single occurrence records by GBIF file}
+\item{EnumOccurrenceIssue}{An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)}
 }
 \value{
 issueGBIFSummary,
@@ -26,7 +23,7 @@ https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.h
 }
 \examples{
 extract_gbif_issue <- function(occ = occ,
-                               enumOccurrenceIssue_file = "C:/ParsGBIF/data/EnumOccurrenceIssue.csv")
+                               EnumOccurrenceIssue = NA)
 }
 \seealso{
 \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
