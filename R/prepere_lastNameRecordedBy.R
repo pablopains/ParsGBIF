@@ -29,10 +29,13 @@
 #' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
 #'
 #' @examples
-#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ,
-#'                                                               collectorDictionary_url='https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link')
+#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ)
 #'
-#'#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ)
+#' # or
+#' # collectorDictionary <- download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link
+#'
+#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ
+#'                                                               collectorDictionary = collectorDictionary)
 #'
 #' @export
 prepere_lastNameRecordedBy <- function(occ=NA,
