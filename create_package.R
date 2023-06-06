@@ -37,6 +37,8 @@
   help(extract_gbif_issue)
   help(select_digital_voucher_and_sample_identification)
 
+  help(select_gbif_fields)
+
 
   devtools::install_github("pablopains/ParsGBIF")
   library(ParsGBIF)

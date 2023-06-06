@@ -28,14 +28,10 @@ extract_gbif_issue <- function(occ = NA,
 
   # criar estrutura de dados a partir do modelo
   {
-    if (is.na())
+    if (is.na(EnumOccurrenceIssue))
     {
       data(EnumOccurrenceIssue)
     }
-
-    EnumOccurrenceIssue <- readr::read_csv(enumOccurrenceIssue_file,
-                                           locale = readr::locale(encoding = "UTF-8"),
-                                           show_col_types = FALSE)
 
     issue_table <- data.frame(t(EnumOccurrenceIssue$Constant))
     colnames(issue_table) <- EnumOccurrenceIssue$Constant
