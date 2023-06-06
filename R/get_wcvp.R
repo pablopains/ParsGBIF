@@ -10,34 +10,54 @@
 #' @param load_distribution TRUE to load file with geographical distribution of species, if read_only_to_memory FALSE
 #'
 #' @details http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure File Transfer Protocol) site of the Royal Botanic Gardens, Kew. This space contains data resources publicly accessible to the user `anonymous'.  No password required for access. Use of data made available via this site may be subject to legal and licensing restrictions. The README in the top-level directory for each data resource provides specific information about its terms of use.
-#'   
-#' @return 
+#'
+#' @return
 #'   README_WCVP.xlsx,
-#'   wcvp_distribution.csv, 
+#'   wcvp_distribution.csv,
 #'   wcvp_names.csv
 #'
 #' @author Pablo Hendrigo Alves de Melo
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[ParsGBIF]{checkName_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 #'
 #' @examples
-#' wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-#'                  read_only_to_memory = FALSE,
-#'                  path_results = "C:/ParsGBIF",
-#'                  update = FALSE,
-#'                  load_distribution = FALSE)
+#' # load package
+#' library(ParsGBIF)
+#' # function help
+#' help(get_wcvp)
+#' # get_wcvp()
 #'
+#' # 1.1) download wcvp database to local disk
+#' path_root <- 'C:/ParsGBIF'
+#' wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
+#'                  read_only_to_memory = FALSE
+#'                  path_results = path_data,
+#'                  update = FALSE,
+#'                  load_distribution = TRUE)
+#' names(wcvp)
+#'
+#' head(wcvp$wcvp_names)
+#' colnames(wcvp$wcvp_names)
+#'
+#' head(wcvp$wcvp_distribution)
+#' colnames(wcvp$wcvp_distribution)
+#'
+#' # 1.2) or, just load it into memory
+#' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+#'
+#' colnames(wcvp_names)
+#' head(wcvp_names)
 #' @export
 get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
                      read_only_to_memory = FALSE,
                      path_results = 'C:/ParsGBIF',
                      update = FALSE,
                      load_distribution = FALSE)
-{  
+{
   require(dplyr)
-  
+
   if(read_only_to_memory==TRUE)
   {
     # criar pasta para salvar raultados do dataset
@@ -48,42 +68,42 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
   {
     path_results <- tempdir()
   }
-  
+
   # ultima versao
   nomes <- 'wcvp.zip'
   destfile <- paste0(path_results,'/',nomes)
-  
+
   # update?
-  
+
   if((!file.exists(destfile)) | update == TRUE | read_only_to_memory == TRUE)
   {
     url_d <- paste0(url_source,'/',nomes)
-    
+
     print(paste0('downloading: ',url_d))
-    
-    downloader::download(url = url_d, destfile = destfile, mode = "wb") 
-    
+
+    downloader::download(url = url_d, destfile = destfile, mode = "wb")
+
   }
-  
+
   files <- paste0(path_results,'/','wcvp_names.csv')
-  
+
   if(!file.exists(files))
   {
-    
+
     utils::unzip(destfile, exdir = path_results) # descompactar e salvar dentro subpasta "ipt" na pasta principal
-    
+
   }
-  
+
   print(paste0('loading: ', files))
-  
-  wcvp_names <- read.table(files, sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8") %>% 
+
+  wcvp_names <- read.table(files, sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8") %>%
     data.frame(stringsAsFactors = F) %>%
     dplyr::mutate(TAXON_NAME_U = taxon_name %>% toupper(),
                   TAXON_AUTHORS_U = taxon_authors %>% toupper() %>% gsub ("\\s+", "", .))
-  
-  
+
+
   print(paste0(' wcvp_names :', NROW(wcvp_names)))
-  
+
   if(load_distribution == TRUE)
   {
     files <- paste0(path_results,'/','wcvp_distribution.csv')
@@ -94,15 +114,15 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
   }
   else
   {wcvp_distribution = NA}
-  
-  
+
+
   if(read_only_to_memory==TRUE)
   {
     files.rem <- list.files(path = path_results, full.names = TRUE)
     file.remove(files.rem)
   }
-  
+
   return(list(wcvp_names = wcvp_names,
               wcvp_distribution =  wcvp_distribution))
-  
+
 }

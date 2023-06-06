@@ -59,25 +59,57 @@ When value equal to 50 – when there is combined correspondence between authorl
 When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON_name, author is not present in TAXON_AUTHORS.
 }
 \examples{
-utils::unzip(wcvp.zip, exdir = "c:/") 
+help(checkName_wcvp)
 
-wcvp_names <- read.table('c:/wcvp_names.csv', sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8")
-  
+wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+# Updated
 checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
-                  wcvp_names= wcvp_names,
-                  if_author_fails_try_without_combinations = TRUE)
-                  
-wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                 path_results = 'c:/',
-                 update = FALSE,
-                 load_distribution = FALSE)
-                  
-checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
-                  wcvp_names= wcvp$wcvp_names,
-                  if_author_fails_try_without_combinations = TRUE)
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# Accepted
+checkName_wcvp(searchedName = 'Hemistylus boehmerioides Wedd. ex Warm.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# Unplaced - taxon_status = Unplaced
+checkName_wcvp(searchedName = 'Leucosyke australis Unruh',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# Accepted among homonyms - When author is not informed. In this case, one of the homonyms, taxon_status is accepted
+checkName_wcvp(searchedName = 'Parietaria cretica',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed.
+checkName_wcvp(searchedName = 'Parietaria cretica L.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed.
+checkName_wcvp(searchedName = 'Parietaria cretica Moris',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# Homonyms - When author is not informed. In this case, none of the homonyms, taxon_status is Accepted
+checkName_wcvp(searchedName = 'Laportea peltata',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed.
+checkName_wcvp(searchedName = 'Laportea peltata Gaudich. & Decne.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed.
+checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
 }
 \seealso{
-\code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+\code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 }
 \author{
 Pablo Hendrigo Alves de Melo

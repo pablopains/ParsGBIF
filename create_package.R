@@ -3,13 +3,13 @@
   rm(list = ls())
 
 
-  EnumOccurrenceIssue <- readr::read_csv("C:/ParsGBIF/data/EnumOccurrenceIssue.csv",
-                                         locale = readr::locale(encoding = "UTF-8"),
-                                         show_col_types = FALSE)
-
-  save(EnumOccurrenceIssue,
-       file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.RData",
-       ascii = TRUE)
+  # EnumOccurrenceIssue <- readr::read_csv("C:/ParsGBIF/data/EnumOccurrenceIssue.csv",
+  #                                        locale = readr::locale(encoding = "UTF-8"),
+  #                                        show_col_types = FALSE)
+  #
+  # save(EnumOccurrenceIssue,
+  #      file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.RData",
+  #      ascii = TRUE)
 
 
   library(devtools)

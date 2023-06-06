@@ -29,10 +29,7 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   # load package
   library(ParsGBIF)
   
-  # function help
   help(get_wcvp)
-  
-  # get_wcvp()
 
   # 1.1) download wcvp database to local disk
   path_root <- 'C:/ParsGBIF'
@@ -56,6 +53,55 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   colnames(wcvp_names)
   head(wcvp_names)
   
+  
+  help(checkName_wcvp)
+
+  wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+  
+ # Updated
+ checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+ # Accepted
+ checkName_wcvp(searchedName = 'Hemistylus boehmerioides Wedd. ex Warm.',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+ 
+  # Unplaced - taxon_status = Unplaced
+ checkName_wcvp(searchedName = 'Leucosyke australis Unruh',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+
+ 
+ # Accepted among homonyms - When author is not informed. In this case, one of the homonyms, taxon_status is accepted
+ checkName_wcvp(searchedName = 'Parietaria cretica',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+
+ # When author is informed. 
+ checkName_wcvp(searchedName = 'Parietaria cretica L.',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+
+ # When author is informed. 
+ checkName_wcvp(searchedName = 'Parietaria cretica Moris',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+
+ # Homonyms - When author is not informed. In this case, none of the homonyms, taxon_status is Accepted
+ checkName_wcvp(searchedName = 'Laportea peltata',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+ 
+ # When author is informed. 
+ checkName_wcvp(searchedName = 'Laportea peltata Gaudich. & Decne.',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
+ 
+ # When author is informed. 
+ checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
+                   wcvp_names = wcvp_names,
+                   if_author_fails_try_without_combinations = TRUE)
 
 ```
 

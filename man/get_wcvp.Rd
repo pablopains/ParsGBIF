@@ -35,15 +35,35 @@ Download World Checklist of Vascular Plants (WCVP) database
 http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure File Transfer Protocol) site of the Royal Botanic Gardens, Kew. This space contains data resources publicly accessible to the user `anonymous'.  No password required for access. Use of data made available via this site may be subject to legal and licensing restrictions. The README in the top-level directory for each data resource provides specific information about its terms of use.
 }
 \examples{
-wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                 read_only_to_memory = FALSE,
-                 path_results = "C:/ParsGBIF",
-                 update = FALSE,
-                 load_distribution = FALSE)
+# load package
+library(ParsGBIF)
+# function help
+help(get_wcvp)
+# get_wcvp()
 
+# 1.1) download wcvp database to local disk
+path_root <- 'C:/ParsGBIF'
+wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
+                 read_only_to_memory = FALSE
+                 path_results = path_data,
+                 update = FALSE,
+                 load_distribution = TRUE)
+names(wcvp)
+
+head(wcvp$wcvp_names)
+colnames(wcvp$wcvp_names)
+
+head(wcvp$wcvp_distribution)
+colnames(wcvp$wcvp_distribution)
+
+# 1.2) or, just load it into memory
+wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+colnames(wcvp_names)
+head(wcvp_names)
 }
 \seealso{
-\code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+\code{\link[ParsGBIF]{checkName_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 }
 \author{
 Pablo Hendrigo Alves de Melo

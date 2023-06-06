@@ -16,7 +16,7 @@
 #' Homonyms - When more than one authorless scientific name is present in the TAXON_name list and more than one, or none among the homonyms, display TAXON_STATUS equal to "Accepted",
 #' verified_speciesName = number of matches/100.
 #' Before searching for homonyms, there was a failure in trying to find the matching match between authorless scientific name in TAXON_name and author in TAXON_AUTHORS, in these cases verified_author equal to 0 (zero),
-#' Not Found: When the authorless scientific name is not present in the TAXON_NAME LIST 
+#' Not Found: When the authorless scientific name is not present in the TAXON_NAME LIST
 #' Unplaced: o	When only one authorless scientific name is present in the list of TAXON_name with and TAXON_STATUS = "Unplaced"
 #' Updated: When only one authorless scientific name is present in the list of TAXON_name and ACCEPTED_PLANT_NAME_ID are not empty (and ACCEPTED_PLANT_NAME_ID is different from the ID of the species consulted)
 #' taxon_status_of_searchedName, plant_name_id_of_searchedName and taxon_authors_of_searchedName values:
@@ -26,9 +26,9 @@
 #' When value equal to 100 – when there is matched match between authorless scientific name in TAXON_name and author in TAXON_AUTHORS.
 #' When value equal to 50 – when there is combined correspondence between authorless scientific name in TAXON_name and author, without (combination), in TAXON_AUTHORS.
 #' When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON_name, author is not present in TAXON_AUTHORS.
-#' @return 
+#' @return
 #'   wcvp_plant_name_id,
-#'   wcvp_taxon_rank, 
+#'   wcvp_taxon_rank,
 #'   wcvp_taxon_status,
 #'   wcvp_family,
 #'   wcvp_taxon_name,
@@ -47,71 +47,103 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 #'
 #' @examples
-#' utils::unzip(wcvp.zip, exdir = "c:/") 
-#' 
-#' wcvp_names <- read.table('c:/wcvp_names.csv', sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8")
-#'   
+#' help(checkName_wcvp)
+#'
+#' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+#'
+#' # Updated
 #' checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
-#'                   wcvp_names= wcvp_names,
-#'                   if_author_fails_try_without_combinations = TRUE)
-#'                   
-#' wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-#'                  path_results = 'c:/',
-#'                  update = FALSE,
-#'                  load_distribution = FALSE)
-#'                   
-#' checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
-#'                   wcvp_names= wcvp$wcvp_names,
-#'                   if_author_fails_try_without_combinations = TRUE)
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # Accepted
+#' checkName_wcvp(searchedName = 'Hemistylus boehmerioides Wedd. ex Warm.',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # Unplaced - taxon_status = Unplaced
+#' checkName_wcvp(searchedName = 'Leucosyke australis Unruh',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # Accepted among homonyms - When author is not informed. In this case, one of the homonyms, taxon_status is accepted
+#' checkName_wcvp(searchedName = 'Parietaria cretica',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # When author is informed.
+#' checkName_wcvp(searchedName = 'Parietaria cretica L.',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # When author is informed.
+#' checkName_wcvp(searchedName = 'Parietaria cretica Moris',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # Homonyms - When author is not informed. In this case, none of the homonyms, taxon_status is Accepted
+#' checkName_wcvp(searchedName = 'Laportea peltata',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # When author is informed.
+#' checkName_wcvp(searchedName = 'Laportea peltata Gaudich. & Decne.',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
+#'
+#' # When author is informed.
+#' checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
+#'                wcvp_names = wcvp_names,
+#'                if_author_fails_try_without_combinations = TRUE)
 #' @export
 checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
                               wcvp_names =  wcvp_names,
                               if_author_fails_try_without_combinations = TRUE)
 {
   # https://powo.science.kew.org/about-wcvp#unplacednames
-  
+
   # require(dplry)
   # require(plyr)
-  
+
   require(stringr)
-  x <- {}  
+  x <- {}
   sp_wcvp <- standardize_scientificName(searchedName)
-  
+
   if(sp_wcvp$taxonAuthors != "")
   {
-    
+
     index_author <- 100
-    index <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName) & 
+    index <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName) &
       wcvp_names$TAXON_AUTHORS_U %in% toupper(gsub ("\\s+", "", sp_wcvp$taxonAuthors ))
     ntaxa <- NROW(wcvp_names[index==TRUE,])
-    
+
     if(ntaxa == 0 & if_author_fails_try_without_combinations == TRUE)
     {
       index_author <- 50
-      index <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName) & 
+      index <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName) &
         wcvp_names$TAXON_AUTHORS_U %in% toupper(gsub ("\\s+", "", sp_wcvp$taxonAuthors_last ))
       ntaxa <- NROW(wcvp_names[index==TRUE,])
     }
-    
-    
+
+
     if(ntaxa == 0)
     {
       index_author <- 0
       index <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName)
       ntaxa <- NROW(wcvp_names[index==TRUE,])
     }
-    
+
   }else
   {
     index_author <- 0
     index <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName)
     ntaxa <- NROW(wcvp_names[index==TRUE,])
   }
-  
-  
+
+
   # Not found
   if(ntaxa == 0)
   {
@@ -124,30 +156,30 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
                     verified_author = index_author,
                     verified_speciesName = 0,
                     searchNotes='Not found')
-    
-    
+
+
   }
-  
+
   if(ntaxa == 1)
   {
     verified_speciesName <- 100
-    
+
     teste_plant_name_id <- is.na(wcvp_names$accepted_plant_name_id[index==TRUE])
-    
+
     id_accept <- ifelse(teste_plant_name_id==TRUE,'', wcvp_names$accepted_plant_name_id[index==TRUE])
-    
+
     if((!teste_plant_name_id) &
        (wcvp_names$plant_name_id[index==TRUE] != id_accept ))
     {
-      
+
       x <- wcvp_names[index==TRUE,]
-      
+
       taxon_status_of_searchedName <- wcvp_names[index==TRUE,]$taxon_status
       plant_name_id_of_searchedName <- wcvp_names[index==TRUE,]$plant_name_id
       taxon_authors_of_searchedName <- wcvp_names[index==TRUE,]$taxon_authors
-      
-      index_synonym <- wcvp_names$plant_name_id %in% x$accepted_plant_name_id 
-      
+
+      index_synonym <- wcvp_names$plant_name_id %in% x$accepted_plant_name_id
+
       x <- wcvp_names[index_synonym==TRUE,] %>%
         dplyr::mutate(searchedName=searchedName,
                       taxon_status_of_searchedName = taxon_status_of_searchedName,
@@ -168,9 +200,9 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
                       verified_speciesName = verified_speciesName,
                       searchNotes=taxon_status)
     }
-    
+
   }
-  
+
   if(ntaxa > 1)
   {
 
@@ -178,18 +210,18 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
     plant_name_id_of_searchedName <- paste(wcvp_names[index==TRUE,]$plant_name_id, collapse = '|')
     # taxon_authors_of_searchedName <- paste(paste0(wcvp_names[index==TRUE,]$taxon_name, ' ',wcvp_names[index==TRUE,]$taxon_authors), collapse = '|')
     taxon_authors_of_searchedName <- paste(wcvp_names[index==TRUE,]$taxon_authors, collapse = '|')
-    
-    
+
+
     # Accepted or Homonyms
     {
       index_status <- wcvp_names$TAXON_NAME_U %in% toupper(sp_wcvp$standardizeName) &
         wcvp_names$taxon_status %in% c( "Accepted")
-      
+
       ntaxa_status <- NROW(wcvp_names[index_status==TRUE,])
-      
+
       if(ntaxa_status == 1)
       {
-        
+
         x <- wcvp_names[index_status==TRUE,] %>%
           dplyr::mutate(searchedName=searchedName,
                         taxon_status_of_searchedName = taxon_status_of_searchedName,
@@ -197,12 +229,12 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
                         taxon_authors_of_searchedName = taxon_authors_of_searchedName,
                         verified_author = index_author,
                         verified_speciesName = 100/ntaxa,
-                        searchNotes = 'Accepted among homonyms')#taxon_status) 
+                        searchNotes = 'Accepted among homonyms')#taxon_status)
       }
       else
       {
-        
-        
+
+
         x <- wcvp_names[1==2,] %>%
           dplyr::add_row()  %>%
           dplyr::mutate(searchedName=searchedName,
@@ -212,14 +244,14 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
                         verified_author = index_author,
                         verified_speciesName = 100/ntaxa,#0,
                         searchNotes='Homonyms')
-        
+
       }
-      
+
     }
-    
+
   }
-  
+
   colnames(x) <- str_c('wcvp_',colnames(x))
   return(x)
-  
+
 }
