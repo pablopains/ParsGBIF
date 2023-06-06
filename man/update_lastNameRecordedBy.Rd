@@ -8,15 +8,23 @@
 update_lastNameRecordedBy(
   occ = NA,
   collectorDictionary_checked_file = NA,
-  collectorDictionary_file = NA
+  collectorDictionary_checked = NA,
+  collectorDictionary_url =
+    "https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link",
+  collectorDictionary = NA
 )
 }
 \arguments{
-\item{occ}{GBIF occurrence file with selected columns}
+\item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')}
 
 \item{collectorDictionary_checked_file}{Verified collector's dictionary file}
 
-\item{collectorDictionary_file}{Collector's dictionary file}
+\item{collectorDictionary_checked}{Verified collector's dictionary data.frame}
+
+\item{collectorDictionary_url}{Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'}
+
+\item{collectorDictionary}{Collector's dictionary in data.frame format with the fields: Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy, Ctrl_notes, collectorDictionary, Ctrl_update, collectorName, Ctrl_fullName, Ctrl_fullNameII, CVStarrVirtualHerbarium_PersonDetails.
+if you prefer, download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link}
 }
 \value{
 collectorsDictionary_new,
@@ -32,14 +40,9 @@ Create a key to group duplicates in the key_family_recordedBy_recordNumber field
 ....
 }
 \examples{
-collectorDictionary_checked <- readr::read_csv('collectorDictionary_checked.csv', 
-                                       locale = readr::locale(encoding = "UTF-8"))
 
-collectorDictionary <- readr::read_csv('Collectors Dictionary.csv', 
-                                       locale = readr::locale(encoding = "UTF-8"))
- 
 collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ,
-                                                              collectorDictionary=collectorDictionary)
+                                                              collectorDictionary_checked_file='collectorDictionary_checked.csv')
 
 }
 \seealso{
