@@ -7,6 +7,7 @@
 #'
 #' @details
 #' standard:
+#'  c(
 #' 'bibliographicCitation',
 #' 'language',
 #' 'institutionCode',

@@ -17,6 +17,7 @@ Select columns in GBIF occurrence data
 }
 \details{
 standard:
+c(
 'bibliographicCitation',
 'language',
 'institutionCode',
