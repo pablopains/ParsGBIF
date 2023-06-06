@@ -597,7 +597,7 @@ select_gbif_fields <- function(columns = 'standard')
     'iucnRedListCategory'
   )
 
-  if(! columns %in% c('standard','all'))
+  if(!columns %in% c('standard','all'))
   {
     if (!columns %in% col_all )
     {
