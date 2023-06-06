@@ -41,7 +41,7 @@
 #'   wcvp_taxon_authors_of_searchedName,
 #'   wcvp_verified_author,
 #'   wcvp_verified_speciesName,
-#'   wcvp_searchNotes.
+#'   wcvp_searchNotes
 #'
 #' @author Pablo Hendrigo Alves de Melo
 #' @author Nadia Bystriakova
@@ -50,7 +50,7 @@
 #' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 #'
 #' @examples
-#' #' # load package
+#' # load package
 #' library(ParsGBIF)
 #'
 #' help(checkName_wcvp)
@@ -77,12 +77,12 @@
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # When author is informed.
+#' # When author is informed
 #' checkName_wcvp(searchedName = 'Parietaria cretica L.',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # When author is informed.
+#' # When author is informed
 #' checkName_wcvp(searchedName = 'Parietaria cretica Moris',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
@@ -92,12 +92,12 @@
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # When author is informed.
+#' # When author is informed
 #' checkName_wcvp(searchedName = 'Laportea peltata Gaudich. & Decne.',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #'
-#' # When author is informed.
+#' # When author is informed
 #' checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
