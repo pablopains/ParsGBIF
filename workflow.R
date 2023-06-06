@@ -15,6 +15,7 @@
   help(extract_gbif_issue)
   help(select_digital_voucher_and_sample_identification)
 
+  help(select_gbif_fields)
 
 }
 
@@ -62,27 +63,6 @@ name_checked_collectorsDictionaryFromDataset_file <- 'ParsGBIF_3_collectorsDicti
 
 
   result_file <- paste0(path_dataGBIF_family,'/ParsGBIF_6_result.csv')
-
-}
-
-#' @details Install or load ParsGBIF
-{
-  rm(list = ls())
-
-  devtools::install_github("pablopains/ParsGBIF")
-  library(ParsGBIF)
-
-  help(standardize_scientificName)
-  help(get_wcvp)
-  help(checkName_wcvp)
-  help(prepere_lastNameRecordedBy)
-  help(update_lastNameRecordedBy)
-  help(extract_gbif_issue)
-  help(select_digital_voucher_and_sample_identification)
-
-  help(select_gbif_fields)
-
-
 
 }
 
