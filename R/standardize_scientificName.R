@@ -33,6 +33,7 @@
 #' @export
 standardize_scientificName <- function(searchedName = 'Alomia angustata (Gardner) Benth. ex Baker')
 {
+  require(stringr)
 
   x <- {}
 
@@ -64,7 +65,7 @@ standardize_scientificName <- function(searchedName = 'Alomia angustata (Gardner
 
 
 
-  sp <- str_split(searchedName, ' ', simplify = T)
+  sp <- stringr::str_split(searchedName, ' ', simplify = T)
   padrao <- c('var.', 'subsp.', ' f. ')
   padrao_s <- c('var.', 'subsp.', 'f.')
 
@@ -123,7 +124,7 @@ standardize_scientificName <- function(searchedName = 'Alomia angustata (Gardner
         if(str_detect(sp[2], '×')==TRUE)
         {
           searchedName <- sub('×','× ',searchedName)
-          sp <- str_split(searchedName, ' ', simplify = T)
+          sp <- stringr::str_split(searchedName, ' ', simplify = T)
 
         }
 
@@ -147,7 +148,7 @@ standardize_scientificName <- function(searchedName = 'Alomia angustata (Gardner
     searchedName <- sp[1]
   }
 
-  sp2 <- str_split(searchedName, ' ', simplify = T)
+  sp2 <- stringr::str_split(searchedName, ' ', simplify = T)
 
   taxon_authors <- str_sub(searchedName_ori, str_locate(searchedName_ori, sp2[length(sp2)])[2]+2, nchar(searchedName_ori))
   # if(length(sp2)>=4){if( paste0(sp2[3], ' ',sp2[4])==taxon_authors){taxon_authors <- ''}}
