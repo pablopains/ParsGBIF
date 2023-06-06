@@ -11,7 +11,6 @@ Description: 1. Preparar arquivo de ocorrências para fluxo de trabalho, 2. Veri
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-LazyDataCompression: xz
 Imports: 
 	plyr,
         readxl,
