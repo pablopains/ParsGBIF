@@ -2,7 +2,9 @@
 
 export(checkName_wcvp)
 export(extract_gbif_issue)
+export(get_lastNameRecordedBy)
 export(get_wcvp)
+export(prepere_gbif_occurrence_data)
 export(prepere_lastNameRecordedBy)
 export(select_digital_voucher_and_sample_identification)
 export(select_gbif_fields)

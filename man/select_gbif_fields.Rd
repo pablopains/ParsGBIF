@@ -334,10 +334,17 @@ c(
 'iucnRedListCategory')
 }
 \examples{
-select_gbif_fields(columns = 'standard')
+# select_gbif_fields()
+
+help(select_gbif_fields)
+
+col_sel <- select_gbif_fields(columns = 'all')
+
+col_sel <- select_gbif_fields(columns = 'standard')
+
 }
 \seealso{
-\code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+\code{\link[ParsGBIF]{extract_gbif_issue}}, \code{\link[ParsGBIF]{prepere_gbif_occurrence_data}}
 }
 \author{
 Pablo Hendrigo Alves de Melo

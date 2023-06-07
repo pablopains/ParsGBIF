@@ -31,11 +31,17 @@ FORM to f.,
 hybrid separator separate x from the specific epithet.
 }
 \examples{
+# standardize_scientificName()
+
+help(standardize_scientificName)
+
 standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
+standardize_scientificName('Alomia angustata (Gardner) Benth. ex Baker')
+standardize_scientificName('Centaurea ×aemiliae Font Quer')
 
 }
 \seealso{
-\code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+\code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 }
 \author{
 Pablo Hendrigo Alves de Melo
