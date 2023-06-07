@@ -201,8 +201,17 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
 
-  occ_mainCollectorLastName <- update_lastNameRecordedBy(occ=NA,
+  occ_mainCollectorLastName <- update_lastNameRecordedBy(occ=occ,
                                                          collectorDictionary_checked = collectorsDictionaryFromDataset)
+
+
+  names(occ_mainCollectorLastName)
+  
+  head(occ_mainCollectorLastName[['occ']])
+
+  head(occ_mainCollectorLastName[['summary']])
+
+  head(occ_mainCollectorLastName[['MainCollectorLastNameDB_new']])
 
 
  # 10) Loop checkName_wcvp
