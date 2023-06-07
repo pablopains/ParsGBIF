@@ -191,6 +191,53 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  get_lastNameRecordedBy('Melo, P.H.A & Monro, A.')
 
  get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
+ 
+ 
+ # 9) update_lastNameRecordedBy()
+ 
+ help(update_lastNameRecordedBy)
+
+  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                     columns = 'standard')
+
+  mainCollectorLastName <- update_lastNameRecordedBy(occ=occ,
+                                                     collectorDictionary_checked_file=collectorsDictionaryFromDataset_checked_file,
+                                                     collectorDictionary_file=collectorDictionary_file)
+
+  collectorsDictionary_new <<- mainCollectorLastName[['MainCollectorLastNameDB_new']]
+
+  occ <<- mainCollectorLastName[['occ']]
+
+  collectorsDictionary_summary <<- mainCollectorLastName[['summary']]
+
+
+
+  collectorsDictionary_summary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_collectorsDictionary_summary.csv')
+
+  collectorsDictionary_new_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_collectorsDictionary_new.csv')
+
+  occurrence_collectorsDictionary_file <- paste0(path_dataGBIF_family,'/ParsGBIF_4_occurrence_collectorsDictionary.csv')
+
+  write.csv(collectorsDictionary_summary,
+            collectorsDictionary_summary_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
+            na = "")
+
+
+  write.csv(collectorsDictionary_new,
+            collectorsDictionary_new_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
+            na = "")
+
+
+  write.csv(occ,
+            occurrence_collectorsDictionary_file,
+            row.names = FALSE,
+            fileEncoding = "UTF-8",
+            na = "")
+
 
 
 ```
