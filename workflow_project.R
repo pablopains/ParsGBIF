@@ -93,6 +93,18 @@ checkName_wcvp('Gaddnerina angustata')
 #' @details Load GBIF occurrence file and choose GBIF fields
 {
 
+  # 5) prepere_gbif_occurrence_data()
+
+  help(prepere_gbif_occurrence_data)
+
+  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                      columns = 'standard')
+
+  colnames(occ)
+
+  head(occ)
+
+
   if(!file.exists(gbif_sel_file))
   {
   occ <- readr::read_delim(file = gbif_file,
@@ -311,22 +323,36 @@ checkName_wcvp('Gaddnerina angustata')
 #' @details Extract GBIF's issue
 {
 
-  enumOccurrenceIssue_file <- paste0(path_data,'/EnumOccurrenceIssue.csv')
-
+  # 6) extract_gbif_issue()
   help(extract_gbif_issue)
 
-  gbif_issue <- extract_gbif_issue(occ=occ,
-                                   enumOccurrenceIssue_file = enumOccurrenceIssue_file) #"C:/ParsGBIF/data/EnumOccurrenceIssue.csv")
+  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                      columns = 'standard')
+
+  data(EnumOccurrenceIssue)
+  head(EnumOccurrenceIssue)
+  colnames(EnumOccurrenceIssue)
+
+  occ_gbif_issue <- extract_gbif_issue(occ = occ,
+                                       enumOccurrenceIssue = NA)
+
+  names(occ_gbif_issue)
+
+  head(occ_gbif_issue$issueGBIFSummary)
+
+  colnames(occ_gbif_issue$issueGBIFOccurrence)
+  head(occ_gbif_issue$issueGBIFOccurrence)
+  colnames(occ_gbif_issue$issueGBIFOccurrence)
 
 
-  write.csv(gbif_issue$issueGBIFSummary,
+  write.csv(occ_gbif_issue$issueGBIFSummary,
             issueGBIFSummary_file,
             row.names = FALSE,
             fileEncoding = "UTF-8",
             na = "")
 
 
-  write.csv(gbif_issue$issueGBIFOccurrence,
+  write.csv(occ_gbif_issue$issueGBIFOccurrence,
             issueGBIFOccurrence_file,
             row.names = FALSE,
             fileEncoding = "UTF-8",

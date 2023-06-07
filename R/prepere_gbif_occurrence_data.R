@@ -1,0 +1,56 @@
+#' @title prepere_gbif_occurrence_data
+#' @name prepere_gbif_occurrence_data
+#'
+#' @description Prepare occurrence data from GBIF to use in package
+#'
+#' @param occ GBIF occurrence table
+#' @param gbif_occurrece_file if occ is NA, load original occurrence file from gbif
+#' @param columns 'standard' basic columns about what, when, where, and who collected, 'all' all available columns or list column names. See select_gbif_fields() function
+#'
+#' @details Prepare occurrence data from GBIF to use in package.
+#' Select the data fields to be used.
+#' Add "Ctrl_" at the beginning of each field name
+#'
+#' @return
+#' data.frame with fields selected by the select_gbif_fields function and with "Ctrl_" at the beginning of each field name
+#'
+#' @author Pablo Hendrigo Alves de Melo
+#' @author Nadia Bystriakova
+#' @author Alexandre Monro
+#'
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{extract_gbif_issue}}
+#'
+#' @examples
+#' # prepere_gbif_occurrence_data()
+#'
+#' help(prepere_gbif_occurrence_data)
+#'
+#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#'                                     columns = 'standard')
+#'
+#' colnames(occ)
+#'
+#' head(occ)
+#' @export
+prepere_gbif_occurrence_data <- function(occ = NA,
+                                         gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                         columns = 'standard')
+{
+  require(readr)
+
+  if (is.na(occ))
+  {
+  occ <- readr::read_delim(file = gbif_occurrece_file,
+                           delim = '\t',
+                           locale = readr::locale(encoding = "UTF-8"),
+                           show_col_types = FALSE)
+  }
+
+  col_sel <-ParsGBIF::select_gbif_fields(columns = columns)
+
+  occ <- occ[ ,col_sel]
+
+  colnames(occ) <- paste0('Ctrl_',colnames(occ))
+
+  return(occ)
+}

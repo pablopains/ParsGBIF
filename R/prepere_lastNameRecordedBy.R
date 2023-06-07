@@ -1,13 +1,12 @@
 #' @title prepere_lastNameRecordedBy
 #' @name prepere_lastNameRecordedBy
 #'
-#' @description Returns the last name of the primary collector.
+#' @description Returns main collector's surname
 #' If recordedBy is present in the collector's dictionary, it returns the checked name, if not, it returns the last name of the main collector, extracted from the recordedBy field.
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param collectorDictionary_url Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'
-#' @param collectorDictionary Collector's dictionary in data.frame format with the fields: Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy, Ctrl_notes, collectorDictionary, Ctrl_update, collectorName, Ctrl_fullName, Ctrl_fullNameII, CVStarrVirtualHerbarium_PersonDetails.
-#' if you prefer, download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link
+#' @param collectorDictionary_file Collector's dictionary file. Download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link
 #'
 #' @details ....
 #'
@@ -29,24 +28,34 @@
 #' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
 #'
 #' @examples
+#' help(prepere_lastNameRecordedBy)
+#'
+#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#'                                     columns = 'standard')
+#'
 #' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ)
 #'
-#' # or
-#' # collectorDictionary <- download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link
+#' colnames(collectorsDictionaryFromDataset)
+#' head(collectorsDictionaryFromDataset)
 #'
-#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ
-#'                                                               collectorDictionary = collectorDictionary)
-#'
+#' write.csv(collectorsDictionaryFromDataset,
+#'           'collectorsDictionaryFromDataset.csv',
+#'           row.names = FALSE,
+#'           fileEncoding = "UTF-8",
+#'           na = "")
 #' @export
 prepere_lastNameRecordedBy <- function(occ=NA,
                                        collectorDictionary_url='https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link',
-                                       collectorDictionary = NA)
+                                       collectorDictionary_file = NA)
 {
 
   require(stringr)
   require(googlesheets4)
+  require(dplyr)
 
-  if(is.na(collectorDictionary))
+  print('Loading collectorDictionary...')
+
+  if(is.na(collectorDictionary_file))
   {
     if(is.na(collectorDictionary_url) | collectorDictionary_url == '')
     {
@@ -55,6 +64,11 @@ prepere_lastNameRecordedBy <- function(occ=NA,
 
     collectorDictionary <- googlesheets4::read_sheet(collectorDictionary_url)
 
+  }else
+  {
+    collectorDictionary <- readr::read_csv(collectorDictionary_file,
+                                           locale = readr::locale(encoding = "UTF-8"),
+                                           show_col_types = FALSE)
   }
 
   if(NROW(collectorDictionary)==0)
@@ -74,6 +88,7 @@ prepere_lastNameRecordedBy <- function(occ=NA,
    collectorDictionary <- collectorDictionary %>%
       dplyr::rename(Ctrl_nameRecordedBy_Standard_CNCFlora = Ctrl_nameRecordedBy_Standard)
 
+   print("Extracting the main collector's surname....")
 
    Ctrl_lastNameRecordedBy <- lapply(occ$Ctrl_recordedBy %>%
                                         toupper() %>%
@@ -86,7 +101,7 @@ prepere_lastNameRecordedBy <- function(occ=NA,
       Ctrl_recordedBy = occ$Ctrl_recordedBy %>% toupper() %>% unique(),
       stringsAsFactors = FALSE)
 
-   recordedBy_Standart <- left_join(recordedBy_Standart,
+   recordedBy_Standart <- dplyr::left_join(recordedBy_Standart,
                    collectorDictionary,
                    by = c('Ctrl_recordedBy')) %>%
       # dplyr::mutate(collectorDictionary='') %>%

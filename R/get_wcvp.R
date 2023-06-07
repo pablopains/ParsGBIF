@@ -26,23 +26,23 @@
 #' # load package
 #' library(ParsGBIF)
 #'
+# 1) get_wcvp()
 #' help(get_wcvp)
 #'
-#' # 1.1) download wcvp database to local disk
-#' path_root <- 'C:/ParsGBIF'
+# 1.1) download wcvp database to local disk
+#' path_data <- tempdir() # you can change this folder
+#'
 #' wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-#'                  read_only_to_memory = FALSE
+#'                  read_only_to_memory = FALSE,
 #'                  path_results = path_data,
 #'                  update = FALSE,
-#'                  load_distribution = TRUE)
-#' names(wcvp)
+#'                  load_distribution = TRUE)  names(wcvp)
 #'
 #' head(wcvp$wcvp_names)
 #' colnames(wcvp$wcvp_names)
 #'
 #' head(wcvp$wcvp_distribution)
 #' colnames(wcvp$wcvp_distribution)
-#'
 #'
 #' # 1.2) or, just load it into memory
 #' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names

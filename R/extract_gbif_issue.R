@@ -4,7 +4,7 @@
 #' @description Extract gbif issue
 #'
 #' @param occ GBIF occurrence file with selected columns
-#' @param EnumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
+#' @param enumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
 #'
 #' @details https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
 #'
@@ -16,21 +16,43 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[ParsGBIF]{prepere_gbif_occurrence_data}}, \code{\link[ParsGBIF]{select_gbif_fields}}
 #'
 #' @examples
-#' extract_gbif_issue <- function(occ = occ,
-#'                                EnumOccurrenceIssue = NA)
+#' # extract_gbif_issue()
+#'
+#' help(extract_gbif_issue)
+#'
+#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#'                                     columns = 'standard')
+#'
+#' data(EnumOccurrenceIssue)
+#' head(EnumOccurrenceIssue)
+#' colnames(EnumOccurrenceIssue)
+#'
+#' occ_gbif_issue <- extract_gbif_issue(occ = occ,
+#'                                      enumOccurrenceIssue = NA)
+#'
+#' names(occ_gbif_issue)
+#'
+#' head(occ_gbif_issue$issueGBIFSummary)
+#'
+#' colnames(occ_gbif_issue$issueGBIFOccurrence)
+#' head(occ_gbif_issue$issueGBIFOccurrence)
+#' colnames(occ_gbif_issue$issueGBIFOccurrence)
 #' @export
 extract_gbif_issue <- function(occ = NA,
-                               EnumOccurrenceIssue = NA)
+                               enumOccurrenceIssue = NA)
 {
 
   # criar estrutura de dados a partir do modelo
   {
-    if (is.na(EnumOccurrenceIssue))
+    if (is.na(enumOccurrenceIssue))
     {
       data(EnumOccurrenceIssue)
+    }else
+    {
+      EnumOccurrenceIssue <- enumOccurrenceIssue
     }
 
     issue_table <- data.frame(t(EnumOccurrenceIssue$Constant))

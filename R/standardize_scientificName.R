@@ -24,11 +24,16 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 #'
-#' @examples standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
-# standardize_scientificName('Alomia angustata (Gardner) Benth. ex Baker')
-# standardize_scientificName('Centaurea ×aemiliae Font Quer')
+#' @examples
+#' # standardize_scientificName()
+#'
+#' help(standardize_scientificName)
+#'
+#' standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
+#' standardize_scientificName('Alomia angustata (Gardner) Benth. ex Baker')
+#' standardize_scientificName('Centaurea ×aemiliae Font Quer')
 #'
 #' @export
 standardize_scientificName <- function(searchedName = 'Alomia angustata (Gardner) Benth. ex Baker')
