@@ -217,8 +217,10 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  # 10) Loop checkName_wcvp
  
  
- # 10) select_digital_voucher_and_sample_identification
+ # 11) select_digital_voucher_and_sample_identification
  help(select_digital_voucher_and_sample_identification)
+ 
+ # 12) export_results
 
 ```
 
