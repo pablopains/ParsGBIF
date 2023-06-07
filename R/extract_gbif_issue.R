@@ -44,6 +44,7 @@
 extract_gbif_issue <- function(occ = NA,
                                enumOccurrenceIssue = NA)
 {
+  require(dplyr)
 
   # criar estrutura de dados a partir do modelo
   {
@@ -75,6 +76,7 @@ extract_gbif_issue <- function(occ = NA,
 
   issue_result <- data.frame(issue = issue_key,
                              n_occ = rep(0,length(issue_key)))
+
   i=1
   for(i in 1:length(issue_key))
   {
@@ -83,9 +85,11 @@ extract_gbif_issue <- function(occ = NA,
     issue_result$n_occ[i] <- issue_table[,issue_key[i]] %>% sum()
   }
 
+  issue_result <- issue_result %>%
+    dplyr::arrange(desc(n_occ))
 
-  issueGBIFSummary <<- issue_result
-  issueGBIFOccurrence <<- issue_table
+  # issueGBIFSummary <<- issue_result
+  # issueGBIFOccurrence <<- issue_table
 
   return(list(issueGBIFSummary=issue_result,
               issueGBIFOccurrence=issue_table))

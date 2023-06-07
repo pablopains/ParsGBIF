@@ -26,6 +26,8 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
 
 ```{r example, eval=FALSE}
 
+  rm(list = ls())
+  
   # load package
   library(ParsGBIF)
   
@@ -129,9 +131,11 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
 
  col_sel <- select_gbif_fields(columns = 'all')
  
+ col_sel
+ 
  col_sel <- select_gbif_fields(columns = 'standard')
  
- 
+ col_sel
  
  # 5) prepere_gbif_occurrence_data()
 
@@ -175,6 +179,15 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
 
  get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
 
+ get_lastNameRecordedBy('Monro, A.; Melo, P.H.A')
+
+ get_lastNameRecordedBy('Monro, A; Melo, P.H.A;')
+
+ get_lastNameRecordedBy('Monro,A Melo, P.H.A')
+
+ get_lastNameRecordedBy('Monro A. - Melo, P.H.A')
+ 
+ get_lastNameRecordedBy('Monro A Melo, P.H.A')
 
  
  # 8) prepere_lastNameRecordedBy()  

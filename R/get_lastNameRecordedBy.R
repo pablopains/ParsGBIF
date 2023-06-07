@@ -26,6 +26,8 @@
 get_lastNameRecordedBy <- function(x)
 {
 
+  require(stringr)
+
    #aqui
    # x = gsub("et al.","",x, fixed=TRUE) # teste pablo 10-02-2020
    # x = gsub("et. al.","",x, fixed=TRUE) # teste pablo 10-02-2020

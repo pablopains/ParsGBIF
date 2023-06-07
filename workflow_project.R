@@ -4,7 +4,7 @@
 
   library(devtools)
 
-  devtools::install_github("pablopains/ParsGBIF", force = TRUE)
+  devtools::install_github("pablopains/ParsGBIF")
   library(ParsGBIF)
 
   help(get_wcvp)
