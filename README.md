@@ -39,7 +39,9 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
                    read_only_to_memory = FALSE,
                    path_results = path_data,
                    update = FALSE,
-                   load_distribution = TRUE)  names(wcvp)    
+                   load_distribution = TRUE) 
+  
+  names(wcvp)    
   
   head(wcvp$wcvp_names)
   colnames(wcvp$wcvp_names)
