@@ -42,6 +42,8 @@ update_lastNameRecordedBy <- function(occ=NA,
 
   require(googlesheets4)
 
+  print('Loading collectorDictionary...')
+
   if(is.na(collectorDictionary))
   {
     if(is.na(collectorDictionary_url) | collectorDictionary_url == '')
