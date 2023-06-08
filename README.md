@@ -190,13 +190,13 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  get_lastNameRecordedBy('Monro A Melo, P.H.A')
 
  
- # 8) prepere_lastNameRecordedBy()  
- help(prepere_lastNameRecordedBy)
+ # 8) prepere_collectorsDictionary()  
+ help(prepere_collectorsDictionary)
 
   occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
  
- collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ)
+ collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ=occ)
 
  colnames(collectorsDictionaryFromDataset)
  head(collectorsDictionaryFromDataset)
@@ -209,14 +209,14 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
             
             
  
- # 9) update_lastNameRecordedBy()
+ # 9) update_collectorsDictionary()
  
- help(update_lastNameRecordedBy)
+ help(update_collectorsDictionary)
 
   occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
 
-  occ_mainCollectorLastName <- update_lastNameRecordedBy(occ=occ,
+  occ_mainCollectorLastName <- update_collectorsDictionary(occ=occ,
                                                          collectorDictionary_checked = collectorsDictionaryFromDataset)
 
 
@@ -229,12 +229,36 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   head(occ_mainCollectorLastName[['MainCollectorLastNameDB_new']])
 
 
- # 10) Loop checkName_wcvp
+ # 10) batch_checkName_wcvp()
  
+  help(batch_checkName_wcvp)
  
- # 11) select_digital_voucher_and_sample_identification
+  wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                     columns = 'standard')
+ 
+ res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
+                                 wcvp_names =  wcvp_names,
+                                 if_author_fails_try_without_combinations = TRUE,
+                                 wcvp_selected_fields = 'standard')
+ 
+  names(res_batch_checkName_wcvp)
+  
+  head(res_batch_checkName_wcvp$wcvpSummary)
+
+  head(res_batch_checkName_wcvp$wcvpOccurrence)
+
+ # 11) select_digital_voucher_and_sample_identification()
+ 
  help(select_digital_voucher_and_sample_identification)
  
+
+  occ <- select_digital_voucher_and_sample_identification(occurrence_collectorsDictionary_file = occurrence_collectorsDictionary_file,
+                                                          issueGBIFOccurrence_file = issueGBIFOccurrence_file,
+                                                          wcvp_occurence_file = wcvp_result_file,
+                                                          enumOccurrenceIssue_file = enumOccurrenceIssue_file)
+
  # 12) export_results
 
 ```

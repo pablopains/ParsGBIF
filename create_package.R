@@ -30,7 +30,7 @@
 
   help(select_gbif_fields)
 
-
+  rm(list = ls())
   devtools::install_github("pablopains/ParsGBIF")
   library(ParsGBIF)
 

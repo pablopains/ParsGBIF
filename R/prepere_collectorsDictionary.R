@@ -1,5 +1,5 @@
-#' @title prepere_lastNameRecordedBy
-#' @name prepere_lastNameRecordedBy
+#' @title prepere_collectorsDictionary
+#' @name prepere_collectorsDictionary
 #'
 #' @description Returns main collector's surname
 #' If recordedBy is present in the collector's dictionary, it returns the checked name, if not, it returns the last name of the main collector, extracted from the recordedBy field.
@@ -25,15 +25,15 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}}
 #'
 #' @examples
-#' help(prepere_lastNameRecordedBy)
+#' help(prepere_collectorsDictionary)
 #'
 #' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
 #'                                     columns = 'standard')
 #'
-#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ)
+#' collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ=occ)
 #'
 #' colnames(collectorsDictionaryFromDataset)
 #' head(collectorsDictionaryFromDataset)
@@ -44,7 +44,7 @@
 #'           fileEncoding = "UTF-8",
 #'           na = "")
 #' @export
-prepere_lastNameRecordedBy <- function(occ=NA,
+prepere_collectorsDictionary <- function(occ=NA,
                                        collectorDictionary_url='https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link',
                                        collectorDictionary_file = NA)
 {

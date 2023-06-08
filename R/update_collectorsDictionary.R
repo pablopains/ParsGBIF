@@ -1,5 +1,5 @@
-#' @title update_lastNameRecordedBy
-#' @name update_lastNameRecordedBy
+#' @title update_collectorsDictionary
+#' @name update_collectorsDictionary
 #'
 #' @description Include recordedByStandardized field with verified main collector's last name.
 #' Include recordNumber_Standard field with only numbers from recordNumber.
@@ -25,7 +25,7 @@
 #'
 #' @encoding UTF-8
 #'
-#' @seealso \code{\link[readr]{read_csv}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{prepere_collectorsDictionary}}
 #'
 #' @examples
 #'
@@ -33,7 +33,7 @@
 #'                                                               collectorDictionary_checked_file='collectorDictionary_checked.csv')
 #'
 #' @export
-update_lastNameRecordedBy <- function(occ=NA,
+update_collectorsDictionary <- function(occ=NA,
                                       collectorDictionary_checked_file = NA,
                                       collectorDictionary_checked = NA,
                                       collectorDictionary_url = 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link',

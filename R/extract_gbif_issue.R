@@ -3,7 +3,7 @@
 #'
 #' @description Extract gbif issue
 #'
-#' @param occ GBIF occurrence file with selected columns
+#' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param enumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
 #'
 #' @details https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html

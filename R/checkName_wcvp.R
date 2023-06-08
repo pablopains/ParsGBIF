@@ -8,7 +8,8 @@
 #' @param wcvp_names WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/
 #' @param if_author_fails_try_without_combinations option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses
 #'
-#' @details searchNotes values:
+#' @details About the World Checklist of Vascular Plants https://powo.science.kew.org/about-wcvp
+#' searchNotes values:
 #' Accepted - When only one authorless scientific name is present in the list of TAXON_name with and TAXON_STATUS equal to "Accepted",
 #' verified_speciesName = 100.
 #' Accepted among homonyms - When more than one authorless scientific name is present in the TAXON_name list, but only one of the homonyms displays TAXON_STATUS equal to "Accepted",
