@@ -27,13 +27,30 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[utils]{unzip}}, \code{\link[unzip]{read.table}}
+#' @seealso \code{\link[batch_checkName_wcvp]{unzip}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 #'
 #' @examples
-#' occ <- select_digital_voucher_and_sample_identification(occurrence_collectorsDictionary_file = occurrence_collectorsDictionary_file,
-#'                                                         issueGBIFOccurrence_file = issueGBIFOccurrence_file,
-#'                                                         wcvp_occurence_file = wcvp_result_file,
-#'                                                         enumOccurrenceIssue_file = enumOccurrenceIssue_file)
+#' help(select_digital_voucher_and_sample_identification)
+#'
+#' head(occ)
+#' head(res_gbif_issue$occ_gbif_issue)
+#' head(res_checkName_wcvp$occ_checkName_wcvp)
+#' head(res_collectorsDictionary$occ_collectorsDictionary)
+
+
+#' res_digital_voucher_and_sample_identification <- select_digital_voucher_and_sample_identification(occ = occ,
+#'                                                                                                   occ_gbif_issue = res_gbif_issue$occ_gbif_issue,
+#'                                                                                                   occ_checkName_wcvp = res_checkName_wcvp$occ_checkName_wcvp,
+#'                                                                                                   occ_collectorsDictionary = res_collectorsDictionary$occ_collectorsDictionary,
+#'                                                                                                   enumOccurrenceIssue = EnumOccurrenceIssue)
+#'
+#' names(res_digital_voucher_and_sample_identification)
+#'
+#' head(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)
+#' colnames(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)
+#'
+#' head(res_digital_voucher_and_sample_identification$occ_join_results)
+#' colnames(res_digital_voucher_and_sample_identification$occ_join_results)
 #' @export
 select_digital_voucher_and_sample_identification <-  function(occ = NA,
                                                               occ_gbif_issue = NA,
