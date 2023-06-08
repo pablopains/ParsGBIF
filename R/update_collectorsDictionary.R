@@ -15,9 +15,9 @@
 #' @details ....
 #'
 #' @return
-#' collectorsDictionary_new,
-#' recordNumber_Standard,
-#' collectorsDictionary_summary
+#' occ_collectorsDictionary: nameRecordedBy_Standard, recordNumber_Standard, key_family_recordedBy_recordNumber, key_year_recordedBy_recordNumber
+#' summary,
+#' collectorsDictionary_add
 #'
 #' @author Pablo Hendrigo Alves de Melo
 #' @author Nadia Bystriakova
@@ -109,6 +109,9 @@ update_collectorsDictionary <- function(occ=NA,
       dplyr::select(colunas)
 
    ####
+
+   occ <- occ %>%
+     dplyr::select(Ctrl_recordNumber, Ctrl_family, Ctrl_recordedBy, Ctrl_year)
 
    occ <- occ %>%
       dplyr::mutate(Ctrl_nameRecordedBy_Standard='')
@@ -226,9 +229,10 @@ update_collectorsDictionary <- function(occ=NA,
    res_in <- res_in %>% dplyr::arrange_at(c('numberOfRecords'), desc )
 
    # print(occ$Ctrl_key_family_recordedBy_recordNumber %>% unique())
-   return(list(occ = occ,
-               summary = res_in,
-               MainCollectorLastNameDB_new=collectorDictionary_checked_new))
+   return(list(occ_collectorsDictionary = occ %>%
+                 dplyr::select(Ctrl_nameRecordedBy_Standard, Ctrl_recordNumber_Standard, Ctrl_key_family_recordedBy_recordNumber, Ctrl_key_year_recordedBy_recordNumber),
+               summary  = res_in,
+               collectorsDictionary_add = collectorDictionary_checked_new))
 
 }
 

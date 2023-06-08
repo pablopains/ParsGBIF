@@ -12,6 +12,7 @@
 #' @details See help(checkName_wcvp) and https://powo.science.kew.org/about-wcvp
 #'
 #' @return
+#' occ_checkName_wcvp:
 #'   wcvp_plant_name_id,
 #'   wcvp_taxon_rank,
 #'   wcvp_taxon_status,
@@ -27,6 +28,7 @@
 #'   wcvp_verified_author,
 #'   wcvp_verified_speciesName,
 #'   wcvp_searchNotes
+#' summary
 #'
 #' @author Pablo Hendrigo Alves de Melo
 #' @author Nadia Bystriakova
@@ -207,6 +209,6 @@ batch_checkName_wcvp <- function(occ = NA,
     # japrocessado[i] <- TRUE
   }
 
-  return(list(wcvpSummary=x,
-              wcvpOccurrence=occ_all[,all_of(colunas_wcvp_sel)]))
+  return(list(occ_checkName_wcvp=occ_all[,all_of(colunas_wcvp_sel)],
+              summary=x))
 }

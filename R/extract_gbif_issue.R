@@ -9,8 +9,8 @@
 #' @details https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
 #'
 #' @return
-#' issueGBIFSummary,
-#' issueGBIFOccurrence
+#' occ_gbif_issue,
+#' summary
 #'
 #' @author Pablo Hendrigo Alves de Melo
 #' @author Nadia Bystriakova
@@ -91,7 +91,7 @@ extract_gbif_issue <- function(occ = NA,
   # issueGBIFSummary <<- issue_result
   # issueGBIFOccurrence <<- issue_table
 
-  return(list(issueGBIFSummary=issue_result,
-              issueGBIFOccurrence=issue_table))
+  return(list(occ_gbif_issue=issue_table,
+              summary=issue_result))
 
 }

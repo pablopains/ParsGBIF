@@ -1,14 +1,19 @@
 #' @title prepere_collectorsDictionary
 #' @name prepere_collectorsDictionary
 #'
-#' @description Returns main collector's surname
-#' If recordedBy is present in the collector's dictionary, it returns the checked name, if not, it returns the last name of the main collector, extracted from the recordedBy field.
+#' @description Returns the list with the last name of the main collector associated with the unique key recordedBy.
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param collectorDictionary_url Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'
+#' The googlesheets4 package is requesting access to your Google account. Select a pre-authorised account or enter '0' to obtain a new token. Press Esc/Ctrl + C to cancel.
 #' @param collectorDictionary_file Collector's dictionary file. Download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link
 #'
-#' @details ....
+#' @details If recordedBy is present in the collector's dictionary, it returns the checked name, if not, it returns the last name of the main collector, extracted from the recordedBy field.
+#' If recordedBy is present in the collector's dictionary, returns the main collector's last name associated with the single recordedBy key,
+#' otherwise, returns the main collector's last name, extracted from the recordedBy field.
+#' It is recommended to curate the main collector's surname, automatically extracted from the recordedBy field.
+#' The objective is to standardize the last name of the main collector.
+#' That the primary botanical collector of a sample is always recognized by the same last name, standardized in capital letters and non-ascii characters replaced
 #'
 #' @return
 #' Ctrl_nameRecordedBy_Standard,
@@ -25,7 +30,8 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}}
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}},
+#'          \code{\link[textclean]{replace_non_ascii}
 #'
 #' @examples
 #' help(prepere_collectorsDictionary)

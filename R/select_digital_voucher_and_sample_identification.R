@@ -3,10 +3,12 @@
 #'
 #' @description Extract gbif issue
 #'
-#' @param occurrence_collectorsDictionary_file result of the update_lastNameRecordedBy function
-#' @param issueGBIFOccurrence_file result of the extract_gbif_issue function
-#' @param wcvp_occurence_file result of the checkName_wcvp function
-#' @param enumOccurrenceIssue_file An enumeration of validation rules for single occurrence records by GBIF file
+#'
+#' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
+#' @param occ_gbif_issue = result of function extract_gbif_issue()$occ_gbif_issue
+#' @param occ_checkName_wcvp = result of function batch_checkName_wcvp()$occ_checkName_wcvp
+#' @param occ_collectorsDictionary = result of function update_collectorsDictionary()$occ_collectorsDictionary
+#' @param enumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
 #'
 #' @details
 #' To group duplicates: 1) If the key to group duplicates is incomplete: Sample duplicates cannot be grouped due to missing collector information and/or collection number. Each record is considered a sample, with no duplicates. Select a voucher for each sample.
@@ -34,17 +36,14 @@
 #'                                                         enumOccurrenceIssue_file = enumOccurrenceIssue_file)
 #' @export
 select_digital_voucher_and_sample_identification <-  function(occ = NA,
-                                                              enumOccurrenceIssue = NA,
-                                                              occurrence_collectorsDictionary_file = NA,
-                                                             issueGBIFOccurrence_file = NA,
-                                                             wcvp_occurence_file = NA,
-                                                             enumOccurrenceIssue_file = "C:/ParsGBIF/data/EnumOccurrenceIssue.csv")
+                                                              occ_gbif_issue = NA,
+                                                              occ_checkName_wcvp = NA,
+                                                              occ_collectorsDictionary = NA,
+                                                              enumOccurrenceIssue = NA)
 {
+  {
   require(dplyr)
   require(readr)
-  # abrir
-  {
-
     if (is.na(enumOccurrenceIssue))
     {
       data(EnumOccurrenceIssue)
@@ -53,23 +52,26 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
       EnumOccurrenceIssue <- enumOccurrenceIssue
     }
 
-    occ <- readr::read_csv(occurrence_collectorsDictionary_file,
-                           locale = locale(encoding = "UTF-8"),
-                           show_col_types = FALSE)
+    # occ <- readr::read_csv(occurrence_collectorsDictionary_file,
+    #                        locale = locale(encoding = "UTF-8"),
+    #                        show_col_types = FALSE)
+    #
+    #
+    # # file.csv <- paste0(path.result,'\\4_issueGBIFOccurrence - 2023-04-23.csv')
+    # occ_issue <- readr::read_csv(issueGBIFOccurrence_file,
+    #                              locale = readr::locale(encoding = "UTF-8"),
+    #                              show_col_types = FALSE)
+    #
+    #
+    # # file.csv <- paste0(path.result,'\\occ_wcpv - 2023-04-23.csv')
+    # occ_wcvo <- readr::read_csv(wcvp_occurence_file,
+    #                             locale = readr::locale(encoding = "UTF-8"),
+    #                             show_col_types = FALSE)
 
+    occ_in <- occ
 
-    # file.csv <- paste0(path.result,'\\4_issueGBIFOccurrence - 2023-04-23.csv')
-    occ_issue <- readr::read_csv(issueGBIFOccurrence_file,
-                                 locale = readr::locale(encoding = "UTF-8"),
-                                 show_col_types = FALSE)
+    occ <- cbind(occ_gbif_issue, occ_in, occ_checkName_wcvp, occ_collectorsDictionary)
 
-
-    # file.csv <- paste0(path.result,'\\occ_wcpv - 2023-04-23.csv')
-    occ_wcvo <- readr::read_csv(wcvp_occurence_file,
-                                locale = readr::locale(encoding = "UTF-8"),
-                                show_col_types = FALSE)
-
-    occ <- cbind(occ_issue, occ, occ_wcvo)
 
     occ$Ctrl_taxonRank %>% unique()
 
@@ -92,7 +94,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
     occ_issue <- colnames(occ)
 
-    # geospatial_quality
+    # Ctrl_geospatial_quality
     index_tmp1 <- EnumOccurrenceIssue$score == 1 & EnumOccurrenceIssue$type == 'geospatial' %>%
       ifelse(is.na(.), FALSE,.)
     index_tmp2 <- EnumOccurrenceIssue$score == 2 & EnumOccurrenceIssue$type == 'geospatial'%>%
@@ -101,7 +103,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
       ifelse(is.na(.), FALSE,.)
   }
 
-  # verbatim_quality
+  # Ctrl_verbatim_quality
   {
     occ <- occ %>%
       dplyr::mutate(temAnoColeta =  ifelse( is.na(Ctrl_year) | Ctrl_year == ""  | Ctrl_year == 0 | Ctrl_year <= 10,
@@ -155,9 +157,9 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                       ifelse(is.na(.), FALSE,.),
 
 
-                    temDataIdentificacao = ifelse( is.na(Ctrl_dateIdentified) | Ctrl_dateIdentified=="",
-                                                   FALSE, TRUE) %>%
-                      ifelse(is.na(.), FALSE,.),
+                    # temDataIdentificacao = ifelse( is.na(Ctrl_dateIdentified) | Ctrl_dateIdentified=="",
+                    #                                FALSE, TRUE) %>%
+                    #   ifelse(is.na(.), FALSE,.),
 
                     temCitacaoBibliografica = ifelse( is.na(Ctrl_bibliographicCitation) | Ctrl_bibliographicCitation=="",
                                                       FALSE, TRUE) %>%
@@ -172,8 +174,8 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
   {
 
     occ <- occ %>%
-      dplyr::mutate(geospatial_quality = 0,
-                    verbatim_quality = 0,
+      dplyr::mutate(Ctrl_geospatial_quality = 0,
+                    Ctrl_verbatim_quality = 0,
                     Ctrl_moreInformativeRecord = 0,
                     Ctrl_selectedMoreInformativeRecord = FALSE,
                     Ctrl_thereAreDuplicates = FALSE,
@@ -190,13 +192,13 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                     Ctrl_numberTaxonNamesSample = 0)
 
     occ <- occ %>%
-      dplyr::mutate(geospatial_quality = ifelse(rowSums(occ[,EnumOccurrenceIssue$Constant[index_tmp3 == TRUE]])>0, -9,
+      dplyr::mutate(Ctrl_geospatial_quality = ifelse(rowSums(occ[,EnumOccurrenceIssue$Constant[index_tmp3 == TRUE]])>0, -9,
                                                 ifelse(rowSums(occ[,EnumOccurrenceIssue$Constant[index_tmp2 == TRUE]])>0, -3,
                                                        ifelse(rowSums(occ[,EnumOccurrenceIssue$Constant[index_tmp1 == TRUE]])>0, -1, 0))))
 
 
     occ <- occ %>%
-      dplyr::mutate(verbatim_quality = (  temColetor +
+      dplyr::mutate(Ctrl_verbatim_quality = (  temColetor +
                                             temNumeroColeta +
                                             temAnoColeta +
                                             temCodigoInstituicao +
@@ -207,7 +209,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                                             temCitacaoBibliografica))
 
     occ <- occ %>%
-      dplyr::mutate(Ctrl_moreInformativeRecord  = ( geospatial_quality + verbatim_quality))
+      dplyr::mutate(Ctrl_moreInformativeRecord  = ( Ctrl_geospatial_quality + Ctrl_verbatim_quality))
 
 
     occ <- occ %>%
@@ -216,8 +218,8 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                     wcvp_taxon_status,
                     wcvp_searchNotes,
                     # Ctrl_taxonRank,
-                    geospatial_quality,
-                    verbatim_quality,
+                    Ctrl_geospatial_quality,
+                    Ctrl_verbatim_quality,
                     Ctrl_moreInformativeRecord,
                     Ctrl_selectedMoreInformativeRecord,
                     Ctrl_thereAreDuplicates,
@@ -234,36 +236,8 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
     recordedBy_unique <- occ$Ctrl_key_family_recordedBy_recordNumber %>% unique()
 
-    # r <- recordedBy_unique[999]
-    # r <- recordedBy_unique[2]
-    # r <- recordedBy_unique[982]
-    # r <- recordedBy_unique[1]
-    # r <- 'ACHATOCARPACEAE_CAROL_'
-    # r <- 'ACHATOCARPACEAE_CABRERA_'
-    # r <- 'ACHATOCARPACEAE_CRISTOBAL_1254'
-    # r <- 'ACHATOCARPACEAE__7862'
-    r <- 'ACHATOCARPACEAE_ZARDINI_38377'
-    r <- 'ACHATOCARPACEAE_AGUILAR-CANO_2271'
-    r <- 'URTICACEAE_AHERN_619'
-    r <- 'URTICACEAE_ACEVEDO-RODRIGUEZ_4423'
-    r <- 'URTICACEAE_AMORIM_4433'
 
-    r <-"URTICACEAE_CROAT_16297"
-    r <- "URTICACEAE_BOZEMAN_45126"
-    r <- "URTICACEAE_LONGBOTTOM_14525"
-
-    r <- 'URTICACEAE_BANG_127'
-
-    r <- 'URTICACEAE_BORDEN_1186'
-
-    r <- 'URTICACEAE_SCHUNKE_7643'
-
-    r <- 'URTICACEAE_WUNDERLIN_'
-
-    r <- 'URTICACEAE_SEM-COLETOR_'
-    # r
-
-    japrocessado <<- rep(FALSE,length(recordedBy_unique))
+    # japrocessado <<- rep(FALSE,length(recordedBy_unique))
 
     tot <- NROW(recordedBy_unique)
     s <- 0
@@ -274,7 +248,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
       if (s%%100==0){print(paste0(s, ' de ',tot))}
 
-      if(japrocessado[s]==TRUE){next}
+      # if(japrocessado[s]==TRUE){next}
 
       # print(paste0(r, ' ',s, ' de ',tot))
 
@@ -292,7 +266,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
         break
       }
 
-      japrocessado[s] <- TRUE
+      # japrocessado[s] <- TRUE
 
       fam <-str_sub(r,1, str_locate(r, '_')[1]-1) %>% ifelse(is.na(.), "",.)
 
@@ -501,5 +475,20 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
   # salvar
 
-  return(occ)
+  occ <- occ %>%
+    dplyr::select(Ctrl_geospatial_quality,
+                  Ctrl_verbatim_quality,
+                  Ctrl_moreInformativeRecord,
+                  Ctrl_selectedMoreInformativeRecord,
+                  Ctrl_thereAreDuplicates,
+                  Ctrl_unmatched,
+                  Ctrl_unidentifiedSample,
+                  Ctrl_sampleTaxonName,
+                  Ctrl_matchStatusDuplicates,
+                  Ctrl_sampleIdentificationStatus,
+                  Ctrl_numberTaxonNamesSample)
+
+  return(list(occ_digital_voucher_and_sample_identification = occ,
+              occ_join_results = cbind(occ_gbif_issue, occ_in, occ_checkName_wcvp, occ_collectorsDictionary, occ)
+  ))
 }

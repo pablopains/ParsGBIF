@@ -159,16 +159,15 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  head(EnumOccurrenceIssue)
  colnames(EnumOccurrenceIssue)
  
- occ_gbif_issue <- extract_gbif_issue(occ = occ,
+ res_gbif_issue <- extract_gbif_issue(occ = occ,
                                 enumOccurrenceIssue = NA)
 
- names(occ_gbif_issue)
+ names(res_gbif_issue)
  
- head(occ_gbif_issue$issueGBIFSummary)
+ head(res_gbif_issue$occ_gbif_issue)
+ colnames(res_gbif_issue$occ_gbif_issue)
  
- colnames(occ_gbif_issue$issueGBIFOccurrence)
- head(occ_gbif_issue$issueGBIFOccurrence)
- colnames(occ_gbif_issue$issueGBIFOccurrence)
+ head(res_gbif_issue$summary)
 
 
  # 7) get_lastNameRecordedBy()  
@@ -216,17 +215,19 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
 
-  occ_mainCollectorLastName <- update_collectorsDictionary(occ=occ,
+  res_collectorsDictionary <- update_collectorsDictionary(occ=occ,
                                                          collectorDictionary_checked = collectorsDictionaryFromDataset)
 
 
-  names(occ_mainCollectorLastName)
+  names(res_collectorsDictionary)
   
-  head(occ_mainCollectorLastName[['occ']])
+  head(res_collectorsDictionary[['occ_collectorsDictionary']])
+  colnames(res_collectorsDictionary[['occ_collectorsDictionary']])
 
-  head(occ_mainCollectorLastName[['summary']])
 
-  head(occ_mainCollectorLastName[['MainCollectorLastNameDB_new']])
+  head(res_collectorsDictionary[['summary']])
+
+  head(res_collectorsDictionary[['collectorsDictionary_add']])
 
 
  # 10) batch_checkName_wcvp()
@@ -238,27 +239,42 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
  
- res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
+ res_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
                                  wcvp_names =  wcvp_names,
                                  if_author_fails_try_without_combinations = TRUE,
                                  wcvp_selected_fields = 'standard')
  
-  names(res_batch_checkName_wcvp)
+  names(res_checkName_wcvp)
   
-  head(res_batch_checkName_wcvp$wcvpSummary)
-
-  head(res_batch_checkName_wcvp$wcvpOccurrence)
+  head(res_checkName_wcvp$occ_checkName_wcvp)
+  colnames(res_checkName_wcvp$occ_checkName_wcvp)
+  
+  head(res_checkName_wcvp$summary)
 
  # 11) select_digital_voucher_and_sample_identification()
  
  help(select_digital_voucher_and_sample_identification)
  
+  head(occ)
+  head(res_gbif_issue$occ_gbif_issue)
+  head(res_checkName_wcvp$occ_checkName_wcvp)
+  head(res_collectorsDictionary$occ_collectorsDictionary)
 
-  occ <- select_digital_voucher_and_sample_identification(occurrence_collectorsDictionary_file = occurrence_collectorsDictionary_file,
-                                                          issueGBIFOccurrence_file = issueGBIFOccurrence_file,
-                                                          wcvp_occurence_file = wcvp_result_file,
-                                                          enumOccurrenceIssue_file = enumOccurrenceIssue_file)
 
+  res_digital_voucher_and_sample_identification <- select_digital_voucher_and_sample_identification(occ = occ,
+                                                          occ_gbif_issue = res_gbif_issue$occ_gbif_issue,
+                                                          occ_checkName_wcvp = res_checkName_wcvp$occ_checkName_wcvp,
+                                                          occ_collectorsDictionary = res_collectorsDictionary$occ_collectorsDictionary,
+                                                          enumOccurrenceIssue = EnumOccurrenceIssue)
+                                                          
+  names(res_digital_voucher_and_sample_identification)
+  
+  head(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)                      
+  colnames(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)                      
+  
+  head(res_digital_voucher_and_sample_identification$occ_join_results)                      
+  colnames(res_digital_voucher_and_sample_identification$occ_join_results)                   
+  
  # 12) export_results
 
 ```
