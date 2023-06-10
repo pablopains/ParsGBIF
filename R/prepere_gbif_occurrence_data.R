@@ -46,6 +46,7 @@ prepere_gbif_occurrence_data <- function(occ = NA,
                            show_col_types = FALSE)
   }
 
+
   col_sel <-ParsGBIF::select_gbif_fields(columns = columns)
 
   occ <- occ[ ,col_sel]

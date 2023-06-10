@@ -6,18 +6,14 @@
 \usage{
 prepere_collectorsDictionary(
   occ = NA,
-  collectorDictionary_url =
-    "https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link",
-  collectorDictionary_file = NA
+  collectorDictionary_file =
+    "https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv"
 )
 }
 \arguments{
 \item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')}
 
-\item{collectorDictionary_url}{Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'
-The googlesheets4 package is requesting access to your Google account. Select a pre-authorised account or enter '0' to obtain a new token. Press Esc/Ctrl + C to cancel.}
-
-\item{collectorDictionary_file}{Collector's dictionary file. Download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link}
+\item{collectorDictionary_file}{Collector dictionary file - point to a file on your local disk or upload via git at https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv.}
 }
 \value{
 Ctrl_nameRecordedBy_Standard,
@@ -47,7 +43,8 @@ help(prepere_collectorsDictionary)
 occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                     columns = 'standard')
 
-collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ=occ)
+collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ=occ,
+                                                                collectorDictionary_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
 
 colnames(collectorsDictionaryFromDataset)
 head(collectorsDictionaryFromDataset)

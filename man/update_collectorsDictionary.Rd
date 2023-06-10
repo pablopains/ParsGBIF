@@ -8,23 +8,16 @@
 update_collectorsDictionary(
   occ = NA,
   collectorDictionary_checked_file = NA,
-  collectorDictionary_checked = NA,
-  collectorDictionary_url =
-    "https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link",
-  collectorDictionary = NA
+  collectorDictionary_file =
+    "https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv"
 )
 }
 \arguments{
 \item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')}
 
-\item{collectorDictionary_checked_file}{Verified collector's dictionary file}
+\item{collectorDictionary_checked_file}{Verified collector dictionary file - point to a file on your local disk}
 
-\item{collectorDictionary_checked}{Verified collector's dictionary data.frame}
-
-\item{collectorDictionary_url}{Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'}
-
-\item{collectorDictionary}{Collector's dictionary in data.frame format with the fields: Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy, Ctrl_notes, collectorDictionary, Ctrl_update, collectorName, Ctrl_fullName, Ctrl_fullNameII, CVStarrVirtualHerbarium_PersonDetails.
-if you prefer, download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link}
+\item{collectorDictionary_file}{Collector dictionary file - point to a file on your local disk or upload via git at https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv.}
 }
 \value{
 occ_collectorsDictionary: nameRecordedBy_Standard, recordNumber_Standard, key_family_recordedBy_recordNumber, key_year_recordedBy_recordNumber

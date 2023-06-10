@@ -6,12 +6,8 @@
 #' Create a key to group duplicates in the key_family_recordedBy_recordNumber field, composed of the fields: family + recordedByStandardized + recordNumber_Standard.
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
-#' @param collectorDictionary_checked_file Verified collector's dictionary file
-#' @param collectorDictionary_checked Verified collector's dictionary data.frame
-#' @param collectorDictionary_url Collector's dictionary URL curated by the ParsGBIF team 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link'
-#' @param collectorDictionary Collector's dictionary in data.frame format with the fields: Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy, Ctrl_notes, collectorDictionary, Ctrl_update, collectorName, Ctrl_fullName, Ctrl_fullNameII, CVStarrVirtualHerbarium_PersonDetails.
-#' if you prefer, download a CollectorsDictionary.csv template from https://drive.google.com/file/d/1sYh1s39Ee3JgMQp2iyePOTdCB9gbaotW/view?usp=share_link
-#'
+#' @param collectorDictionary_checked_file Verified collector dictionary file - point to a file on your local disk
+#' @param collectorDictionary_file Collector dictionary file - point to a file on your local disk or upload via git at https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv.
 #' @details ....
 #'
 #' @return
@@ -35,55 +31,74 @@
 #' @export
 update_collectorsDictionary <- function(occ=NA,
                                       collectorDictionary_checked_file = NA,
-                                      collectorDictionary_checked = NA,
-                                      collectorDictionary_url = 'https://docs.google.com/spreadsheets/d/15Ngrr4hbJnq_SsTycLJ6z15oCLPRyV2gFhQ3D1zXzuk/edit?usp=share_link',
-                                      collectorDictionary = NA)
+                                      collectorDictionary_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
 {
 
-  require(googlesheets4)
+  require(stringr)
+  require(dplyr)
 
   print('Loading collectorDictionary...')
 
-  if(is.na(collectorDictionary))
+  if(file.exists(collectorDictionary_file) | collectorDictionary_file=='' | is.na(collectorDictionary_file) )
   {
-    if(is.na(collectorDictionary_url) | collectorDictionary_url == '')
-    {
-      stop("CollectorDictionary url not found!")
-    }
-
-    collectorDictionary <- googlesheets4::read_sheet(collectorDictionary_url)
+    stop("Invalid Collector's Dictionary!")
   }
 
-  if(NROW(collectorDictionary)==0)
+  collectorDictionary <- readr::read_csv(collectorDictionary_file,
+                                         locale = readr::locale(encoding = "UTF-8"),
+                                         show_col_types = FALSE)
+
+
+  if(NROW(collectorDictionary)==0 | any(colnames(collectorDictionary) %in% c('Ctrl_nameRecordedBy_Standard',
+                                                                             'Ctrl_recordedBy',
+                                                                             'Ctrl_notes',
+                                                                             'collectorDictionary',
+                                                                             'Ctrl_update',
+                                                                             'collectorName',
+                                                                             'Ctrl_fullName',
+                                                                             'Ctrl_fullNameII',
+                                                                             'CVStarrVirtualHerbarium_PersonDetails'))==FALSE)
   {
-    stop("Collector dictionary is empty!")
+    stop("Empty Collector's Dictionary!")
   }
 
   collectorDictionary <- collectorDictionary %>%
     dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
     data.frame()
 
-  if(is.na(collectorDictionary_checked))
-  {
-    if(!file.exists(collectorDictionary_checked_file))
-    {
-      stop("Collector dictionary checked file not found!")
-    }
 
-    collectorDictionary_checked <- readr::read_csv(collectorDictionary_file,
-                                           locale = readr::locale(encoding = "UTF-8"),
-                                           show_col_types = FALSE)
+
+  print('Loading collectorDictionary checked...')
+
+  if( (!file.exists(collectorDictionary_checked_file)) | collectorDictionary_checked_file=='' | is.na(collectorDictionary_checked_file) )
+  {
+    stop("Invalid Collector's Dictionary checked!")
+
   }
+
+  collectorDictionary_checked <- readr::read_csv(collectorDictionary_checked_file,
+                                         locale = readr::locale(encoding = "UTF-8"),
+                                         show_col_types = FALSE)
+
+
+  if(NROW(collectorDictionary_checked)==0 | any(colnames(collectorDictionary_checked) %in% c('Ctrl_nameRecordedBy_Standard',
+                                                                             'Ctrl_recordedBy',
+                                                                             'Ctrl_notes',
+                                                                             'collectorDictionary',
+                                                                             'Ctrl_update',
+                                                                             'collectorName',
+                                                                             'Ctrl_fullName',
+                                                                             'Ctrl_fullNameII',
+                                                                             'CVStarrVirtualHerbarium_PersonDetails'))==FALSE)
+  {
+    stop("Empty Collector's Dictionary checked!")
+  }
+
 
   collectorDictionary_checked <- collectorDictionary_checked %>%
     dplyr::mutate(Ctrl_recordedBy = Ctrl_recordedBy %>% toupper()) %>%
     data.frame()
 
-
-  if(NROW(collectorDictionary_checked)==0)
-  {
-    stop("Collector dictionary checked is empty!")
-  }
 
   if(NROW(occ)==0)
   {
@@ -138,12 +153,6 @@ update_collectorsDictionary <- function(occ=NA,
       num_records <- NROW(occ[index_occ==TRUE,])
       index_ajusted <- (collectorDictionary_checked$Ctrl_recordedBy == r) %>% ifelse(is.na(.), FALSE,.)
 
-      # sum(index_ajusted)
-      # any(index_ajusted)
-
-      # group_by_(campo) %>% summarise(frecuencia = n() ))
-      # collectorDictionary_checked[index_ajusted==TRUE,] %>% dplyr::select(Ctrl_recordedBy)
-
       print(paste0(ri, ' de ', rt, ' - ', r,' : ',num_records, ' registros' ))
 
       if (NROW(collectorDictionary_checked[index_ajusted==TRUE,]) == 0)
@@ -175,30 +184,15 @@ update_collectorsDictionary <- function(occ=NA,
       occ[index_occ==TRUE, c('Ctrl_nameRecordedBy_Standard')] =
          data.frame(Ctrl_nameRecordedBy_Standard  = collectorDictionary_checked_tmp)
 
-      # # 08-02-2022 - desliguei essa conferencia desnecessária e que exige grande processamento
-      # index_ck <- occ$Ctrl_nameRecordedBy_Standard %in% collectorDictionary_checked_tmp &
-      #    index_occ
-      #
-      # num_records_ck <- NROW(occ[index_ck==TRUE,])
-      #
-      # # print(num_records)
-      # if ((num_records-num_records_ck)>0){print(num_records-num_records_ck)}
-
    }
 
    print('...finished!')
-
-   # teste antigo removido
 
    occ$Ctrl_recordNumber_Standard <- str_replace_all(occ$Ctrl_recordNumber, "[^0-9]", "")
 
 
    occ$Ctrl_recordNumber_Standard <- ifelse(is.na(occ$Ctrl_recordNumber_Standard) |
                                                    occ$Ctrl_recordNumber_Standard=='',"",occ$Ctrl_recordNumber_Standard  %>% strtoi())
-   # occ$Ctrl_recordNumber_Standard <- ifelse(is.na(occ$Ctrl_recordNumber_Standard),"",occ$Ctrl_recordNumber_Standard)
-
-   # occ$Ctrl_recordNumber_Standard
-
    # tirar o NA do numero
    occ$Ctrl_recordNumber_Standard <- ifelse(is.na(occ$Ctrl_recordNumber_Standard),'',occ$Ctrl_recordNumber_Standard)
 
@@ -208,10 +202,6 @@ update_collectorsDictionary <- function(occ=NA,
                        paste(Ctrl_family %>% toupper() %>% glue::trim(),
                              Ctrl_nameRecordedBy_Standard,
                              Ctrl_recordNumber_Standard,
-                             # Ctrl_recordNumber,
-
-                             # Ctrl_year,
-                             # Ctrl_standardized_stateProvince,
                              sep='_'))
 
    occ$Ctrl_key_year_recordedBy_recordNumber <- ""
