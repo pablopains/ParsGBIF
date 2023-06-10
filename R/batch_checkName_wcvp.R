@@ -67,6 +67,7 @@ batch_checkName_wcvp <- function(occ = NA,
 
   require(dplry)
   require(stringr)
+  require(tidyselect)
 
   if(!wcvp_selected_fields %in% c('standard','all'))
   {
@@ -171,7 +172,7 @@ batch_checkName_wcvp <- function(occ = NA,
 
   occ_all <- cbind(occ, wcvp_na) %>%
     dplyr::mutate(wcvp_searchedName = Ctrl_scientificName) %>%
-    dplyr::select(all_of(colunas_wcvp_sel))
+    dplyr::select(tidyselect::all_of(colunas_wcvp_sel))
 
   name_search_wcvp <- occ_all[index==TRUE,]$wcvp_searchedName %>% unique() %>% as.character()
 
@@ -193,7 +194,7 @@ batch_checkName_wcvp <- function(occ = NA,
 
     x <- rbind(x,
                cbind(x_tmp[,
-                           all_of(colunas_wcvp_sel)]))
+                           tidyselect::all_of(colunas_wcvp_sel)]))
 
 
     # n_reg <- NROW(occ_all[index==TRUE,])
@@ -201,7 +202,7 @@ batch_checkName_wcvp <- function(occ = NA,
 
 
     index <- occ_all$wcvp_searchedName %in% sp_tmp #name_search_wcvp[i]  # wcvp_searchedName == Ctrl_scientificName
-    occ_all[index==TRUE, all_of(colunas_wcvp_sel)] <- x_tmp[, all_of(colunas_wcvp_sel)]
+    occ_all[index==TRUE, tidyselect::all_of(colunas_wcvp_sel)] <- x_tmp[, tidyselect::all_of(colunas_wcvp_sel)]
 
     # # aqui
     # print( str_c( i, '-',tot_rec , ' - WCVP: ', sp_tmp,' -> ' ,ifelse(is.na(x_tmp$wcvp_taxon_name),'',x_tmp$wcvp_taxon_name),' ',x_tmp$wcvp_verified_author,' ',x_tmp$wcvp_verified_speciesName ,' : ', x_tmp$wcvp_searchNotes))
@@ -209,6 +210,6 @@ batch_checkName_wcvp <- function(occ = NA,
     # japrocessado[i] <- TRUE
   }
 
-  return(list(occ_checkName_wcvp=occ_all[,all_of(colunas_wcvp_sel)],
+  return(list(occ_checkName_wcvp=occ_all[,tidyselect::all_of(colunas_wcvp_sel)],
               summary=x))
 }

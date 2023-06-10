@@ -39,7 +39,7 @@ update_collectorsDictionary <- function(occ=NA,
 
   print('Loading collectorDictionary...')
 
-  if(file.exists(collectorDictionary_file) | collectorDictionary_file=='' | is.na(collectorDictionary_file) )
+  if(collectorDictionary_file=='' | is.na(collectorDictionary_file) )
   {
     stop("Invalid Collector's Dictionary!")
   }

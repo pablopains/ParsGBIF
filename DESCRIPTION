@@ -31,7 +31,8 @@ Imports:
 	sqldf,
 	DT,	
 	downloader,
-	googlesheets4
+	googlesheets4,
+	tidyselect
 Remotes: 
     github::pablopains/ParsGBIF
 Roxygen: list(markdown = TRUE)

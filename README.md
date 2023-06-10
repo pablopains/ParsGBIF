@@ -283,6 +283,13 @@ collectorDictionary_checked_file
   
  # 12) export_results
 
+  head(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)                      
+  View(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)                      
+
+
+
+
+
 ```
 
 

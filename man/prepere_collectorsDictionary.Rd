@@ -43,14 +43,18 @@ help(prepere_collectorsDictionary)
 occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                     columns = 'standard')
 
-collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ=occ,
+collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ = occ,
                                                                 collectorDictionary_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
 
 colnames(collectorsDictionaryFromDataset)
 head(collectorsDictionaryFromDataset)
 
+collectorDictionary_checked_file <- paste0(tempdir(),'/','collectorsDictionaryFromDataset.csv')
+
+collectorDictionary_checked_file
+
 write.csv(collectorsDictionaryFromDataset,
-          'collectorsDictionaryFromDataset.csv',
+          collectorDictionary_checked_file,
           row.names = FALSE,
           fileEncoding = "UTF-8",
           na = "")
