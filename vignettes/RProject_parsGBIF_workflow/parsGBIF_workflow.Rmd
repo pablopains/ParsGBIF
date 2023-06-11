@@ -1,0 +1,71 @@
+---
+title: "Introduction to ParsGBIF"
+output: rmarkdown::html_vignette
+description: | 
+  ParsGBIF is a package for parsing occurrence records of herbarium specimens based on GBIF issues, Global Biodiversity Information Facility, WCVP names, World Checklist of Vascular Plants and collector information. ParsGBIF provides functions for accessing the taxonomic data held in the WCVP and use this data to verify accepted names and update synonyms. And, to group duplicates, creates a key, consisting of the fields: family + standardized main collector's last name + standardized record number.The package provides functions to extract, from the recordedBy field, the main collector's last name and standardize it to uppercase and with non-ascii characters replaced. It is recommended to manually check the main collector's last name, automatically extracted from the recordedBy field, to ensure the standardization of the main collector's last name, therefore the same person must always be associated with the same last name.In addition to grouping duplicates, it is possible to evaluate divergences between taxonomic identifications and geographic information of duplicates from the same sample. Finally, export the information for use. 
+vignette: >
+  %\VignetteIndexEntry{Introduction to ParsGBIF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+ParsGBIF is a package for parsing occurrence records of herbarium specimens based on GBIF issues [Global Biodiversity Information Facility](https://www.gbif.org/), WCVP names [World Checklist of Vascular Plants](https://powo.science.kew.org//) and collector information. 
+
+### Accessing the WCVP
+
+For the functions in ParsGBIF to work, you need to have access to a copy of the WCVP.
+
+One way to load the WCVP is to install the associated data package, rWCVPdata:
+
+### Isntall ParsGBIF package, if changed since last installation
+```r
+devtools::install_github("pablopains/ParsGBIF")
+```
+
+### Load ParsGBIF package
+```r
+library(ParsGBIF)
+```
+
+### Prepare ParsGBIF workbook
+```r
+  workbook <- prepare_ParsGBIF_workbook(workbook = 'projeto1',
+                                        update = FALSE) # TRUE)
+  workbook
+```
+
+```r
+# install rWCVPdata
+devtools::install_github("matildabrown/rWCVPdata")
+library(rWCVPdata)
+library(dplyr)
+
+# taxonomy data
+wcvp_names <- rWCVPdata::wcvp_names %>%
+  dplyr::mutate(TAXON_NAME_U = toupper(taxon_name),
+                TAXON_AUTHORS_U = toupper(taxon_authors))
+```
+
+```r
+# taxonomy data
+names <- rWCVPdata::wcvp_names
+
+# distribution data
+distributions <- rWCVPdata::wcvp_distributions
+```
+
+If the data package isn't available, or you'd prefer to use a different version of the WCVP, you can provide a local copy of the data to the main functions in this package. For instance, to generate a checklist:
+
+
+```r
+names <- read_csv("/path/to/wcvp_names.csv")
+distributions <- read_csv("/path/to/wcvp_distributions.csv")
+
+checklist <- wcvp_checklist("Acacia",
+  taxon_rank = "genus", area_codes = "CPP",
+  wcvp_names = names, wcvp_distributions = distributions
+)
+```
+
