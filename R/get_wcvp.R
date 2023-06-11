@@ -58,11 +58,11 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
 {
   require(dplyr)
 
-  if(read_only_to_memory==TRUE)
+  if(read_only_to_memory==FALSE)
   {
     # criar pasta para salvar raultados do dataset
     if (!dir.exists(path_results)){dir.create(path_results)}
-    path_results <- paste0(path_results,'/WCVP')
+    path_results <- paste0(path_results,'/WCVP_data')
     if (!dir.exists(path_results)){dir.create(path_results)}
   }else
   {
@@ -75,7 +75,7 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
 
   # update?
 
-  if((!file.exists(destfile)) | update == TRUE | read_only_to_memory == TRUE)
+  if(update == TRUE | read_only_to_memory == TRUE | (!file.exists(destfile)))
   {
     url_d <- paste0(url_source,'/',nomes)
 

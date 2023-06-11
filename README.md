@@ -10,7 +10,7 @@ output: github_document
 [![R-CMD-check](https://github.com/p/ParsGBIF/pablopains/R-CMD-check/badge.svg)](https://github.com/pablopains/ParsGBIF/actions)
 <!-- badges: end -->
 
-ParsGBIF is a package for parsing species occurrence records based on GBIF issues, WCVP names [World Checklist of Vascular Plants](https://powo.science.kew.org//) and collector information 
+ParsGBIF is a package for parsing occurrence records of herbarium specimens based on GBIF issues [Global Biodiversity Information Facility](https://www.gbif.org/), WCVP names [World Checklist of Vascular Plants](https://powo.science.kew.org//) and collector information. ParsGBIF provides functions for accessing the taxonomic data held in the WCVP and use this data to verify accepted names and update synonyms. And, to group duplicates, creates a key, consisting of the fields: family + standardized main collector's last name + standardized record number.The package provides functions to extract, from the recordedBy field, the main collector's last name and standardize it to uppercase and with non-ascii characters replaced. It is recommended to manually check the main collector's last name, automatically extracted from the recordedBy field, to ensure the standardization of the main collector's last name, therefore the same person must always be associated with the same last name.In addition to grouping duplicates, it is possible to evaluate divergences between taxonomic identifications and geographic information of duplicates from the same sample. Finally, export the information for use.
 
 ## Installation
 
@@ -57,6 +57,29 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   
   colnames(wcvp_names)
   head(wcvp_names)
+
+
+  # 1.3) or, rWCVPdata
+  
+  devtools::install_github("matildabrown/rWCVPdata")
+  library(rWCVPdata)
+  library(dplyr)
+
+  # taxonomy data
+  wcvp_names <- rWCVPdata::wcvp_names %>%
+    dplyr::mutate(TAXON_NAME_U = toupper(taxon_name),
+                  TAXON_AUTHORS_U = toupper(taxon_authors))
+  
+  
+  colnames(wcvp_names)
+  head(wcvp_names)
+  
+  # distribution data
+  wcvp_distributions <- rWCVPdata::wcvp_distributions
+
+  colnames(wcvp_distributions)
+  head(wcvp_distributions)
+
 
 
   
