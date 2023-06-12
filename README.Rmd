@@ -26,24 +26,15 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
 
 ```{r example, eval=FALSE}
   library(ParsGBIF)
-  
-  help(get_wcvp)
 
-  path_root <- 'C:/ParsGBIF'
-  wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                                                         read_only_to_memory = FALSE
-                                                         path_results = path_data,
-                                                         update = FALSE,
-                                                         load_distribution = TRUE)
-  head(wcvp$wcvp_names)
-  head(wcvp$wcvp_distribution)
-  
-  wcvp_names <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                                                         read_only_to_memory = TRUE)$wcvp_names
-  
-  head(wcvp_names)
-  
+  help(prepare_gbif_occurrence_data)
 
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                     columns = 'standard')
+
+  colnames(occ)
+ 
+  head(occ)
 ```
 
 
