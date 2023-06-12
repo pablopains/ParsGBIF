@@ -11,6 +11,9 @@ Description: 1. Preparar arquivo de ocorrências para fluxo de trabalho, 2. Veri
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
 Imports: 
 	plyr,
         readxl,
@@ -36,7 +39,5 @@ Imports:
 	utils
 Remotes: 
     github::pablopains/ParsGBIF
-Roxygen: list(markdown = TRUE)
 Depends: 
     R (>= 3.5.0)
-RoxygenNote: 7.2.2

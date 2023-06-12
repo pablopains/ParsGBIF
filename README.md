@@ -160,11 +160,11 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  
  col_sel
  
- # 5) prepere_gbif_occurrence_data()
+ # 5) prepare_gbif_occurrence_data()
 
- help(prepere_gbif_occurrence_data)
+ help(prepare_gbif_occurrence_data)
 
-  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
 
  colnames(occ)
@@ -175,7 +175,7 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  # 6) extract_gbif_issue()  
  help(extract_gbif_issue)
  
- occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+ occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
  
  data(EnumOccurrenceIssue)
@@ -212,13 +212,13 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  get_lastNameRecordedBy('Monro A Melo, P.H.A')
 
  
- # 8) prepere_collectorsDictionary()
- help(prepere_collectorsDictionary)
+ # 8) prepare_collectorsDictionary()
+ help(prepare_collectorsDictionary)
 
-  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
 
-collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ = occ,
+collectorsDictionaryFromDataset <- prepare_collectorsDictionary(occ = occ,
                                                                 collectorDictionary_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
  
  colnames(collectorsDictionaryFromDataset)
@@ -238,7 +238,7 @@ collectorDictionary_checked_file
  
  help(update_collectorsDictionary)
 
-  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
   
   collectorDictionary_checked_file
@@ -265,7 +265,7 @@ collectorDictionary_checked_file
  
   wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 
-  occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
  
  res_checkName_wcvp <- batch_checkName_wcvp(occ = occ,

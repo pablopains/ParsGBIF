@@ -27,7 +27,7 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[batch_checkName_wcvp]{unzip}}, \code{\link[ParsGBIF]{checkName_wcvp}}
+#' @seealso \code{\link[ParsGBIF]{batch_checkName_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 #'
 #' @examples
 #' help(select_digital_voucher_and_sample_identification)
