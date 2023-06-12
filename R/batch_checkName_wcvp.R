@@ -44,7 +44,7 @@
 #'
 #' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 #'
-#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
 #'                                     columns = 'standard')
 #'
 #' res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,

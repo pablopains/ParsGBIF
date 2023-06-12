@@ -1,5 +1,5 @@
-#' @title prepere_collectorsDictionary
-#' @name prepere_collectorsDictionary
+#' @title prepare_collectorsDictionary
+#' @name prepare_collectorsDictionary
 #'
 #' @description Returns the list with the last name of the main collector associated with the unique key recordedBy.
 #'
@@ -31,12 +31,12 @@
 #'          \code{\link[textclean]{replace_non_ascii}
 #'
 #' @examples
-#' help(prepere_collectorsDictionary)
+#' help(prepare_collectorsDictionary)
 #'
-#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
 #'                                     columns = 'standard')
 #'
-#' collectorsDictionaryFromDataset <- prepere_collectorsDictionary(occ = occ,
+#' collectorsDictionaryFromDataset <- prepare_collectorsDictionary(occ = occ,
 #'                                                                 collectorDictionary_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
 #'
 #' colnames(collectorsDictionaryFromDataset)
@@ -52,7 +52,7 @@
 #'           fileEncoding = "UTF-8",
 #'           na = "")
 #' @export
-prepere_collectorsDictionary <- function(occ=NA,
+prepare_collectorsDictionary <- function(occ=NA,
                                        collectorDictionary_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
 {
 

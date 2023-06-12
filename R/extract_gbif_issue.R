@@ -16,14 +16,14 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[ParsGBIF]{prepere_gbif_occurrence_data}}, \code{\link[ParsGBIF]{select_gbif_fields}}
+#' @seealso \code{\link[ParsGBIF]{prepare_gbif_occurrence_data}}, \code{\link[ParsGBIF]{select_gbif_fields}}
 #'
 #' @examples
 #' # extract_gbif_issue()
 #'
 #' help(extract_gbif_issue)
 #'
-#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
 #'                                     columns = 'standard')
 #'
 #' data(EnumOccurrenceIssue)

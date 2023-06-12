@@ -212,7 +212,7 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  get_lastNameRecordedBy('Monro A Melo, P.H.A')
 
  
- # 8) prepere_collectorsDictionary()  
+ # 8) prepere_collectorsDictionary()
  help(prepere_collectorsDictionary)
 
   occ <- prepere_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',

@@ -11,8 +11,11 @@
   #      file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.RData",
   #      ascii = TRUE)
 
+  # install.packages("rcmdcheck")
+  # install.packages("devtools")
 
   library(devtools)
+  library(rcmdcheck)
   setwd("C:\\ParsGBIF - github.com")
 
   # create("ParsGBIF", rstudio = FALSE)
@@ -20,15 +23,9 @@
   devtools::load_all()
   devtools::document()
 
-  help(standardize_scientificName)
-  help(get_wcvp)
-  help(checkName_wcvp)
-  help(prepere_lastNameRecordedBy)
-  help(update_lastNameRecordedBy)
-  help(extract_gbif_issue)
-  help(select_digital_voucher_and_sample_identification)
+  # doc to CRAN
+  # rcmdcheck::rcmdcheck(getwd())
 
-  help(select_gbif_fields)
 
   rm(list = ls())
   devtools::install_github("pablopains/ParsGBIF")

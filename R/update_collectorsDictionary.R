@@ -21,11 +21,11 @@
 #'
 #' @encoding UTF-8
 #'
-#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{prepere_collectorsDictionary}}
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{prepare_collectorsDictionary}}
 #'
 #' @examples
 #'
-#' collectorsDictionaryFromDataset <- prepere_lastNameRecordedBy(occ=occ,
+#' collectorsDictionaryFromDataset <- prepare_lastNameRecordedBy(occ=occ,
 #'                                                               collectorDictionary_checked_file='collectorDictionary_checked.csv')
 #'
 #' @export

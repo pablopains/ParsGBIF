@@ -330,7 +330,7 @@
 #' @author Nadia Bystriakova
 #' @author Alexandre Monro
 #'
-#' @seealso \code{\link[ParsGBIF]{extract_gbif_issue}}, \code{\link[ParsGBIF]{prepere_gbif_occurrence_data}}
+#' @seealso \code{\link[ParsGBIF]{extract_gbif_issue}}, \code{\link[ParsGBIF]{prepare_gbif_occurrence_data}}
 #'
 #' @examples
 #' # select_gbif_fields()

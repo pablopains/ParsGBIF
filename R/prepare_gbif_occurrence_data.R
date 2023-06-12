@@ -1,5 +1,5 @@
-#' @title prepere_gbif_occurrence_data
-#' @name prepere_gbif_occurrence_data
+#' @title prepare_gbif_occurrence_data
+#' @name prepare_gbif_occurrence_data
 #'
 #' @description Prepare occurrence data from GBIF to use in package
 #'
@@ -21,18 +21,18 @@
 #' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{extract_gbif_issue}}
 #'
 #' @examples
-#' # prepere_gbif_occurrence_data()
+#' # prepare_gbif_occurrence_data()
 #'
-#' help(prepere_gbif_occurrence_data)
+#' help(prepare_gbif_occurrence_data)
 #'
-#' occ <- prepere_gbif_occurrence_data(gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
 #'                                     columns = 'standard')
 #'
 #' colnames(occ)
 #'
 #' head(occ)
 #' @export
-prepere_gbif_occurrence_data <- function(occ = NA,
+prepare_gbif_occurrence_data <- function(occ = NA,
                                          gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                          columns = 'standard')
 {
