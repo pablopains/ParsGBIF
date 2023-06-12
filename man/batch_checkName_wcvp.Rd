@@ -73,8 +73,6 @@ head(res_batch_checkName_wcvp$wcvpOccurrence)
 }
 \author{
 Pablo Hendrigo Alves de Melo
-
 Nadia Bystriakova
-
 Alexandre Monro
 }

@@ -31,8 +31,8 @@
 #' summary
 #'
 #' @author Pablo Hendrigo Alves de Melo
-#' @author Nadia Bystriakova
-#' @author Alexandre Monro
+#'         Nadia Bystriakova
+#'         Alexandre Monro
 #'
 #' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 #'
