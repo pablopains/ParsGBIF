@@ -1,20 +1,20 @@
 Package: ParsGBIF
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: : c(person("Pablo", "Melo", email = "pablopains@yahoo.com.br", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3004-2984")),
+Title: An R package for parsing species occurrence records
+Version: 1.0.0.0
+Date: 2023-06-04
+Authors@R: c(person("Pablo", "Melo", email = "pablopains@yahoo.com.br", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-3004-2984")),
 	    person("Nadia", "Bystriakova", email = "n_bystriakova@yahoo.com", role = c("aut"), comment = c(ORCID = "0000-0002-6909-5533")),
 	    person("Alexandre", "Monro", email = "a.monro@kew.org", role = c("aut"), comment = c(ORCID = "0000-0003-4013-3804")))
 Maintainer: Pablo Melo <pablopains@yahoo.com.br>
-Date: 2023-06-13
-Description: 
-    ParsGBIF package is designed to convert GBIF species occurrence data 
-to a more comprehensible format to be used for further analysis, e.g. spatial. 
-    The package provides tools for verifying and standardizing species scientific names, 
-and for selecting the most informative species records when duplicates are available. 
+Description: ParsGBIF package is designed to convert GBIF species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. 
+    The package provides tools for verifying and standardizing species scientific names and for selecting the most informative species records when duplicates are available. 
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
 Imports: 
 	plyr,
   readxl,
@@ -42,7 +42,5 @@ Remotes:
     github::pablopains/ParsGBIF
 Depends: 
     R (>= 3.5.0)
-    LazyDataCompression: xz
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
-
+Suggests: 
+    covr

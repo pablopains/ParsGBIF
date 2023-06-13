@@ -1,3 +1,0 @@
-library(roxygen2); # Read in the roxygen2 R package
-setwd('C:/ParsGBIF - github.com/ParsGBIF')
-roxygenise();      # Builds the help files
