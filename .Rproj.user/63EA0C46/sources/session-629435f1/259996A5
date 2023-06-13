@@ -1,26 +1,26 @@
 {
-    "id": "CC700FDD",
-    "path": "C:/ParsGBIF - github.com/R/update_collectorsDictionary.R",
-    "project_path": "R/update_collectorsDictionary.R",
+    "id": "259996A5",
+    "path": "C:/ParsGBIF - github.com/R/select_gbif_fields.R",
+    "project_path": "R/select_gbif_fields.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1686664452790.0,
+    "created": 1686664383193.0,
     "source_on_save": false,
-    "relative_order": 11,
+    "relative_order": 9,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "13,18",
-        "scrollLine": "6"
+        "cursorPosition": "331,0",
+        "scrollLine": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 1686664469,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1686664469772,
+    "last_content_update": 1686664469581,
     "read_only": false,
     "read_only_alternatives": []
 }
