@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/p/ParsGBIF/pablopains/R-CMD-check/badge.svg)](https://github.com/pablopains/ParsGBIF/actions)
 <!-- badges: end -->
 
-ParsGBIF is a package for parsing species occurrence records based on GBIF issues, WCVP names [World Checklist of Vascular Plants](https://powo.science.kew.org//) and collector information 
+ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
 ## Installation
 
@@ -29,6 +29,9 @@ You can install the development version of ParsGBIF from [GitHub](https://github
 # install.packages("remotes")
 devtools::install_github("pablopains/ParsGBIF")
 ```
+
+### Obtaining occurrence data in GBIF
+
 
 ## Example
 
@@ -46,5 +49,4 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
  
   head(occ)
 ```
-
 

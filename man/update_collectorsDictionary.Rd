@@ -43,8 +43,6 @@ collectorsDictionaryFromDataset <- prepare_lastNameRecordedBy(occ=occ,
 }
 \author{
 Pablo Hendrigo Alves de Melo
-
 Nadia Bystriakova
-
 Alexandre Monro
 }
