@@ -1,11 +1,13 @@
-#' @title checkName_wcvp
 #' @name checkName_wcvp
 #'
-#' @description Use the World Checklist of Vascular Plants (WCVP) database to
-#'   check accepted names and update synonyms
+#' @title Use the World Checklist of Vascular Plants (WCVP) database to check accepted names and update synonyms
+#'
+#' @description Use the [World Checklist of Vascular Plants](https://powo.science.kew.org//)
+#' [database](http://sftp.kew.org/pub/data-repositories/WCVP/)
+#' [(about WCVP)](https://powo.science.kew.org/about-wcvp) to check accepted names and update synonyms.
 #'
 #' @param searchedName scientific name, with or without author
-#' @param wcvp_names WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/
+#' @param wcvp_names WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get_wcvp(read_only_to_memory = TRUE)$wcvp_names.
 #' @param if_author_fails_try_without_combinations option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses
 #'
 #' @details About the World Checklist of Vascular Plants https://powo.science.kew.org/about-wcvp
@@ -27,22 +29,6 @@
 #' When value equal to 100 – when there is matched match between authorless scientific name in TAXON_name and author in TAXON_AUTHORS.
 #' When value equal to 50 – when there is combined correspondence between authorless scientific name in TAXON_name and author, without (combination), in TAXON_AUTHORS.
 #' When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON_name, author is not present in TAXON_AUTHORS.
-#' @return
-#'   wcvp_plant_name_id,
-#'   wcvp_taxon_rank,
-#'   wcvp_taxon_status,
-#'   wcvp_family,
-#'   wcvp_taxon_name,
-#'   wcvp_taxon_authors,
-#'   wcvp_accepted_plant_name_id,
-#'   wcvp_reviewed,
-#'   wcvp_searchedName,
-#'   wcvp_taxon_status_of_searchedName,
-#'   wcvp_plant_name_id_of_searchedName,
-#'   wcvp_taxon_authors_of_searchedName,
-#'   wcvp_verified_author,
-#'   wcvp_verified_speciesName,
-#'   wcvp_searchNotes
 #'
 #' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
@@ -50,7 +36,15 @@
 #'
 #' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 #'
+#' @return Data frame with WCVP fields
+#'
+#' @importFrom rlang .data
+#' @import dplyr
+#' @import stringr
+#'
 #' @examples
+#' # These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+#' \donttest{
 #' # load package
 #' library(ParsGBIF)
 #'
@@ -102,9 +96,10 @@
 #' checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
+#' }
 #' @export
 checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
-                              wcvp_names =  wcvp_names,
+                              wcvp_names =  NA,
                               if_author_fails_try_without_combinations = TRUE)
 {
   # https://powo.science.kew.org/about-wcvp#unplacednames
@@ -113,6 +108,12 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
   # require(plyr)
 
   require(stringr)
+
+  if(any(is.na(wcvp_names))==TRUE)
+  {
+    wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+  }
+
   x <- {}
   sp_wcvp <- standardize_scientificName(searchedName)
 

@@ -2,23 +2,23 @@
 % Please edit documentation in R/batch_checkName_wcvp.R
 \name{batch_checkName_wcvp}
 \alias{batch_checkName_wcvp}
-\title{batch_checkName_wcvp}
+\title{In batch, use the WCVP database to check accepted names and update synonyms.}
 \usage{
 batch_checkName_wcvp(
   occ = NA,
-  wcvp_names = wcvp_names,
+  wcvp_names = NA,
   if_author_fails_try_without_combinations = TRUE,
   wcvp_selected_fields = "standard"
 )
 }
 \arguments{
-\item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')}
+\item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard').}
 
-\item{wcvp_names}{WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/}
+\item{wcvp_names}{WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get_wcvp(read_only_to_memory = TRUE)$wcvp_names.}
 
-\item{if_author_fails_try_without_combinations}{option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses}
+\item{if_author_fails_try_without_combinations}{option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.}
 
-\item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns}
+\item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.}
 }
 \value{
 occ_checkName_wcvp:
@@ -40,8 +40,9 @@ wcvp_searchNotes
 summary
 }
 \description{
-Use the World Checklist of Vascular Plants (WCVP) database
-to check accepted names and update synonyms, in batch
+In batch, use the \href{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
+\href{http://sftp.kew.org/pub/data-repositories/WCVP/}{database}
+\href{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms.
 }
 \details{
 See help(checkName_wcvp) and https://powo.science.kew.org/about-wcvp

@@ -2,41 +2,28 @@
 % Please edit documentation in R/checkName_wcvp.R
 \name{checkName_wcvp}
 \alias{checkName_wcvp}
-\title{checkName_wcvp}
+\title{Use the World Checklist of Vascular Plants (WCVP) database to check accepted names and update synonyms}
 \usage{
 checkName_wcvp(
   searchedName = "Hemistylus brasiliensis Wedd.",
-  wcvp_names = wcvp_names,
+  wcvp_names = NA,
   if_author_fails_try_without_combinations = TRUE
 )
 }
 \arguments{
 \item{searchedName}{scientific name, with or without author}
 
-\item{wcvp_names}{WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/}
+\item{wcvp_names}{WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get_wcvp(read_only_to_memory = TRUE)$wcvp_names.}
 
 \item{if_author_fails_try_without_combinations}{option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses}
 }
 \value{
-wcvp_plant_name_id,
-wcvp_taxon_rank,
-wcvp_taxon_status,
-wcvp_family,
-wcvp_taxon_name,
-wcvp_taxon_authors,
-wcvp_accepted_plant_name_id,
-wcvp_reviewed,
-wcvp_searchedName,
-wcvp_taxon_status_of_searchedName,
-wcvp_plant_name_id_of_searchedName,
-wcvp_taxon_authors_of_searchedName,
-wcvp_verified_author,
-wcvp_verified_speciesName,
-wcvp_searchNotes
+Data frame with WCVP fields
 }
 \description{
-Use the World Checklist of Vascular Plants (WCVP) database to
-check accepted names and update synonyms
+Use the \href{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
+\href{http://sftp.kew.org/pub/data-repositories/WCVP/}{database}
+\href{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms.
 }
 \details{
 About the World Checklist of Vascular Plants https://powo.science.kew.org/about-wcvp
@@ -60,6 +47,8 @@ When value equal to 50 – when there is combined correspondence between authorl
 When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON_name, author is not present in TAXON_AUTHORS.
 }
 \examples{
+# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+\donttest{
 # load package
 library(ParsGBIF)
 
@@ -111,6 +100,7 @@ checkName_wcvp(searchedName = 'Laportea peltata Gaudich. & Decne.',
 checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
                wcvp_names = wcvp_names,
                if_author_fails_try_without_combinations = TRUE)
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}

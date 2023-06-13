@@ -1,13 +1,15 @@
-#' @title batch_checkName_wcvp
 #' @name batch_checkName_wcvp
 #'
-#' @description Use the World Checklist of Vascular Plants (WCVP) database
-#'     to check accepted names and update synonyms, in batch
+#' @title In batch, use the WCVP database to check accepted names and update synonyms.
 #'
-#' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
-#' @param wcvp_names WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/
-#' @param if_author_fails_try_without_combinations option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses
-#' @param wcvp_selected_fields WCVP fields selected as return, 'standard' basic columns, 'all' all available columns
+#' @description In batch, use the [World Checklist of Vascular Plants](https://powo.science.kew.org//)
+#' [database](http://sftp.kew.org/pub/data-repositories/WCVP/)
+#' [(about WCVP)](https://powo.science.kew.org/about-wcvp) to check accepted names and update synonyms.
+#'
+#' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard').
+#' @param wcvp_names WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get_wcvp(read_only_to_memory = TRUE)$wcvp_names.
+#' @param if_author_fails_try_without_combinations option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.
+#' @param wcvp_selected_fields WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.
 #'
 #' @details See help(checkName_wcvp) and https://powo.science.kew.org/about-wcvp
 #'
@@ -59,15 +61,20 @@
 #' head(res_batch_checkName_wcvp$wcvpOccurrence)
 #' @export
 batch_checkName_wcvp <- function(occ = NA,
-                                 wcvp_names =  wcvp_names,
+                                 wcvp_names = NA,
                                  if_author_fails_try_without_combinations = TRUE,
                                  wcvp_selected_fields = 'standard')
 {
   # https://powo.science.kew.org/about-wcvp
 
-  require(dplry)
+  require(dplyr)
   require(stringr)
   require(tidyselect)
+
+  if(any(is.na(wcvp_names))==TRUE)
+  {
+    wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+  }
 
   if(!wcvp_selected_fields %in% c('standard','all'))
   {
@@ -160,7 +167,6 @@ batch_checkName_wcvp <- function(occ = NA,
                           wcvp_verified_speciesName = NA,
                           wcvp_searchNotes = NA)
   }
-
 
   index <- occ$Ctrl_taxonRank %>% toupper() %in%
     toupper(c('SPECIES',
