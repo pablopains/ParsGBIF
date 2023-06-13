@@ -21,23 +21,7 @@ batch_checkName_wcvp(
 \item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.}
 }
 \value{
-occ_checkName_wcvp:
-wcvp_plant_name_id,
-wcvp_taxon_rank,
-wcvp_taxon_status,
-wcvp_family,
-wcvp_taxon_name,
-wcvp_taxon_authors,
-wcvp_accepted_plant_name_id,
-wcvp_reviewed,
-wcvp_searchedName,
-wcvp_taxon_status_of_searchedName,
-wcvp_plant_name_id_of_searchedName,
-wcvp_taxon_authors_of_searchedName,
-wcvp_verified_author,
-wcvp_verified_speciesName,
-wcvp_searchNotes
-summary
+Data frame with WCVP fields
 }
 \description{
 In batch, use the \href{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
@@ -45,9 +29,15 @@ In batch, use the \href{https://powo.science.kew.org//}{World Checklist of Vascu
 \href{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms.
 }
 \details{
-See help(checkName_wcvp) and https://powo.science.kew.org/about-wcvp
+See help(checkName_wcvp) and \href{http://sftp.kew.org/pub/data-repositories/WCVP/}{about WCVP database}
+
+#' @author Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
+Alexandre Monro
 }
 \examples{
+# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+\donttest{
 # load package
 library(ParsGBIF)
 
@@ -69,11 +59,7 @@ head(res_batch_checkName_wcvp$wcvpSummary)
 
 head(res_batch_checkName_wcvp$wcvpOccurrence)
 }
+}
 \seealso{
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
-}
-\author{
-Pablo Hendrigo Alves de Melo,
-Nadia Bystriakova &
-Alexandre Monro
 }

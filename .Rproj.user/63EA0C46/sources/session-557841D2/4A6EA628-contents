@@ -11,34 +11,23 @@
 #' @param if_author_fails_try_without_combinations option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.
 #' @param wcvp_selected_fields WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.
 #'
-#' @details See help(checkName_wcvp) and https://powo.science.kew.org/about-wcvp
+#' @details See help(checkName_wcvp) and [about WCVP database](http://sftp.kew.org/pub/data-repositories/WCVP/)
 #'
-#' @return
-#' occ_checkName_wcvp:
-#'   wcvp_plant_name_id,
-#'   wcvp_taxon_rank,
-#'   wcvp_taxon_status,
-#'   wcvp_family,
-#'   wcvp_taxon_name,
-#'   wcvp_taxon_authors,
-#'   wcvp_accepted_plant_name_id,
-#'   wcvp_reviewed,
-#'   wcvp_searchedName,
-#'   wcvp_taxon_status_of_searchedName,
-#'   wcvp_plant_name_id_of_searchedName,
-#'   wcvp_taxon_authors_of_searchedName,
-#'   wcvp_verified_author,
-#'   wcvp_verified_speciesName,
-#'   wcvp_searchNotes
-#' summary
-#'
-#' @author Pablo Hendrigo Alves de Melo,
+#'#' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
 #'         Alexandre Monro
 #'
 #' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 #'
+#' @return Data frame with WCVP fields
+#'
+#' @importFrom rlang .data
+#' @import dplyr
+#' @import stringr
+#'
 #' @examples
+#' # These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+#' \donttest{
 #' # load package
 #' library(ParsGBIF)
 #'
@@ -59,6 +48,7 @@
 #' head(res_batch_checkName_wcvp$wcvpSummary)
 #'
 #' head(res_batch_checkName_wcvp$wcvpOccurrence)
+#' }
 #' @export
 batch_checkName_wcvp <- function(occ = NA,
                                  wcvp_names = NA,
