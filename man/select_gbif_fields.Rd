@@ -347,9 +347,7 @@ col_sel <- select_gbif_fields(columns = 'standard')
 \code{\link[ParsGBIF]{extract_gbif_issue}}, \code{\link[ParsGBIF]{prepare_gbif_occurrence_data}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-
-Nadia Bystriakova
-
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

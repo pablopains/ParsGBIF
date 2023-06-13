@@ -72,7 +72,7 @@ head(res_batch_checkName_wcvp$wcvpOccurrence)
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-Nadia Bystriakova
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

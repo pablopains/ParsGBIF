@@ -64,9 +64,7 @@ write.csv(collectorsDictionaryFromDataset,
 \code{\link[textclean]{replace_non_ascii}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-
-Nadia Bystriakova
-
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

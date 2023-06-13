@@ -61,9 +61,7 @@ colnames(wcvp$wcvp_distribution)
 \code{\link[ParsGBIF]{checkName_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-
-Nadia Bystriakova
-
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

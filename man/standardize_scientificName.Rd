@@ -44,9 +44,7 @@ standardize_scientificName('Centaurea ×aemiliae Font Quer')
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-
-Nadia Bystriakova
-
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

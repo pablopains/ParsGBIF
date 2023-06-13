@@ -63,12 +63,10 @@ head(res_digital_voucher_and_sample_identification$occ_join_results)
 colnames(res_digital_voucher_and_sample_identification$occ_join_results)
 }
 \seealso{
-\code{\link[ParsGBIF]{batch_checkName_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
+\code{\link[ParsGBIF]{batch_checkName_wcvp}}, \code{\link[ParsGBIF]{extract_gbif_issue}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-
-Nadia Bystriakova
-
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

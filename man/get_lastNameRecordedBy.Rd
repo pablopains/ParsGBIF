@@ -29,9 +29,7 @@ get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
 \code{\link[ParsGBIF]{prepare_lastNameRecordedBy}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-
-Nadia Bystriakova
-
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }

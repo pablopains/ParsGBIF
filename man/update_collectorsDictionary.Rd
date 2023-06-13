@@ -42,7 +42,7 @@ collectorsDictionaryFromDataset <- prepare_lastNameRecordedBy(occ=occ,
 \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{prepare_collectorsDictionary}}
 }
 \author{
-Pablo Hendrigo Alves de Melo
-Nadia Bystriakova
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
 Alexandre Monro
 }
