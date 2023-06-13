@@ -2,7 +2,7 @@
 #' @name batch_checkName_wcvp
 #'
 #' @description Use the World Checklist of Vascular Plants (WCVP) database
-#' to check accepted names and update synonyms, in batch
+#'     to check accepted names and update synonyms, in batch
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param wcvp_names WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/
