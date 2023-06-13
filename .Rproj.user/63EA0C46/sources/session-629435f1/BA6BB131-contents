@@ -17,11 +17,13 @@
 #' @seealso \code{\link[ParsGBIF]{prepare_lastNameRecordedBy}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
 #'
 #' @examples
+#' \donttest{
 #' help(get_lastNameRecordedBy)
 #'
 #' get_lastNameRecordedBy('Melo, P.H.A & Monro, A.')
 #'
 #' get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
+#' }
 #' @export
 get_lastNameRecordedBy <- function(x)
 {

@@ -31,6 +31,7 @@
 #'          \code{\link[textclean]{replace_non_ascii}
 #'
 #' @examples
+#' \donttest{
 #' help(prepare_collectorsDictionary)
 #'
 #' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
@@ -51,6 +52,7 @@
 #'           row.names = FALSE,
 #'           fileEncoding = "UTF-8",
 #'           na = "")
+#'}
 #' @export
 prepare_collectorsDictionary <- function(occ=NA,
                                        collectorDictionary_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')

@@ -19,6 +19,7 @@
 #' @seealso \code{\link[ParsGBIF]{prepare_gbif_occurrence_data}}, \code{\link[ParsGBIF]{select_gbif_fields}}
 #'
 #' @examples
+#' \donttest{
 #' # extract_gbif_issue()
 #'
 #' help(extract_gbif_issue)
@@ -40,6 +41,7 @@
 #' colnames(occ_gbif_issue$issueGBIFOccurrence)
 #' head(occ_gbif_issue$issueGBIFOccurrence)
 #' colnames(occ_gbif_issue$issueGBIFOccurrence)
+#' }
 #' @export
 extract_gbif_issue <- function(occ = NA,
                                enumOccurrenceIssue = NA)

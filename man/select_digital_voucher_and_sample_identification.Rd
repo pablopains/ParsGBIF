@@ -42,6 +42,7 @@ To select sample taxonomic identification: 1) If the key for grouping duplicates
 Or, 2) If the key for grouping duplicates is incomplete: select TAXON_NAME, if accepted and identified up to or below the specified level. If there is no identification, at or below the specific level, for the sample: Indicate as unidentified sample.
 }
 \examples{
+\donttest{
 help(select_digital_voucher_and_sample_identification)
 
 head(occ)
@@ -61,6 +62,7 @@ colnames(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_s
 
 head(res_digital_voucher_and_sample_identification$occ_join_results)
 colnames(res_digital_voucher_and_sample_identification$occ_join_results)
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{batch_checkName_wcvp}}, \code{\link[ParsGBIF]{extract_gbif_issue}}

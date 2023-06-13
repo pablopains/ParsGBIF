@@ -22,6 +22,7 @@ Extract gbif issue
 https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
 }
 \examples{
+\donttest{
 # extract_gbif_issue()
 
 help(extract_gbif_issue)
@@ -43,6 +44,7 @@ head(occ_gbif_issue$issueGBIFSummary)
 colnames(occ_gbif_issue$issueGBIFOccurrence)
 head(occ_gbif_issue$issueGBIFOccurrence)
 colnames(occ_gbif_issue$issueGBIFOccurrence)
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{prepare_gbif_occurrence_data}}, \code{\link[ParsGBIF]{select_gbif_fields}}

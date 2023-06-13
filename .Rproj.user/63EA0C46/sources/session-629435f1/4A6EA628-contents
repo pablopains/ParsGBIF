@@ -24,6 +24,7 @@
 #' @importFrom rlang .data
 #' @import dplyr
 #' @import stringr
+#' @import tidyselect
 #'
 #' @examples
 #' # These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'

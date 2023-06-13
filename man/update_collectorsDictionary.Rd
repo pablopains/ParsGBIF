@@ -33,9 +33,10 @@ Create a key to group duplicates in the key_family_recordedBy_recordNumber field
 ....
 }
 \examples{
-
+\donttest{
 collectorsDictionaryFromDataset <- prepare_lastNameRecordedBy(occ=occ,
                                                               collectorDictionary_checked_file='collectorDictionary_checked.csv')
+}
 
 }
 \seealso{

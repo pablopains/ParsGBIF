@@ -23,6 +23,7 @@
 #' @seealso \code{\link[ParsGBIF]{checkName_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}
 #'
 #' @examples
+#' \donttest{
 #' # load package
 #' library(ParsGBIF)
 #'
@@ -44,6 +45,7 @@
 #'
 #' head(wcvp$wcvp_distribution)
 #' colnames(wcvp$wcvp_distribution)
+#' }
 #' @export
 get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
                      read_only_to_memory = FALSE,

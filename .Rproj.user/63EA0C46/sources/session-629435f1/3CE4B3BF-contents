@@ -30,6 +30,7 @@
 #' @seealso \code{\link[ParsGBIF]{batch_checkName_wcvp}}, \code{\link[ParsGBIF]{extract_gbif_issue}}
 #'
 #' @examples
+#' \donttest{
 #' help(select_digital_voucher_and_sample_identification)
 #'
 #' head(occ)
@@ -51,6 +52,7 @@
 #'
 #' head(res_digital_voucher_and_sample_identification$occ_join_results)
 #' colnames(res_digital_voucher_and_sample_identification$occ_join_results)
+#' }
 #' @export
 select_digital_voucher_and_sample_identification <-  function(occ = NA,
                                                               occ_gbif_issue = NA,

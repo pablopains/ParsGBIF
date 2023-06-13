@@ -24,9 +24,10 @@
 #' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{prepare_collectorsDictionary}}
 #'
 #' @examples
-#'
+#' \donttest{
 #' collectorsDictionaryFromDataset <- prepare_lastNameRecordedBy(occ=occ,
 #'                                                               collectorDictionary_checked_file='collectorDictionary_checked.csv')
+#'}
 #'
 #' @export
 update_collectorsDictionary <- function(occ=NA,

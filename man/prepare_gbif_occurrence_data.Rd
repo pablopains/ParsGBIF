@@ -30,6 +30,7 @@ Select the data fields to be used.
 Add "Ctrl_" at the beginning of each field name
 }
 \examples{
+\donttest{
 # prepare_gbif_occurrence_data()
 
 help(prepare_gbif_occurrence_data)
@@ -40,6 +41,7 @@ occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = 'https://raw.githubuse
 colnames(occ)
 
 head(occ)
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{extract_gbif_issue}}

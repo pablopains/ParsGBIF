@@ -104,9 +104,7 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
 {
   # https://powo.science.kew.org/about-wcvp#unplacednames
 
-  # require(dplry)
-  # require(plyr)
-
+  require(dplry)
   require(stringr)
 
   if(any(is.na(wcvp_names))==TRUE)

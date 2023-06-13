@@ -334,6 +334,7 @@ c(
 'iucnRedListCategory')
 }
 \examples{
+\donttest{
 # select_gbif_fields()
 
 help(select_gbif_fields)
@@ -341,6 +342,7 @@ help(select_gbif_fields)
 col_sel <- select_gbif_fields(columns = 'all')
 
 col_sel <- select_gbif_fields(columns = 'standard')
+}
 
 }
 \seealso{

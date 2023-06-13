@@ -35,6 +35,7 @@ Download World Checklist of Vascular Plants (WCVP) database
 http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure File Transfer Protocol) site of the Royal Botanic Gardens, Kew. This space contains data resources publicly accessible to the user `anonymous'.  No password required for access. Use of data made available via this site may be subject to legal and licensing restrictions. The README in the top-level directory for each data resource provides specific information about its terms of use.
 }
 \examples{
+\donttest{
 # load package
 library(ParsGBIF)
 
@@ -56,6 +57,7 @@ colnames(wcvp$wcvp_names)
 
 head(wcvp$wcvp_distribution)
 colnames(wcvp$wcvp_distribution)
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{checkName_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}

@@ -38,6 +38,7 @@ The objective is to standardize the last name of the main collector.
 That the primary botanical collector of a sample is always recognized by the same last name, standardized in capital letters and non-ascii characters replaced
 }
 \examples{
+\donttest{
 help(prepare_collectorsDictionary)
 
 occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
@@ -58,6 +59,7 @@ write.csv(collectorsDictionaryFromDataset,
           row.names = FALSE,
           fileEncoding = "UTF-8",
           na = "")
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}},

@@ -21,6 +21,7 @@
 #' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{extract_gbif_issue}}
 #'
 #' @examples
+#' \donttest{
 #' # prepare_gbif_occurrence_data()
 #'
 #' help(prepare_gbif_occurrence_data)
@@ -31,6 +32,7 @@
 #' colnames(occ)
 #'
 #' head(occ)
+#' }
 #' @export
 prepare_gbif_occurrence_data <- function(occ = NA,
                                          gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',

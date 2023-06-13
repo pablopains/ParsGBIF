@@ -31,6 +31,7 @@ FORM to f.,
 hybrid separator separate x from the specific epithet.
 }
 \examples{
+\donttest{
 # standardize_scientificName()
 
 help(standardize_scientificName)
@@ -38,6 +39,7 @@ help(standardize_scientificName)
 standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
 standardize_scientificName('Alomia angustata (Gardner) Benth. ex Baker')
 standardize_scientificName('Centaurea ×aemiliae Font Quer')
+}
 
 }
 \seealso{

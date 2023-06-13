@@ -19,11 +19,13 @@ Returns the last name of the main collector
 Returns the last name of the main collector in recordedBy field
 }
 \examples{
+\donttest{
 help(get_lastNameRecordedBy)
 
 get_lastNameRecordedBy('Melo, P.H.A & Monro, A.')
 
 get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
+}
 }
 \seealso{
 \code{\link[ParsGBIF]{prepare_lastNameRecordedBy}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
