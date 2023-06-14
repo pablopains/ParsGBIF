@@ -5,18 +5,19 @@
 \title{prepare_gbif_occurrence_data}
 \usage{
 prepare_gbif_occurrence_data(
-  occ = NA,
   gbif_occurrece_file =
     "https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt",
   columns = "standard"
 )
 }
 \arguments{
-\item{occ}{GBIF occurrence table}
+\item{gbif_occurrece_file}{the name of the file which the data are to be read from.
+Either a path to a file, a connection, or literal data (either a single string or a raw vector)}
 
-\item{gbif_occurrece_file}{if occ is NA, load original occurrence file from gbif}
-
-\item{columns}{'standard' basic columns about what, when, where, and who collected, 'all' all available columns or list column names. See select_gbif_fields() function}
+\item{columns}{'standard' by default. See select_gbif_fields() function.
+*'standard' basic columns about what, when, where, and who collected,
+*'all' all available columns
+*or list column names}
 }
 \value{
 data.frame with fields selected by the select_gbif_fields function and with "Ctrl_" at the beginning of each field name
@@ -35,7 +36,8 @@ Add "Ctrl_" at the beginning of each field name
 
 help(prepare_gbif_occurrence_data)
 
-occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =
+'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                     columns = 'standard')
 
 colnames(occ)

@@ -27,15 +27,33 @@ You can install the development version of ParsGBIF from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
 devtools::install_github("pablopains/ParsGBIF")
 ```
 
-### Obtaining occurrence data in GBIF
-
 ## Example
 
-ParsGBIF makes it easy to get species occurrence records based on GBIF.
+**ParsGBIF makes it easy to get species occurrence records based on
+GBIF.**
+
+### Obtaining occurrence data of the herbarium specimen in GBIF
+
+1.  Access a registered account in [GBIF](gbif.org)
+
+2.  Filter occurrences with the following parameters:
+
+- Basis of record: *Preserved specimen*
+- Occurrence status: *present*
+- Scientific name: *Botanical family name* or **filter by other fields**
+
+3.  Request to download information in **DARWIN CORE ARCHIVE FORMAT**
+
+4.  Download compressed file and unzip downloaded file
+
+5.  Use the **occurrence.txt** file as input to the
+    prepare_gbif_occurrence_data(gbif_occurrece_file = ‘occurrence.txt’)
+    function
+
+### Prepare occurrence data from GBIF to use in ParsGBIF package
 
 ``` r
   library(ParsGBIF)
