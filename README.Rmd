@@ -2,6 +2,8 @@
 output: github_document
 editor_options: 
   chunk_output_type: console
+html_document:
+  df_print: paged
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -23,29 +25,45 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
+ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) plant specimen occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
 ## Installation
 
 You can install the development version of ParsGBIF from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("remotes")
 devtools::install_github("pablopains/ParsGBIF")
 ```
 
-### Obtaining occurrence data in GBIF
-
 ## Example
 
-ParsGBIF makes it easy to get species occurrence records based on GBIF.
+__ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 
-```{r example, eval=TRUE}
+### Obtaining occurrence data of the herbarium specimen in GBIF
+
+  1. Access a registered account in [GBIF](gbif.org) 
+  
+  2. Filter occurrences with the following parameters:
+  * Basis of record: _Preserved specimen_
+  * Occurrence status: _present_
+  * Scientific name: _Botanical family name_ or __filter by other fields__
+
+  3. Request to download information in __DARWIN CORE ARCHIVE FORMAT__
+  
+  4. Download compressed file and unzip downloaded file
+  
+  5. Use the __occurrence.txt__ file as input to the prepare_gbif_occurrence_data(gbif_occurrece_file = 'occurrence.txt') function
+  
+### Prepare occurrence data from GBIF to use in ParsGBIF package 
+
+```{r example, eval=TRUE, message=FALSE, warning=FALSE}
   library(ParsGBIF)
 
   help(prepare_gbif_occurrence_data)
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                      columns = 'standard')
 
   colnames(occ)
