@@ -87,12 +87,10 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 
  names(occ_gbif_issue)
 
- head(occ_gbif_issue$issueGBIFSummary)
+ head(occ_gbif_issue$summary)
 
- colnames(occ_gbif_issue$issueGBIFOccurrence)
+ colnames(occ_gbif_issue$occ_gbif_issue)
  
- head(occ_gbif_issue$issueGBIFOccurrence)
- 
- colnames(occ_gbif_issue$issueGBIFOccurrence)
+ head(occ_gbif_issue$occ_gbif_issue)
 
 ```

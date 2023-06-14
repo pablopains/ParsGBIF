@@ -34,18 +34,20 @@ occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                     columns = 'standard')
 
 data(EnumOccurrenceIssue)
-head(EnumOccurrenceIssue)
+
 colnames(EnumOccurrenceIssue)
+
+head(EnumOccurrenceIssue)
 
 occ_gbif_issue <- extract_gbif_issue(occ = occ)
 
 names(occ_gbif_issue)
 
-head(occ_gbif_issue$issueGBIFSummary)
+head(occ_gbif_issue$summary)
 
-colnames(occ_gbif_issue$issueGBIFOccurrence)
-head(occ_gbif_issue$issueGBIFOccurrence)
-colnames(occ_gbif_issue$issueGBIFOccurrence)
+colnames(occ_gbif_issue$occ_gbif_issue)
+
+head(occ_gbif_issue$occ_gbif_issue)
 }
 }
 \seealso{
