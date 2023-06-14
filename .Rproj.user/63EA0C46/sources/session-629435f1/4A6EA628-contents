@@ -1,6 +1,6 @@
-#' @name batch_checkName_wcvp
-#'
 #' @title In batch, use the WCVP database to check accepted names and update synonyms.
+#'
+#' @name batch_checkName_wcvp
 #'
 #' @description In batch, use the [World Checklist of Vascular Plants](https://powo.science.kew.org//)
 #' [database](http://sftp.kew.org/pub/data-repositories/WCVP/)
@@ -21,10 +21,11 @@
 #'
 #' @return Data frame with WCVP fields
 #'
-#' @importFrom rlang .data
 #' @import dplyr
 #' @import stringr
 #' @import tidyselect
+#'
+#' @importFrom dplyr mutate
 #'
 #' @examples
 #' # These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'

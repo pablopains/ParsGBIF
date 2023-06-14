@@ -1,4 +1,5 @@
 #' @title extract_gbif_issue
+#'
 #' @name extract_gbif_issue
 #'
 #' @description Extract gbif issue

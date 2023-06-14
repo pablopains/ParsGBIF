@@ -1,6 +1,6 @@
-#' @name checkName_wcvp
-#'
 #' @title Use the World Checklist of Vascular Plants (WCVP) database to check accepted names and update synonyms
+#'
+#' @name checkName_wcvp
 #'
 #' @description Use the [World Checklist of Vascular Plants](https://powo.science.kew.org//)
 #' [database](http://sftp.kew.org/pub/data-repositories/WCVP/)
@@ -38,7 +38,6 @@
 #'
 #' @return Data frame with WCVP fields
 #'
-#' @importFrom rlang .data
 #' @import dplyr
 #' @import stringr
 #'

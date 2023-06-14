@@ -1,0 +1,33 @@
+{
+    "id": "F4F1DEEB",
+    "path": "C:/ParsGBIF - github.com/README.Rmd",
+    "project_path": "README.Rmd",
+    "type": "r_markdown",
+    "hash": "4243181149",
+    "contents": "",
+    "dirty": false,
+    "created": 1686701259408.0,
+    "source_on_save": false,
+    "relative_order": 14,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "42,24",
+        "scrollLine": "34",
+        "working_dir": "project",
+        "docOutlineVisible": "0",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "256:208",
+        "rmdVisualWrapConfigured": "true",
+        "chunk_output_type": "console"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1686702090,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1686702090283,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,204 @@
+
+```{r }
+pkgname <- "ParsGBIF"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+options(pager = "console")
+library('ParsGBIF')
+
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("batch_checkName_wcvp")
+### * batch_checkName_wcvp
+
+flush(stderr()); flush(stdout())
+
+### Name: batch_checkName_wcvp
+### Title: In batch, use the WCVP database to check accepted names and
+###   update synonyms.
+### Aliases: batch_checkName_wcvp
+
+### ** Examples
+
+# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+
+
+
+cleanEx()
+nameEx("checkName_wcvp")
+### * checkName_wcvp
+
+flush(stderr()); flush(stdout())
+
+### Name: checkName_wcvp
+### Title: Use the World Checklist of Vascular Plants (WCVP) database to
+###   check accepted names and update synonyms
+### Aliases: checkName_wcvp
+
+### ** Examples
+
+# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+
+
+
+cleanEx()
+nameEx("extract_gbif_issue")
+### * extract_gbif_issue
+
+flush(stderr()); flush(stdout())
+
+### Name: extract_gbif_issue
+### Title: extract_gbif_issue
+### Aliases: extract_gbif_issue
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("get_lastNameRecordedBy")
+### * get_lastNameRecordedBy
+
+flush(stderr()); flush(stdout())
+
+### Name: get_lastNameRecordedBy
+### Title: get_lastNameRecordedBy
+### Aliases: get_lastNameRecordedBy
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("get_wcvp")
+### * get_wcvp
+
+flush(stderr()); flush(stdout())
+
+### Name: get_wcvp
+### Title: get_wcvp
+### Aliases: get_wcvp
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("prepare_collectorsDictionary")
+### * prepare_collectorsDictionary
+
+flush(stderr()); flush(stdout())
+
+### Name: prepare_collectorsDictionary
+### Title: prepare_collectorsDictionary
+### Aliases: prepare_collectorsDictionary
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("prepare_gbif_occurrence_data")
+### * prepare_gbif_occurrence_data
+
+flush(stderr()); flush(stdout())
+
+### Name: prepare_gbif_occurrence_data
+### Title: prepare_gbif_occurrence_data
+### Aliases: prepare_gbif_occurrence_data
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("select_digital_voucher_and_sample_identification")
+### * select_digital_voucher_and_sample_identification
+
+flush(stderr()); flush(stdout())
+
+### Name: select_digital_voucher_and_sample_identification
+### Title: select_digital_voucher_and_sample_identification
+### Aliases: select_digital_voucher_and_sample_identification
+
+### ** Examples
+
+
+
+
+cleanEx()
+nameEx("select_gbif_fields")
+### * select_gbif_fields
+
+flush(stderr()); flush(stdout())
+
+### Name: select_gbif_fields
+### Title: select_gbif_fields
+### Aliases: select_gbif_fields
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("standardize_scientificName")
+### * standardize_scientificName
+
+flush(stderr()); flush(stdout())
+
+### Name: standardize_scientificName
+### Title: standardize_scientificName
+### Aliases: standardize_scientificName
+
+### ** Examples
+
+
+
+
+
+cleanEx()
+nameEx("update_collectorsDictionary")
+### * update_collectorsDictionary
+
+flush(stderr()); flush(stdout())
+
+### Name: update_collectorsDictionary
+### Title: update_collectorsDictionary
+### Aliases: update_collectorsDictionary
+
+### ** Examples
+
+
+
+
+
+### * <FOOTER>
+###
+cleanEx()
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')
+```
+
+
+
+---
+title: ParsGBIF-Ex.R
+author: Pablo Hendrigo
+date: '2023-06-13'
+
+---

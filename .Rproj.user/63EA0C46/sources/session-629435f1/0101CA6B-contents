@@ -27,8 +27,7 @@
 #'         Nadia Bystriakova &
 #'         Alexandre Monro
 #'
-#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}},
-#'          \code{\link[textclean]{replace_non_ascii}
+#' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}}
 #'
 #' @examples
 #' \donttest{

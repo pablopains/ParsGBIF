@@ -62,8 +62,7 @@ write.csv(collectorsDictionaryFromDataset,
 }
 }
 \seealso{
-\code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}},
-\code{\link[textclean]{replace_non_ascii}
+\code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{update_collectorsDictionary}}
 }
 \author{
 Pablo Hendrigo Alves de Melo,
