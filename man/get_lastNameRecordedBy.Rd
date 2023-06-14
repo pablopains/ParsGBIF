@@ -28,7 +28,7 @@ get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
 }
 }
 \seealso{
-\code{\link[ParsGBIF]{prepare_lastNameRecordedBy}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
+\code{\link[ParsGBIF]{prepare_collectorsDictionary}}, \code{\link[ParsGBIF]{update_collectorsDictionary}}
 }
 \author{
 Pablo Hendrigo Alves de Melo,

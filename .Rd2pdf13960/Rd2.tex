@@ -1,0 +1,1165 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `ParsGBIF'}}
+\par\bigskip{\large \today}
+\end{center}
+\inputencoding{utf8}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {ParsGBIF: An R package for parsing species occurrence records}}}{}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdfauthor = {Pablo Melo; Nadia Bystriakova; Alexandre Monro}}}{}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{An R package for parsing species occurrence records}
+\item[Version]\AsIs{1.0.0.0}
+\item[Date]\AsIs{2023-06-04}
+\item[Maintainer]\AsIs{Pablo Melo }\email{pablopains@yahoo.com.br}\AsIs{}
+\item[Description]\AsIs{ParsGBIF package is designed to convert GBIF species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. 
+The package provides tools for verifying and standardizing species scientific names and for selecting the most informative species records when duplicates are available. }
+\item[License]\AsIs{GPL (>= 2)}
+\item[Encoding]\AsIs{UTF-8}
+\item[LazyData]\AsIs{true}
+\item[LazyDataCompression]\AsIs{xz}
+\item[Roxygen]\AsIs{list(markdown = TRUE)}
+\item[RoxygenNote]\AsIs{7.2.3}
+\item[Imports]\AsIs{plyr,
+readxl,
+dplyr,
+tidyr,
+readr,
+stringr,
+textclean,
+googledrive,
+rvest,
+lubridate,
+rnaturalearthdata,
+jsonlite,
+sqldf,
+DT,
+downloader,
+tidyselect,
+utils}
+\item[Remotes]\AsIs{github::pablopains/ParsGBIF}
+\item[Depends]\AsIs{R (>= 3.5.0)}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{batch\_checkName\_wcvp}{In batch, use the WCVP database to check accepted names and update synonyms.}{batch.Rul.checkName.Rul.wcvp}
+%
+\begin{Description}
+In batch, use the \Rhref{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
+\Rhref{http://sftp.kew.org/pub/data-repositories/WCVP/}{database}
+\Rhref{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+batch_checkName_wcvp(
+  occ = NA,
+  wcvp_names = NA,
+  if_author_fails_try_without_combinations = TRUE,
+  wcvp_selected_fields = "standard"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{occ}] GBIF occurrence table with selected columns as select\_gbif\_fields(columns = 'standard').
+
+\item[\code{wcvp\_names}] WCVP table, wcvp\_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get\_wcvp(read\_only\_to\_memory = TRUE)\$wcvp\_names.
+
+\item[\code{if\_author\_fails\_try\_without\_combinations}] option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.
+
+\item[\code{wcvp\_selected\_fields}] WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+See help(checkName\_wcvp) and \Rhref{http://sftp.kew.org/pub/data-repositories/WCVP/}{about WCVP database}
+
+\#' @author Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Details}
+%
+\begin{Value}
+Data frame with WCVP fields
+\end{Value}
+%
+\begin{SeeAlso}
+\code{\LinkA{get\_wcvp}{get.Rul.wcvp}}, \code{\LinkA{checkName\_wcvp}{checkName.Rul.wcvp}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+
+# load package
+library(ParsGBIF)
+
+help(batch_checkName_wcvp)
+
+wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                    columns = 'standard')
+
+res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
+                                                 wcvp_names =  wcvp_names,
+                                                 if_author_fails_try_without_combinations = TRUE,
+                                                 wcvp_selected_fields = 'standard')
+
+names(res_batch_checkName_wcvp)
+
+head(res_batch_checkName_wcvp$wcvpSummary)
+
+head(res_batch_checkName_wcvp$wcvpOccurrence)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{checkName\_wcvp}{Use the World Checklist of Vascular Plants (WCVP) database to check accepted names and update synonyms}{checkName.Rul.wcvp}
+%
+\begin{Description}
+Use the \Rhref{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
+\Rhref{http://sftp.kew.org/pub/data-repositories/WCVP/}{database}
+\Rhref{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+checkName_wcvp(
+  searchedName = "Hemistylus brasiliensis Wedd.",
+  wcvp_names = NA,
+  if_author_fails_try_without_combinations = TRUE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{searchedName}] scientific name, with or without author
+
+\item[\code{wcvp\_names}] WCVP table, wcvp\_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get\_wcvp(read\_only\_to\_memory = TRUE)\$wcvp\_names.
+
+\item[\code{if\_author\_fails\_try\_without\_combinations}] option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+About the World Checklist of Vascular Plants https://powo.science.kew.org/about-wcvp
+searchNotes values:
+Accepted - When only one authorless scientific name is present in the list of TAXON\_name with and TAXON\_STATUS equal to "Accepted",
+verified\_speciesName = 100.
+Accepted among homonyms - When more than one authorless scientific name is present in the TAXON\_name list, but only one of the homonyms displays TAXON\_STATUS equal to "Accepted",
+verified\_speciesName = number of matches/100.
+Homonyms - When more than one authorless scientific name is present in the TAXON\_name list and more than one, or none among the homonyms, display TAXON\_STATUS equal to "Accepted",
+verified\_speciesName = number of matches/100.
+Before searching for homonyms, there was a failure in trying to find the matching match between authorless scientific name in TAXON\_name and author in TAXON\_AUTHORS, in these cases verified\_author equal to 0 (zero),
+Not Found: When the authorless scientific name is not present in the TAXON\_NAME LIST
+Unplaced: o	When only one authorless scientific name is present in the list of TAXON\_name with and TAXON\_STATUS = "Unplaced"
+Updated: When only one authorless scientific name is present in the list of TAXON\_name and ACCEPTED\_PLANT\_NAME\_ID are not empty (and ACCEPTED\_PLANT\_NAME\_ID is different from the ID of the species consulted)
+taxon\_status\_of\_searchedName, plant\_name\_id\_of\_searchedName and taxon\_authors\_of\_searchedName values:
+When searchNotes equals "Updated" – The fields record the information of the scientific name originally consulted.
+When searchNotes equals "Homonyms" - Fields record the information of homonymous synonyms separated by "|".
+verified\_author values:
+When value equal to 100 – when there is matched match between authorless scientific name in TAXON\_name and author in TAXON\_AUTHORS.
+When value equal to 50 – when there is combined correspondence between authorless scientific name in TAXON\_name and author, without (combination), in TAXON\_AUTHORS.
+When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON\_name, author is not present in TAXON\_AUTHORS.
+\end{Details}
+%
+\begin{Value}
+Data frame with WCVP fields
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{get\_wcvp}{get.Rul.wcvp}}, \code{\LinkA{standardize\_scientificName}{standardize.Rul.scientificName}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+
+# load package
+library(ParsGBIF)
+
+help(checkName_wcvp)
+
+wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+# 1) Updated
+checkName_wcvp(searchedName = 'Hemistylus brasiliensis Wedd.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# 2) Accepted
+checkName_wcvp(searchedName = 'Hemistylus boehmerioides Wedd. ex Warm.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# 3) Unplaced - taxon_status = Unplaced
+checkName_wcvp(searchedName = 'Leucosyke australis Unruh',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# 4) Accepted among homonyms - When author is not informed. In this case, one of the homonyms, taxon_status is accepted
+checkName_wcvp(searchedName = 'Parietaria cretica',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed
+checkName_wcvp(searchedName = 'Parietaria cretica L.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed
+checkName_wcvp(searchedName = 'Parietaria cretica Moris',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# 5) Homonyms - When author is not informed. In this case, none of the homonyms, taxon_status is Accepted
+checkName_wcvp(searchedName = 'Laportea peltata',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed
+checkName_wcvp(searchedName = 'Laportea peltata Gaudich. & Decne.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+# When author is informed
+checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{extract\_gbif\_issue}{extract\_gbif\_issue}{extract.Rul.gbif.Rul.issue}
+%
+\begin{Description}
+Extract gbif issue
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+extract_gbif_issue(occ = NA, enumOccurrenceIssue = NA)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{occ}] GBIF occurrence table with selected columns as select\_gbif\_fields(columns = 'standard')
+
+\item[\code{enumOccurrenceIssue}] An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
+\end{Details}
+%
+\begin{Value}
+occ\_gbif\_issue,
+summary
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{prepare\_gbif\_occurrence\_data}{prepare.Rul.gbif.Rul.occurrence.Rul.data}}, \code{\LinkA{select\_gbif\_fields}{select.Rul.gbif.Rul.fields}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+# extract_gbif_issue()
+
+help(extract_gbif_issue)
+
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                    columns = 'standard')
+
+data(EnumOccurrenceIssue)
+head(EnumOccurrenceIssue)
+colnames(EnumOccurrenceIssue)
+
+occ_gbif_issue <- extract_gbif_issue(occ = occ,
+                                     enumOccurrenceIssue = NA)
+
+names(occ_gbif_issue)
+
+head(occ_gbif_issue$issueGBIFSummary)
+
+colnames(occ_gbif_issue$issueGBIFOccurrence)
+head(occ_gbif_issue$issueGBIFOccurrence)
+colnames(occ_gbif_issue$issueGBIFOccurrence)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{get\_lastNameRecordedBy}{get\_lastNameRecordedBy}{get.Rul.lastNameRecordedBy}
+%
+\begin{Description}
+Returns the last name of the main collector
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_lastNameRecordedBy(x)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] recordedBy field
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+Returns the last name of the main collector in recordedBy field
+\end{Details}
+%
+\begin{Value}
+last name of the main collector
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{prepare\_collectorsDictionary}{prepare.Rul.collectorsDictionary}}, \code{\LinkA{update\_collectorsDictionary}{update.Rul.collectorsDictionary}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+help(get_lastNameRecordedBy)
+
+get_lastNameRecordedBy('Melo, P.H.A & Monro, A.')
+
+get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{get\_wcvp}{get\_wcvp}{get.Rul.wcvp}
+%
+\begin{Description}
+Download World Checklist of Vascular Plants (WCVP) database
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+get_wcvp(
+  url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
+  read_only_to_memory = FALSE,
+  path_results = "C:/ParsGBIF",
+  update = FALSE,
+  load_distribution = FALSE
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{url\_source}] http://sftp.kew.org/pub/data-repositories/WCVP/
+
+\item[\code{read\_only\_to\_memory}] TRUE to in-memory read-only, not writing a copy to local disk
+
+\item[\code{path\_results}] download destination folder, if read\_only\_to\_memory FALSE
+
+\item[\code{update}] TRUE to update and load files, FALSE to keep local version and load files, if read\_only\_to\_memory FALSE
+
+\item[\code{load\_distribution}] TRUE to load file with geographical distribution of species, if read\_only\_to\_memory FALSE
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure File Transfer Protocol) site of the Royal Botanic Gardens, Kew. This space contains data resources publicly accessible to the user `anonymous'.  No password required for access. Use of data made available via this site may be subject to legal and licensing restrictions. The README in the top-level directory for each data resource provides specific information about its terms of use.
+\end{Details}
+%
+\begin{Value}
+README\_WCVP.xlsx,
+wcvp\_distribution.csv,
+wcvp\_names.csv
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{checkName\_wcvp}{checkName.Rul.wcvp}}, \code{\LinkA{standardize\_scientificName}{standardize.Rul.scientificName}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+# load package
+library(ParsGBIF)
+
+help(get_wcvp)
+
+# Download wcvp database to local disk
+path_data <- tempdir() # you can change this folder
+
+wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
+                 read_only_to_memory = FALSE,
+                 path_results = path_data,
+                 update = FALSE,
+                 load_distribution = TRUE)
+
+names(wcvp)
+
+head(wcvp$wcvp_names)
+colnames(wcvp$wcvp_names)
+
+head(wcvp$wcvp_distribution)
+colnames(wcvp$wcvp_distribution)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{prepare\_collectorsDictionary}{prepare\_collectorsDictionary}{prepare.Rul.collectorsDictionary}
+%
+\begin{Description}
+Returns the list with the last name of the main collector associated with the unique key recordedBy.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+prepare_collectorsDictionary(
+  occ = NA,
+  collectorDictionary_file =
+    "https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{occ}] GBIF occurrence table with selected columns as select\_gbif\_fields(columns = 'standard')
+
+\item[\code{collectorDictionary\_file}] Collector dictionary file - point to a file on your local disk or upload via git at https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+If recordedBy is present in the collector's dictionary, it returns the checked name, if not, it returns the last name of the main collector, extracted from the recordedBy field.
+If recordedBy is present in the collector's dictionary, returns the main collector's last name associated with the single recordedBy key,
+otherwise, returns the main collector's last name, extracted from the recordedBy field.
+It is recommended to curate the main collector's surname, automatically extracted from the recordedBy field.
+The objective is to standardize the last name of the main collector.
+That the primary botanical collector of a sample is always recognized by the same last name, standardized in capital letters and non-ascii characters replaced
+\end{Details}
+%
+\begin{Value}
+Ctrl\_nameRecordedBy\_Standard,
+Ctrl\_recordedBy,
+Ctrl\_notes,
+collectorDictionary,
+Ctrl\_update,
+collectorName,
+Ctrl\_fullName,
+Ctrl\_fullNameII,
+CVStarrVirtualHerbarium\_PersonDetails
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{select\_gbif\_fields}{select.Rul.gbif.Rul.fields}}, \code{\LinkA{update\_collectorsDictionary}{update.Rul.collectorsDictionary}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+help(prepare_collectorsDictionary)
+
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                    columns = 'standard')
+
+collectorsDictionaryFromDataset <- prepare_collectorsDictionary(occ = occ,
+                                                                collectorDictionary_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
+
+colnames(collectorsDictionaryFromDataset)
+head(collectorsDictionaryFromDataset)
+
+collectorDictionary_checked_file <- paste0(tempdir(),'/','collectorsDictionaryFromDataset.csv')
+
+collectorDictionary_checked_file
+
+write.csv(collectorsDictionaryFromDataset,
+          collectorDictionary_checked_file,
+          row.names = FALSE,
+          fileEncoding = "UTF-8",
+          na = "")
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{prepare\_gbif\_occurrence\_data}{prepare\_gbif\_occurrence\_data}{prepare.Rul.gbif.Rul.occurrence.Rul.data}
+%
+\begin{Description}
+Prepare occurrence data from GBIF to use in package
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+prepare_gbif_occurrence_data(
+  occ = NA,
+  gbif_occurrece_file =
+    "https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt",
+  columns = "standard"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{occ}] GBIF occurrence table
+
+\item[\code{gbif\_occurrece\_file}] if occ is NA, load original occurrence file from gbif
+
+\item[\code{columns}] 'standard' basic columns about what, when, where, and who collected, 'all' all available columns or list column names. See select\_gbif\_fields() function
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+Prepare occurrence data from GBIF to use in package.
+Select the data fields to be used.
+Add "Ctrl\_" at the beginning of each field name
+\end{Details}
+%
+\begin{Value}
+data.frame with fields selected by the select\_gbif\_fields function and with "Ctrl\_" at the beginning of each field name
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{select\_gbif\_fields}{select.Rul.gbif.Rul.fields}}, \code{\LinkA{extract\_gbif\_issue}{extract.Rul.gbif.Rul.issue}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+# prepare_gbif_occurrence_data()
+
+help(prepare_gbif_occurrence_data)
+
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+                                    columns = 'standard')
+
+colnames(occ)
+
+head(occ)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{select\_digital\_voucher\_and\_sample\_identification}{select\_digital\_voucher\_and\_sample\_identification}{select.Rul.digital.Rul.voucher.Rul.and.Rul.sample.Rul.identification}
+%
+\begin{Description}
+Extract gbif issue
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+select_digital_voucher_and_sample_identification(
+  occ = NA,
+  occ_gbif_issue = NA,
+  occ_checkName_wcvp = NA,
+  occ_collectorsDictionary = NA,
+  enumOccurrenceIssue = NA
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{occ}] GBIF occurrence table with selected columns as select\_gbif\_fields(columns = 'standard')
+
+\item[\code{occ\_gbif\_issue}] = result of function extract\_gbif\_issue()\$occ\_gbif\_issue
+
+\item[\code{occ\_checkName\_wcvp}] = result of function batch\_checkName\_wcvp()\$occ\_checkName\_wcvp
+
+\item[\code{occ\_collectorsDictionary}] = result of function update\_collectorsDictionary()\$occ\_collectorsDictionary
+
+\item[\code{enumOccurrenceIssue}] An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+To group duplicates: 1) If the key to group duplicates is incomplete: Sample duplicates cannot be grouped due to missing collector information and/or collection number. Each record is considered a sample, with no duplicates. Select a voucher for each sample.
+Or, 2) If the key to group duplicates is complete: Group duplicates. Select a voucher, with the highest information score, among the duplicates in the sample.
+How to calculate the information score?
+moreInformativeRecord = sum of verbatim quality + quality of geospatial information. verbatim quality = sum of the number of flags with verbatim quality equal to TRUE. quality of geospatial information = If there is a geospatial issue, consider the one with the highest priority, with the highest score.
+To select sample taxonomic identification: 1) If the key for grouping duplicates is complete: select the accepted TAXON\_NAME, identified up to or below the specific level, most frequent among the duplicates in the sample. If tie between frequency of accepted TAXON\_NAME, identified up to or below the specific level: select the first accepted TAXON\_NAME, identified up to or below the specific level, in alphabetical order. If there is no identification, at or below the specific level, for the sample: Indicate as unidentified sample.
+Or, 2) If the key for grouping duplicates is incomplete: select TAXON\_NAME, if accepted and identified up to or below the specified level. If there is no identification, at or below the specific level, for the sample: Indicate as unidentified sample.
+\end{Details}
+%
+\begin{Value}
+matchStatusDuplicates - "matched", "unmatched: no recordedBy and no recordNumber", "unmatched: no recordNumber" or "unmatched: no recordedBy"
+numberTaxonNamesSample -  count of the different accepted scientific names, identified up to or below the specific level, listed in the sample duplicates, or Zero, if there is no identification, equal to or below the specific level, for the sample.
+sampleTaxonName - TAXON\_name accepted and identified up to or below the specific level selected for the sample.
+sampleIdentificationStatus - 'Identified', 'divergent identifications', or 'unidentified'
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{batch\_checkName\_wcvp}{batch.Rul.checkName.Rul.wcvp}}, \code{\LinkA{extract\_gbif\_issue}{extract.Rul.gbif.Rul.issue}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+help(select_digital_voucher_and_sample_identification)
+
+head(occ)
+head(res_gbif_issue$occ_gbif_issue)
+head(res_checkName_wcvp$occ_checkName_wcvp)
+head(res_collectorsDictionary$occ_collectorsDictionary)
+res_digital_voucher_and_sample_identification <- select_digital_voucher_and_sample_identification(occ = occ,
+                                                                                                  occ_gbif_issue = res_gbif_issue$occ_gbif_issue,
+                                                                                                  occ_checkName_wcvp = res_checkName_wcvp$occ_checkName_wcvp,
+                                                                                                  occ_collectorsDictionary = res_collectorsDictionary$occ_collectorsDictionary,
+                                                                                                  enumOccurrenceIssue = EnumOccurrenceIssue)
+
+names(res_digital_voucher_and_sample_identification)
+
+head(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)
+colnames(res_digital_voucher_and_sample_identification$occ_digital_voucher_and_sample_identification)
+
+head(res_digital_voucher_and_sample_identification$occ_join_results)
+colnames(res_digital_voucher_and_sample_identification$occ_join_results)
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{select\_gbif\_fields}{select\_gbif\_fields}{select.Rul.gbif.Rul.fields}
+%
+\begin{Description}
+Select columns in GBIF occurrence data
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+select_gbif_fields(columns = "standard")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{columns}] 'standard' basic columns about what, when, where, and who collected, 'all' all available columns or list column names
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+standard:
+c(
+'bibliographicCitation',
+'language',
+'institutionCode',
+'collectionCode',
+'datasetName',
+'basisOfRecord',
+'informationWithheld',
+'dataGeneralizations'/,
+'occurrenceID', \# occ\_search(occurrenceId='BRA:UNEMAT:HPAN:6089')
+'catalogNumber',
+'recordNumber',
+'recordedBy',
+'georeferenceVerificationStatus',
+'occurrenceStatus',
+'eventDate',
+'year',
+'month',
+'day',
+'habitat',
+'fieldNotes',
+'eventRemarks',
+'locationID',
+'higherGeography',
+'islandGroup',
+'island',
+'countryCode',
+'stateProvince',
+'county',
+'municipality',
+'locality',
+'verbatimLocality',
+'locationRemarks',
+'decimalLatitude',
+'decimalLongitude',
+'verbatimCoordinateSystem',
+'verbatimIdentification',
+'identificationQualifier',
+'typeStatus',
+'identifiedBy',
+'dateIdentified',
+'scientificName',
+'family',
+'taxonRank',
+'nomenclaturalCode',
+'taxonomicStatus',
+'issue',
+'mediaType',
+'hasCoordinate',
+'hasGeospatialIssues',
+'verbatimScientificName',
+'level0Name',
+'level1Name',
+'level2Name',
+'level3Name')
+
+'all':
+c(
+'gbifID',
+'abstract',
+'accessRights',
+'accrualMethod',
+'accrualPeriodicity',
+'accrualPolicy',
+'alternative',
+'audience',
+'available',
+'bibliographicCitation',
+'conformsTo',
+'contributor',
+'coverage',
+'created',
+'creator',
+'date',
+'dateAccepted',
+'dateCopyrighted',
+'dateSubmitted',
+'description',
+'educationLevel',
+'extent',
+'format',
+'hasFormat',
+'hasPart',
+'hasVersion',
+'identifier',
+'instructionalMethod',
+'isFormatOf',
+'isPartOf',
+'isReferencedBy',
+'isReplacedBy',
+'isRequiredBy',
+'isVersionOf',
+'issued',
+'language',
+'license',
+'mediator',
+'medium',
+'modified',
+'provenance',
+'publisher',
+'references',
+'relation',
+'replaces',
+'requires',
+'rights',
+'rightsHolder',
+'source',
+'spatial',
+'subject',
+'tableOfContents',
+'temporal',
+'title',
+'type',
+'valid',
+'institutionID',
+'collectionID',
+'datasetID',
+'institutionCode',
+'collectionCode',
+'datasetName',
+'ownerInstitutionCode',
+'basisOfRecord',
+'informationWithheld',
+'dataGeneralizations',
+'dynamicProperties',
+'occurrenceID',
+'catalogNumber',
+'recordNumber',
+'recordedBy',
+'recordedByID',
+'individualCount',
+'organismQuantity',
+'organismQuantityType',
+'sex',
+'lifeStage',
+'reproductiveCondition',
+'behavior',
+'establishmentMeans',
+'degreeOfEstablishment',
+'pathway',
+'georeferenceVerificationStatus',
+'occurrenceStatus',
+'preparations',
+'disposition',
+'associatedOccurrences',
+'associatedReferences',
+'associatedSequences',
+'associatedTaxa',
+'otherCatalogNumbers',
+'occurrenceRemarks',
+'organismID',
+'organismName',
+'organismScope',
+'associatedOrganisms',
+'previousIdentifications',
+'organismRemarks',
+'materialSampleID',
+'eventID',
+'parentEventID',
+'fieldNumber',
+'eventDate',
+'eventTime',
+'startDayOfYear',
+'endDayOfYear',
+'year',
+'month',
+'day',
+'verbatimEventDate',
+'habitat',
+'samplingProtocol',
+'sampleSizeValue',
+'sampleSizeUnit',
+'samplingEffort',
+'fieldNotes',
+'eventRemarks',
+'locationID',
+'higherGeographyID',
+'higherGeography',
+'continent',
+'waterBody',
+'islandGroup',
+'island',
+'countryCode',
+'stateProvince',
+'county',
+'municipality',
+'locality',
+'verbatimLocality',
+'verbatimElevation',
+'verticalDatum',
+'verbatimDepth',
+'minimumDistanceAboveSurfaceInMeters',
+'maximumDistanceAboveSurfaceInMeters',
+'locationAccordingTo',
+'locationRemarks',
+'decimalLatitude',
+'decimalLongitude',
+'coordinateUncertaintyInMeters',
+'coordinatePrecision',
+'pointRadiusSpatialFit',
+'verbatimCoordinateSystem',
+'verbatimSRS',
+'footprintWKT',
+'footprintSRS',
+'footprintSpatialFit',
+'georeferencedBy',
+'georeferencedDate',
+'georeferenceProtocol',
+'georeferenceSources',
+'georeferenceRemarks',
+'geologicalContextID',
+'earliestEonOrLowestEonothem',
+'latestEonOrHighestEonothem',
+'earliestEraOrLowestErathem',
+'latestEraOrHighestErathem',
+'earliestPeriodOrLowestSystem',
+'latestPeriodOrHighestSystem',
+'earliestEpochOrLowestSeries',
+'latestEpochOrHighestSeries',
+'earliestAgeOrLowestStage',
+'latestAgeOrHighestStage',
+'lowestBiostratigraphicZone',
+'highestBiostratigraphicZone',
+'lithostratigraphicTerms',
+'group',
+'formation',
+'member',
+'bed',
+'identificationID',
+'verbatimIdentification',
+'identificationQualifier',
+'typeStatus',
+'identifiedBy',
+'identifiedByID',
+'dateIdentified',
+'identificationReferences',
+'identificationVerificationStatus',
+'identificationRemarks',
+'taxonID',
+'scientificNameID',
+'acceptedNameUsageID',
+'parentNameUsageID',
+'originalNameUsageID',
+'nameAccordingToID',
+'namePublishedInID',
+'taxonConceptID',
+'scientificName',
+'acceptedNameUsage',
+'parentNameUsage',
+'originalNameUsage',
+'nameAccordingTo',
+'namePublishedIn',
+'namePublishedInYear',
+'higherClassification',
+'kingdom',
+'phylum',
+'class',
+'order',
+'family',
+'subfamily',
+'genus',
+'genericName',
+'subgenus',
+'infragenericEpithet',
+'specificEpithet',
+'infraspecificEpithet',
+'cultivarEpithet',
+'taxonRank',
+'verbatimTaxonRank',
+'vernacularName',
+'nomenclaturalCode',
+'taxonomicStatus',
+'nomenclaturalStatus',
+'taxonRemarks',
+'datasetKey',
+'publishingCountry',
+'lastInterpreted',
+'elevation',
+'elevationAccuracy',
+'depth',
+'depthAccuracy',
+'distanceAboveSurface',
+'distanceAboveSurfaceAccuracy',
+'issue',
+'mediaType',
+'hasCoordinate',
+'hasGeospatialIssues',
+'taxonKey',
+'acceptedTaxonKey',
+'kingdomKey',
+'phylumKey',
+'classKey',
+'orderKey',
+'familyKey',
+'genusKey',
+'subgenusKey',
+'speciesKey',
+'species',
+'acceptedScientificName',
+'verbatimScientificName',
+'typifiedName',
+'protocol',
+'lastParsed',
+'lastCrawled',
+'repatriated',
+'relativeOrganismQuantity',
+'level0Gid',
+'level0Name',
+'level1Gid',
+'level1Name',
+'level2Gid',
+'level2Name',
+'level3Gid',
+'level3Name',
+'iucnRedListCategory')
+\end{Details}
+%
+\begin{Value}
+list of the columns names
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{extract\_gbif\_issue}{extract.Rul.gbif.Rul.issue}}, \code{\LinkA{prepare\_gbif\_occurrence\_data}{prepare.Rul.gbif.Rul.occurrence.Rul.data}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+# select_gbif_fields()
+
+help(select_gbif_fields)
+
+col_sel <- select_gbif_fields(columns = 'all')
+
+col_sel <- select_gbif_fields(columns = 'standard')
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{standardize\_scientificName}{standardize\_scientificName}{standardize.Rul.scientificName}
+%
+\begin{Description}
+standardize binomial name, variety, subspecies, form and hybrids, authorship
+to allow comparison with names of taxa in the World Checklist of Vascular Plants (WCVP) database
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+standardize_scientificName(
+  searchedName = "Alomia angustata (Gardner) Benth. ex Baker"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{searchedName}] scientific name, with or without author
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+Standardize scientific name according to WCVP format.
+Separate generic epithet, specific epithet, variety, subspecies, form, hybrid and author, in the scientific name, if any.
+Standardize, according to WCVP, abbreviation of infrataxon, if any:
+variety to var.,
+subspecies to subsp.,
+FORM to f.,
+hybrid separator separate x from the specific epithet.
+\end{Details}
+%
+\begin{Value}
+searchedName,
+standardizeName,
+taxonAuthors,
+taxonAuthors\_last
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{get\_wcvp}{get.Rul.wcvp}}, \code{\LinkA{checkName\_wcvp}{checkName.Rul.wcvp}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+# standardize_scientificName()
+
+help(standardize_scientificName)
+
+standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
+standardize_scientificName('Alomia angustata (Gardner) Benth. ex Baker')
+standardize_scientificName('Centaurea ×aemiliae Font Quer')
+
+
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{update\_collectorsDictionary}{update\_collectorsDictionary}{update.Rul.collectorsDictionary}
+%
+\begin{Description}
+Include recordedByStandardized field with verified main collector's last name.
+Include recordNumber\_Standard field with only numbers from recordNumber.
+Create a key to group duplicates in the key\_family\_recordedBy\_recordNumber field, composed of the fields: family + recordedByStandardized + recordNumber\_Standard.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+update_collectorsDictionary(
+  occ = NA,
+  collectorDictionary_checked_file = NA,
+  collectorDictionary_file =
+    "https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv"
+)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{occ}] GBIF occurrence table with selected columns as select\_gbif\_fields(columns = 'standard')
+
+\item[\code{collectorDictionary\_checked\_file}] Verified collector dictionary file - point to a file on your local disk
+
+\item[\code{collectorDictionary\_file}] Collector dictionary file - point to a file on your local disk or upload via git at https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv.
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Details}
+....
+\end{Details}
+%
+\begin{Value}
+occ\_collectorsDictionary: nameRecordedBy\_Standard, recordNumber\_Standard, key\_family\_recordedBy\_recordNumber, key\_year\_recordedBy\_recordNumber
+summary,
+collectorsDictionary\_add
+\end{Value}
+%
+\begin{Author}
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova \&
+Alexandre Monro
+\end{Author}
+%
+\begin{SeeAlso}
+\code{\LinkA{select\_gbif\_fields}{select.Rul.gbif.Rul.fields}}, \code{\LinkA{prepare\_collectorsDictionary}{prepare.Rul.collectorsDictionary}}
+\end{SeeAlso}
+%
+\begin{Examples}
+\begin{ExampleCode}
+
+collectorsDictionaryFromDataset <- prepare_lastNameRecordedBy(occ=occ,
+                                                              collectorDictionary_checked_file='collectorDictionary_checked.csv')
+
+
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

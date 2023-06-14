@@ -14,7 +14,7 @@
 #'         Nadia Bystriakova &
 #'         Alexandre Monro
 #'
-#' @seealso \code{\link[ParsGBIF]{prepare_lastNameRecordedBy}}, \code{\link[ParsGBIF]{update_lastNameRecordedBy}}
+#' @seealso \code{\link[ParsGBIF]{prepare_collectorsDictionary}}, \code{\link[ParsGBIF]{update_collectorsDictionary}}
 #'
 #' @examples
 #' \donttest{
