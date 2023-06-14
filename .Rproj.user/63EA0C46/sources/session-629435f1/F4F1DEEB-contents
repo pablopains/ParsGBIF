@@ -94,3 +94,27 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
  head(occ_gbif_issue$occ_gbif_issue)
 
 ```
+
+
+### Extracting GBIF issue to rank the quality of geographic coordinates 
+
+```{r example_extract_gbif_issue, eval=TRUE, message=FALSE, warning=FALSE}
+  library(ParsGBIF)
+
+  occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+                                     columns = 'standard')
+  
+  
+ occ_gbif_issue <- extract_gbif_issue(occ = occ)
+
+ names(occ_gbif_issue)
+
+ head(occ_gbif_issue$summary)
+
+ colnames(occ_gbif_issue$occ_gbif_issue)
+ 
+ head(occ_gbif_issue$occ_gbif_issue)
+
+```

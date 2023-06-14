@@ -1,17 +1,16 @@
-#' @title extract_gbif_issue
+#' @title Extract GBIF ussue occurrence records
 #'
 #' @name extract_gbif_issue
 #'
-#' @description Extract gbif issue
+#' @description Extract GBIF validation rules for occurrence records
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param enumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
 #'
 #' @details https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
 #'
-#' @return
-#' occ_gbif_issue,
-#' summary
+#' @return list with two data frames: summary, with the frequency of issues in the records
+#' and occ_gbif_issue, with issues in columns with TRUE or FALSE for each record.
 #'
 #' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
@@ -21,7 +20,6 @@
 #'
 #' @examples
 #' \donttest{
-#' # extract_gbif_issue()
 #'
 #' help(extract_gbif_issue)
 #'
@@ -47,13 +45,15 @@
 #'
 #' head(occ_gbif_issue$occ_gbif_issue)
 #' }
+#'
+#' @import dplyr
+#'
 #' @export
 extract_gbif_issue <- function(occ = NA,
                                enumOccurrenceIssue = NA)
 {
-  require(dplyr)
+  # require(dplyr)
 
-  # criar estrutura de dados a partir do modelo
   {
     if (is.na(enumOccurrenceIssue))
     {
@@ -75,10 +75,7 @@ extract_gbif_issue <- function(occ = NA,
   for(ic in 1:length(issue_key))
   {
     x_issue <- grepl(issue_key[ic], occ$Ctrl_issue)
-    # any(x_issue==TRUE)
-    # occ$Ctrl_issue[x_issue==TRUE]
     issue_table[,ic] <- x_issue
-
   }
 
   issue_result <- data.frame(issue = issue_key,
@@ -88,15 +85,11 @@ extract_gbif_issue <- function(occ = NA,
   for(i in 1:length(issue_key))
   {
     n_occ <- issue_table[,issue_key[i]] %>% sum()
-    # print(paste0(issue_key[i], ' - ',  n_occ))
     issue_result$n_occ[i] <- issue_table[,issue_key[i]] %>% sum()
   }
 
   issue_result <- issue_result %>%
     dplyr::arrange(desc(n_occ))
-
-  # issueGBIFSummary <<- issue_result
-  # issueGBIFOccurrence <<- issue_table
 
   return(list(occ_gbif_issue=issue_table,
               summary=issue_result))

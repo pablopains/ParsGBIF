@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_gbif_issue.R
 \name{extract_gbif_issue}
 \alias{extract_gbif_issue}
-\title{extract_gbif_issue}
+\title{Extract GBIF ussue occurrence records}
 \usage{
 extract_gbif_issue(occ = NA, enumOccurrenceIssue = NA)
 }
@@ -12,18 +12,17 @@ extract_gbif_issue(occ = NA, enumOccurrenceIssue = NA)
 \item{enumOccurrenceIssue}{An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)}
 }
 \value{
-occ_gbif_issue,
-summary
+list with two data frames: summary, with the frequency of issues in the records
+and occ_gbif_issue, with issues in columns with TRUE or FALSE for each record.
 }
 \description{
-Extract gbif issue
+Extract GBIF validation rules for occurrence records
 }
 \details{
 https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html
 }
 \examples{
 \donttest{
-# extract_gbif_issue()
 
 help(extract_gbif_issue)
 
@@ -49,6 +48,7 @@ colnames(occ_gbif_issue$occ_gbif_issue)
 
 head(occ_gbif_issue$occ_gbif_issue)
 }
+
 }
 \seealso{
 \code{\link[ParsGBIF]{prepare_gbif_occurrence_data}}, \code{\link[ParsGBIF]{select_gbif_fields}}
