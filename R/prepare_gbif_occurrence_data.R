@@ -20,6 +20,8 @@
 #'
 #' @seealso \code{\link[ParsGBIF]{select_gbif_fields}}, \code{\link[ParsGBIF]{extract_gbif_issue}}
 #'
+#' @importFrom readr read_delim
+#'
 #' @examples
 #' \donttest{
 #' # prepare_gbif_occurrence_data()
