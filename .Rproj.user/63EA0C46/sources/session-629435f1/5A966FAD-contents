@@ -38,7 +38,7 @@ prepare_gbif_occurrence_data <- function(occ = NA,
                                          gbif_occurrece_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                          columns = 'standard')
 {
-  require(readr)
+  # require(readr)
 
   if (is.na(occ))
   {
