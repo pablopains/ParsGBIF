@@ -40,7 +40,7 @@ devtools::install_github("pablopains/ParsGBIF")
 
 ParsGBIF makes it easy to get species occurrence records based on GBIF.
 
-```{r example, eval=TRUE}
+```{r example, eval=TRUE, message=FALSE, warning=FALSE}
   library(ParsGBIF)
 
   help(prepare_gbif_occurrence_data)

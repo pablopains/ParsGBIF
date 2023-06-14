@@ -41,15 +41,9 @@ ParsGBIF makes it easy to get species occurrence records based on GBIF.
   library(ParsGBIF)
 
   help(prepare_gbif_occurrence_data)
-#> starting httpd help server ... done
 
   occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
                                      columns = 'standard')
-#> Carregando pacotes exigidos: readr
-#> Warning: One or more parsing issues, call `problems()` on your data frame for details,
-#> e.g.:
-#>   dat <- vroom(...)
-#>   problems(dat)
 
   colnames(occ)
 #>  [1] "Ctrl_bibliographicCitation"          "Ctrl_language"                      

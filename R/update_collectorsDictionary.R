@@ -29,14 +29,14 @@
 #'                                                               collectorDictionary_checked_file='collectorDictionary_checked.csv')
 #'}
 #'
+#' @import stringr
+#' @import dplyr
+#'
 #' @export
 update_collectorsDictionary <- function(occ=NA,
                                       collectorDictionary_checked_file = NA,
                                       collectorDictionary_file = 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv')
 {
-
-  require(stringr)
-  require(dplyr)
 
   print('Loading collectorDictionary...')
 

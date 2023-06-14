@@ -58,6 +58,7 @@ colnames(wcvp$wcvp_names)
 head(wcvp$wcvp_distribution)
 colnames(wcvp$wcvp_distribution)
 }
+
 }
 \seealso{
 \code{\link[ParsGBIF]{checkName_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}

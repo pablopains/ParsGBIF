@@ -7,20 +7,20 @@
     "contents": "",
     "dirty": false,
     "created": 1686663496443.0,
-    "source_on_save": false,
+    "source_on_save": true,
     "relative_order": 7,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "71,66",
-        "scrollLine": "54"
+        "cursorPosition": "29,107",
+        "scrollLine": "27"
     },
     "folds": "",
-    "lastKnownWriteTime": 1686694718,
+    "lastKnownWriteTime": 1686712287,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1686694718884,
+    "last_content_update": 1686712287403,
     "read_only": false,
     "read_only_alternatives": []
 }

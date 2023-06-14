@@ -96,6 +96,10 @@
 #'                wcvp_names = wcvp_names,
 #'                if_author_fails_try_without_combinations = TRUE)
 #' }
+#'
+#' @import dplyr
+#' @import stringr
+#'
 #' @export
 checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
                               wcvp_names =  NA,
@@ -103,8 +107,6 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
 {
   # https://powo.science.kew.org/about-wcvp#unplacednames
 
-  require(dplry)
-  require(stringr)
 
   if(any(is.na(wcvp_names))==TRUE)
   {
@@ -112,6 +114,7 @@ checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
   }
 
   x <- {}
+  taxon_status <- ''
   sp_wcvp <- standardize_scientificName(searchedName)
 
   if(sp_wcvp$taxonAuthors != "")

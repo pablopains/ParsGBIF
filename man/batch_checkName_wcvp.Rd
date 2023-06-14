@@ -59,6 +59,7 @@ head(res_batch_checkName_wcvp$wcvpSummary)
 
 head(res_batch_checkName_wcvp$wcvpOccurrence)
 }
+
 }
 \seealso{
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}

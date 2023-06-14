@@ -51,6 +51,11 @@
 #'
 #' head(res_batch_checkName_wcvp$wcvpOccurrence)
 #' }
+#'
+#' @import dplyr
+#' @import stringr
+#' @import tidyselect
+#'
 #' @export
 batch_checkName_wcvp <- function(occ = NA,
                                  wcvp_names = NA,
@@ -59,9 +64,9 @@ batch_checkName_wcvp <- function(occ = NA,
 {
   # https://powo.science.kew.org/about-wcvp
 
-  require(dplyr)
-  require(stringr)
-  require(tidyselect)
+  # require(dplyr)
+  # require(stringr)
+  # require(tidyselect)
 
   if(any(is.na(wcvp_names))==TRUE)
   {
@@ -199,7 +204,7 @@ batch_checkName_wcvp <- function(occ = NA,
     # print( str_c( i, ' - WCVP: ', name_search_wcvp[i], ' : ',n_reg, ' registros - ', ifelse(is.na(x_tmp$wcvp_taxon_name),'',x_tmp$wcvp_taxon_name),' ',x_tmp$wcvp_verified_author,' ',x_tmp$wcvp_verified_speciesName ,' : ', x_tmp$wcvp_searchNotes))
 
 
-    index <- occ_all$wcvp_searchedName %in% sp_tmp #name_search_wcvp[i]  # wcvp_searchedName == Ctrl_scientificName
+    index <- occ_all$wcvp_searchedName %in% sp_tmp
     occ_all[index==TRUE, tidyselect::all_of(colunas_wcvp_sel)] <- x_tmp[, tidyselect::all_of(colunas_wcvp_sel)]
 
     # # aqui

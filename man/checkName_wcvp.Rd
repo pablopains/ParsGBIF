@@ -101,6 +101,7 @@ checkName_wcvp(searchedName = 'Laportea peltata (Blume) Gaudich.',
                wcvp_names = wcvp_names,
                if_author_fails_try_without_combinations = TRUE)
 }
+
 }
 \seealso{
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{standardize_scientificName}}

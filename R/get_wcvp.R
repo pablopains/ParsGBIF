@@ -46,6 +46,9 @@
 #' head(wcvp$wcvp_distribution)
 #' colnames(wcvp$wcvp_distribution)
 #' }
+#'
+#' @import utils
+#'
 #' @export
 get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
                      read_only_to_memory = FALSE,
@@ -93,7 +96,7 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
 
   print(paste0('loading: ', files))
 
-  wcvp_names <- read.table(files, sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8") %>%
+  wcvp_names <- utils::read.table(files, sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8") %>%
     data.frame(stringsAsFactors = F) %>%
     dplyr::mutate(TAXON_NAME_U = taxon_name %>% toupper(),
                   TAXON_AUTHORS_U = taxon_authors %>% toupper() %>% gsub ("\\s+", "", .))
@@ -105,7 +108,7 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
   {
     files <- paste0(path_results,'/','wcvp_distribution.csv')
     print(paste0('loading: ', files))
-    wcvp_distribution <- read.table(files, sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8") %>%
+    wcvp_distribution <- utils::read.table(files, sep="|", header=TRUE, quote = "", fill=TRUE, encoding = "UTF-8") %>%
       data.frame(stringsAsFactors = F)
     print(paste0('wcvp_distribution :', NROW(wcvp_distribution)))
   }

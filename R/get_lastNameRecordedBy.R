@@ -24,11 +24,13 @@
 #'
 #' get_lastNameRecordedBy('Monro, A. & Melo, P.H.A')
 #' }
+#'
+#' @import stringr
 #' @export
 get_lastNameRecordedBy <- function(x)
 {
 
-  require(stringr)
+  # require(stringr)
 
 
    x = gsub("[?]","",x) # teste pablo 10-02-2020
@@ -65,13 +67,11 @@ get_lastNameRecordedBy <- function(x)
    x = gsub("\\[|\\]"," ",x) # teste pablo 10-02-2020
    x = gsub("[\"]"," ",x) # teste pablo 10-02-2020
 
-   #pega o primeiro nome de uma lista de coletores separados por & se houver
    if (length(grep("&",x))>0)
    {
       x = strsplit(x,"&")[[1]][1]
    }
 
-   #pega o primeiro nome de uma lista de coletores separados por ";" se houver
    if (length(grep(";",x))>0)
    {
       x_t <- strsplit(x,";")[[1]][1]
@@ -92,47 +92,24 @@ get_lastNameRecordedBy <- function(x)
       }
 
    }
-   #se houver virgula pode ser dois casos:
-   #1. ou o valor antes da virgula e o sobrenome (padrao INPA)
-   #2. ou a virgula esta separando diferentes coletores (e neste caso as palavras do primeiro elemento nao sao apenas abreviacoes)
-
-   # aqui
-   # vl = grep(",|.",x)
 
    vl = grep(",| ",x)
 
-   #se tem virgula
    if (length(vl)>0) {
 
-      # aqui 2 se der pau voltar
-      # x = gsub("[.]"," ",x) # teste pablo 10-02-2020
-
-      #separa pela virgula e pega o primeiro elemento
       xx = strsplit(x,",")[[1]][1]
 
-      #separa o primeiro elemento antes da virgula por espacos
       xx = strsplit(xx," ")[[1]]
 
-      #apaga elementos vazios
       xx = xx[xx!=""]
 
-      #se o numero de caracteres da maior palavra for maior do que 2, entao o primeiro elemento era todo o nome do coletor, pega apenas o sobrenome
       if (max(nchar(xx))>2) {
-         #1 pegue esta palavra como sobrenome se houver apenas 1 palavra
          vll = which(nchar(xx)==max(nchar(xx)))
-         #ou 2, se houver mais de uma palavra com o mesmo tamanho, pega a ultima delas
          if (length(vll)>1) {
             vll = vll[length(vll)]
          }
          sobren = xx[vll]
-         # ##############
-         #       # teste para pegar o ultimo nome
-         #       #1 pegue esta palavra como sobrenome se houver apenas 1 palavra
-         #       sobren = xx[[length(nchar(xx))]]
-         # ##############
-         #
       } else {
-         #caso contrario ha apenas abreviacoes em xx, entao, virgula separa apenas sobrenome de abreviacoes ou prenome
          sb = strsplit(x,",")[[1]]
          sb = str_trim(sb)
          nsb = nchar(sb)
@@ -143,7 +120,6 @@ get_lastNameRecordedBy <- function(x)
          sobren = sb[sbvl]
       }
    } else {
-      #neste caso nao ha virgula, entao o ultimo nome e o sobrenome
       xx = strsplit(x," ")[[1]]
       sobren = xx[length(xx)]
    }
@@ -153,7 +129,6 @@ get_lastNameRecordedBy <- function(x)
    if (length(sobren)>0){
       x = strsplit(sobren,"\\|")[[1]]
       sobren = x[1]
-      #print(sobren)
       return(sobren)
    } else {
       return(NA)
