@@ -13,8 +13,8 @@ coverage](https://codecov.io/gh/pablopains/ParsGBIF/branch/main/graph/badge.svg)
 <!-- badges: end -->
 
 ParsGBIF package is designed to convert [Global Biodiversity Information
-Facility - GBIF](https://www.gbif.org/) species occurrence data to a
-more comprehensible format to be used for further analysis,
+Facility - GBIF](https://www.gbif.org/) plant specimen occurrence data
+to a more comprehensible format to be used for further analysis,
 e.g. spatial. The package provides tools for verifying and standardizing
 species scientific names, and for selecting the most informative species
 records when duplicates are available. The Manual provides a brief
@@ -60,7 +60,9 @@ GBIF.**
 
   help(prepare_gbif_occurrence_data)
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                      columns = 'standard')
 
   colnames(occ)

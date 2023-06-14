@@ -1,4 +1,4 @@
-#' @title Prepare occurrence data from GBIF to use in package.
+#' @title Prepare occurrence data from GBIF to use in package
 #'
 #' @name prepare_gbif_occurrence_data
 #'
