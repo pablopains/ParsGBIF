@@ -53,7 +53,7 @@ GBIF.**
     prepare_gbif_occurrence_data(gbif_occurrece_file = ‘occurrence.txt’)
     function
 
-### Prepare occurrence data from GBIF to use in ParsGBIF package
+### Preparing occurrence data to use in ParsGBIF package
 
 ``` r
   library(ParsGBIF)

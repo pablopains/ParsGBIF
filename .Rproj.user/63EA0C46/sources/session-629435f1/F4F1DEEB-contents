@@ -54,7 +54,7 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
   
   5. Use the __occurrence.txt__ file as input to the prepare_gbif_occurrence_data(gbif_occurrece_file = 'occurrence.txt') function
   
-### Prepare occurrence data from GBIF to use in ParsGBIF package 
+### Preparing occurrence data to use in ParsGBIF package 
 
 ```{r example, eval=TRUE, message=FALSE, warning=FALSE}
   library(ParsGBIF)
