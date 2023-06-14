@@ -28,8 +28,7 @@ Select data fields and rename field names prefixed with "Ctrl_"
 
 help(prepare_gbif_occurrence_data)
 
-occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/
-occurrence.txt'
+occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
 occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                     columns = 'standard')
