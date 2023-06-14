@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
+ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) plant specimen occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
 ## Installation
 
@@ -61,7 +61,9 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 
   help(prepare_gbif_occurrence_data)
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+  occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                      columns = 'standard')
 
   colnames(occ)
