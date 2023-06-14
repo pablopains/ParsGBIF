@@ -25,7 +25,6 @@ Select data fields and rename field names prefixed with "Ctrl_"
 }
 \examples{
 \donttest{
-# prepare_gbif_occurrence_data()
 
 help(prepare_gbif_occurrence_data)
 

@@ -112,3 +112,32 @@ GBIF.**
 #> #   Ctrl_occurrenceStatus <chr>, Ctrl_eventDate <dttm>, Ctrl_year <dbl>,
 #> #   Ctrl_month <dbl>, Ctrl_day <dbl>, Ctrl_habitat <chr>, …
 ```
+
+### Extracting GBIF issue to rank the quality of geographic coordinates
+
+``` r
+  library(ParsGBIF)
+
+  occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+
+  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+                                     columns = 'standard')
+  
+  
+ occ_gbif_issue <- extract_gbif_issue(occ = occ)
+
+ names(occ_gbif_issue)
+#> [1] "occ_gbif_issue" "summary"
+
+ head(occ_gbif_issue$issueGBIFSummary)
+#> NULL
+
+ colnames(occ_gbif_issue$issueGBIFOccurrence)
+#> NULL
+ 
+ head(occ_gbif_issue$issueGBIFOccurrence)
+#> NULL
+ 
+ colnames(occ_gbif_issue$issueGBIFOccurrence)
+#> NULL
+```

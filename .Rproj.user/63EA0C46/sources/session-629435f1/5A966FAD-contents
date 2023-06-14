@@ -25,7 +25,6 @@
 #'
 #' @examples
 #' \donttest{
-#' # prepare_gbif_occurrence_data()
 #'
 #' help(prepare_gbif_occurrence_data)
 #'

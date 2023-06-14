@@ -25,15 +25,17 @@
 #'
 #' help(extract_gbif_issue)
 #'
-#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#' occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/
+#' occurrence.txt'
+#'
+#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
 #'                                     columns = 'standard')
 #'
 #' data(EnumOccurrenceIssue)
 #' head(EnumOccurrenceIssue)
 #' colnames(EnumOccurrenceIssue)
 #'
-#' occ_gbif_issue <- extract_gbif_issue(occ = occ,
-#'                                      enumOccurrenceIssue = NA)
+#' occ_gbif_issue <- extract_gbif_issue(occ = occ)
 #'
 #' names(occ_gbif_issue)
 #'
