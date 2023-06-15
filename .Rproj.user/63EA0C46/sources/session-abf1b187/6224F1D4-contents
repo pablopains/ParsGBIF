@@ -108,11 +108,16 @@ occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF
 occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                     columns = 'standard')
 
-wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+data(wcvp_names_Achatocarpaceae)
+head(wcvp_names_Achatocarpaceae)
 
-wcvp_names <- get_wcvp(path_results = 'C:\\ParsGBIF - github.com',
-                       update = FALSE)$wcvp_names
 
+data(EnumOccurrenceIssue)
+colnames(EnumOccurrenceIssue)
+head(EnumOccurrenceIssue)
+
+wcvp_names <- wcvp_names_Achatocarpaceae
 
 res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
                                                  wcvp_names =  wcvp_names,

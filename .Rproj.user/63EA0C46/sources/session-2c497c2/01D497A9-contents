@@ -1,0 +1,16 @@
+rm(list = ls())
+devtools::install_github("pablopains/ParsGBIF")
+library(ParsGBIF)
+
+
+
+data(wcvp_names_Achatocarpaceae)
+head(wcvp_names_Achatocarpaceae)
+
+
+data(EnumOccurrenceIssue)
+colnames(EnumOccurrenceIssue)
+head(EnumOccurrenceIssue)
+
+
+library(rWCVPdata)
