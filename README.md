@@ -400,3 +400,195 @@ GBIF.**
 #> 5             FALSE                  FALSE            FALSE               FALSE
 #> 6             FALSE                  FALSE            FALSE               FALSE
 ```
+
+### Using the WCVP database to check accepted names and update synonyms
+
+``` r
+library(ParsGBIF)
+
+help(batch_checkName_wcvp)
+
+occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+                                    columns = 'standard')
+
+# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+data(wcvp_names_Achatocarpaceae)
+
+head(wcvp_names)
+#>   plant_name_id ipni_id taxon_rank taxon_status          family genus_hybrid
+#> 1        500145  1109-1      Genus     Accepted Achatocarpaceae             
+#> 2        500150  2261-2    Species     Accepted Achatocarpaceae             
+#> 3        500151  2262-2    Species     Accepted Achatocarpaceae             
+#> 4        500156 58636-1    Species     Accepted Achatocarpaceae             
+#> 5        500152  2263-2    Species      Synonym Achatocarpaceae             
+#> 6        500159 58638-1    Species     Accepted Achatocarpaceae             
+#>          genus species_hybrid      species infraspecific_rank infraspecies
+#> 1 Achatocarpus                                                            
+#> 2 Achatocarpus                    gracilis                                
+#> 3 Achatocarpus                hasslerianus                                
+#> 4 Achatocarpus                   nigricans                                
+#> 5 Achatocarpus                   mexicanus                                
+#> 6 Achatocarpus                     praecox                                
+#>   parenthetical_author primary_author publication_author
+#> 1                              Triana                   
+#> 2                            H.Walter H.G.A.Engler (ed.)
+#> 3                             Heimerl                   
+#> 4                              Triana                   
+#> 5                            H.Walter H.G.A.Engler (ed.)
+#> 6                             Griseb.                   
+#>                place_of_publication volume_and_page first_published
+#> 1              Ann. Sci. Nat., Bot. , sér. 4, 9: 45          (1858)
+#> 2                        Pflanzenr.   , IV, 83: 137          (1909)
+#> 3  Verh. K. K. Zool.-Bot. Ges. Wien          62: 14          (1912)
+#> 4              Ann. Sci. Nat., Bot. , sér. 4, 9: 46          (1858)
+#> 5                        Pflanzenr.   , IV, 83: 139          (1909)
+#> 6 Abh. Königl. Ges. Wiss. Göttingen          24: 32          (1879)
+#>   nomenclatural_remarks                   geographic_area lifeform_description
+#> 1                       Mexico to N. Argentina and Brazil                     
+#> 2                                               W. Mexico                 tree
+#> 3                                                Paraguay        shrub or tree
+#> 4                         Mexico to Venezuela and Bolivia        shrub or tree
+#> 5                                                  Mexico        shrub or tree
+#> 6                         Peru to Brazil and N. Argentina        shrub or tree
+#>       climate_description                taxon_name taxon_authors
+#> 1                                      Achatocarpus        Triana
+#> 2 seasonally dry tropical     Achatocarpus gracilis      H.Walter
+#> 3             subtropical Achatocarpus hasslerianus       Heimerl
+#> 4            wet tropical    Achatocarpus nigricans        Triana
+#> 5 seasonally dry tropical    Achatocarpus mexicanus      H.Walter
+#> 6             subtropical      Achatocarpus praecox       Griseb.
+#>   accepted_plant_name_id basionym_plant_name_id replaced_synonym_author
+#> 1                 500145                     NA                        
+#> 2                 500150                     NA                        
+#> 3                 500151                     NA                        
+#> 4                 500156                     NA                        
+#> 5                 500156                     NA                        
+#> 6                 500159                     NA                        
+#>   homotypic_synonym parent_plant_name_id powo_id hybrid_formula reviewed
+#> 1                NA                   NA  1109-1                       Y
+#> 2                NA               500145  2261-2                       Y
+#> 3                NA               500145  2262-2                       Y
+#> 4                NA               500145 58636-1                       Y
+#> 5                NA                   NA  2263-2                       Y
+#> 6                NA               500145 58638-1                       Y
+#>                TAXON_NAME_U TAXON_AUTHORS_U
+#> 1              ACHATOCARPUS          TRIANA
+#> 2     ACHATOCARPUS GRACILIS        H.WALTER
+#> 3 ACHATOCARPUS HASSLERIANUS         HEIMERL
+#> 4    ACHATOCARPUS NIGRICANS          TRIANA
+#> 5    ACHATOCARPUS MEXICANUS        H.WALTER
+#> 6      ACHATOCARPUS PRAECOX         GRISEB.
+
+res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
+                                                 wcvp_names =  wcvp_names,
+                                                 if_author_fails_try_without_combinations = TRUE,
+                                                 wcvp_selected_fields = 'standard')
+#> [1] "1-22 Achatocarpus nigricans Triana"
+#> [1] "2-22 Achatocarpus obovatus Schinz & Autran"
+#> [1] "3-22 Achatocarpus balansae Schinz & Autran"
+#> [1] "4-22 Achatocarpus pubescens C.H.Wright"
+#> [1] "5-22 Achatocarpus gracilis H.Walter"
+#> [1] "6-22 Achatocarpus brevipedicellatus H.Walter"
+#> [1] "7-22 Achatocarpus bicornutus Schinz & Autran"
+#> [1] "8-22 Phaulothamnus spinescens A.Gray"
+#> [1] "9-22 Achatocarpus microcarpus Schinz & Autran"
+#> [1] "10-22 Achatocarpus spinulosus Griseb."
+#> [1] "11-22 Achatocarpus praecox Griseb."
+#> [1] "12-22 Achatocarpus praecox var. bicornutus (Schinz & Autran) Botta"
+#> [1] "13-22 Achatocarpus praecox f. praecox"
+#> [1] "14-22 Achatocarpus praecox f. obovatus (Schinz & Autran) Hauman"
+#> [1] "15-22 Achatocarpus mexicanus H.Walter"
+#> [1] "16-22 Achatocarpus hasslerianus Heimerl"
+#> [1] "17-22 Achatocarpus praecox f. spinulosus (Schinz & Autran) Hauman"
+#> [1] "18-22 Achatocarpus oaxacanus Standl."
+#> [1] "19-22 Achatocarpus mollis H.Walter"
+#> [1] "20-22 Achatocarpus brasiliensis H.Walter"
+#> [1] "21-22 Achatocarpus praecox var. praecox"
+#> [1] "22-22 Ampelocera hondurensis Donn.Sm."
+
+names(res_batch_checkName_wcvp)
+#> [1] "occ_checkName_wcvp" "summary"
+
+head(res_batch_checkName_wcvp$summary)
+#>    wcvp_plant_name_id wcvp_taxon_rank wcvp_taxon_status     wcvp_family
+#> 4              500156         Species          Accepted Achatocarpaceae
+#> 22             500161            Form          Accepted Achatocarpaceae
+#> 15             500146         Species          Accepted Achatocarpaceae
+#> 9              500163         Species          Accepted Achatocarpaceae
+#> 2              500150         Species          Accepted Achatocarpaceae
+#> 16             500149         Species          Accepted Achatocarpaceae
+#>                     wcvp_taxon_name       wcvp_taxon_authors
+#> 4            Achatocarpus nigricans                   Triana
+#> 22 Achatocarpus praecox f. obovatus (Schinz & Autran) Hauman
+#> 15            Achatocarpus balansae          Schinz & Autran
+#> 9            Achatocarpus pubescens               C.H.Wright
+#> 2             Achatocarpus gracilis                 H.Walter
+#> 16   Achatocarpus brevipedicellatus                 H.Walter
+#>    wcvp_accepted_plant_name_id wcvp_reviewed
+#> 4                       500156             Y
+#> 22                      500161             Y
+#> 15                      500146             Y
+#> 9                       500163             Y
+#> 2                       500150             Y
+#> 16                      500149             Y
+#>                          wcvp_searchedName wcvp_taxon_status_of_searchedName
+#> 4            Achatocarpus nigricans Triana                              <NA>
+#> 22   Achatocarpus obovatus Schinz & Autran                           Synonym
+#> 15   Achatocarpus balansae Schinz & Autran                              <NA>
+#> 9        Achatocarpus pubescens C.H.Wright                              <NA>
+#> 2           Achatocarpus gracilis H.Walter                              <NA>
+#> 16 Achatocarpus brevipedicellatus H.Walter                              <NA>
+#>    wcvp_plant_name_id_of_searchedName wcvp_taxon_authors_of_searchedName
+#> 4                                  NA                               <NA>
+#> 22                             500158                    Schinz & Autran
+#> 15                                 NA                               <NA>
+#> 9                                  NA                               <NA>
+#> 2                                  NA                               <NA>
+#> 16                                 NA                               <NA>
+#>    wcvp_verified_author wcvp_verified_speciesName wcvp_searchNotes
+#> 4                   100                       100         Accepted
+#> 22                  100                       100          Updated
+#> 15                  100                       100         Accepted
+#> 9                   100                       100         Accepted
+#> 2                   100                       100         Accepted
+#> 16                  100                       100         Accepted
+
+head(res_batch_checkName_wcvp$occ_checkName_wcvp)
+#>   wcvp_plant_name_id wcvp_taxon_rank wcvp_taxon_status     wcvp_family
+#> 1             500156         Species          Accepted Achatocarpaceae
+#> 2             500156         Species          Accepted Achatocarpaceae
+#> 3             500156         Species          Accepted Achatocarpaceae
+#> 4             500156         Species          Accepted Achatocarpaceae
+#> 5             500156         Species          Accepted Achatocarpaceae
+#> 6             500156         Species          Accepted Achatocarpaceae
+#>          wcvp_taxon_name wcvp_taxon_authors wcvp_accepted_plant_name_id
+#> 1 Achatocarpus nigricans             Triana                      500156
+#> 2 Achatocarpus nigricans             Triana                      500156
+#> 3 Achatocarpus nigricans             Triana                      500156
+#> 4 Achatocarpus nigricans             Triana                      500156
+#> 5 Achatocarpus nigricans             Triana                      500156
+#> 6 Achatocarpus nigricans             Triana                      500156
+#>   wcvp_reviewed             wcvp_searchedName wcvp_taxon_status_of_searchedName
+#> 1             Y Achatocarpus nigricans Triana                              <NA>
+#> 2             Y Achatocarpus nigricans Triana                              <NA>
+#> 3             Y Achatocarpus nigricans Triana                              <NA>
+#> 4             Y Achatocarpus nigricans Triana                              <NA>
+#> 5             Y Achatocarpus nigricans Triana                              <NA>
+#> 6             Y Achatocarpus nigricans Triana                              <NA>
+#>   wcvp_plant_name_id_of_searchedName wcvp_taxon_authors_of_searchedName
+#> 1                                 NA                               <NA>
+#> 2                                 NA                               <NA>
+#> 3                                 NA                               <NA>
+#> 4                                 NA                               <NA>
+#> 5                                 NA                               <NA>
+#> 6                                 NA                               <NA>
+#>   wcvp_verified_author wcvp_verified_speciesName wcvp_searchNotes
+#> 1                  100                       100         Accepted
+#> 2                  100                       100         Accepted
+#> 3                  100                       100         Accepted
+#> 4                  100                       100         Accepted
+#> 5                  100                       100         Accepted
+#> 6                  100                       100         Accepted
+```
