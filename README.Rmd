@@ -110,6 +110,12 @@ occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
 
 # wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 data(wcvp_names_Achatocarpaceae)
+head(wcvp_names_Achatocarpaceae)
+
+
+data(EnumOccurrenceIssue)
+colnames(EnumOccurrenceIssue)
+head(EnumOccurrenceIssue)
 
 wcvp_names <- wcvp_names_Achatocarpaceae
 

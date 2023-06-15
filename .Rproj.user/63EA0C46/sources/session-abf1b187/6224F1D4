@@ -3,9 +3,9 @@
     "path": "C:/ParsGBIF - github.com/README.Rmd",
     "project_path": "README.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "1432434246",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1686787868582.0,
     "source_on_save": false,
     "relative_order": 3,
@@ -23,11 +23,11 @@
         "chunk_output_type": "console"
     },
     "folds": "",
-    "lastKnownWriteTime": 1686791121,
+    "lastKnownWriteTime": 1686791609,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1686791322410,
+    "last_content_update": 1686791609742,
     "read_only": false,
     "read_only_alternatives": []
 }
