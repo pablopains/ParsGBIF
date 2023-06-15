@@ -64,7 +64,6 @@
 #' @import dplyr
 #' @import stringr
 #' @import tidyselect
-#' @import magrittr
 #'
 #' @export
 batch_checkName_wcvp <- function(occ = NA,
@@ -170,7 +169,7 @@ batch_checkName_wcvp <- function(occ = NA,
                           wcvp_searchNotes = NA)
   }
 
-  index <- occ$Ctrl_taxonRank %>% toupper() %in%
+  index <- toupper(occ$Ctrl_taxonRank) %in%
     toupper(c('SPECIES',
               'VARIETY',
               'SUBSPECIES',

@@ -32,8 +32,7 @@ Imports:
     DT,
     downloader,
     tidyselect,
-    utils,
-    magrittr
+    utils
 Remotes: 
     github::pablopains/ParsGBIF
 Depends: 
