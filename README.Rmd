@@ -99,6 +99,9 @@ When parsing data, the user can choose between “standard” and “all” colu
 ```{r example_extract_gbif_issue, eval=TRUE, message=FALSE, warning=FALSE}
   library(ParsGBIF)
 
+data(EnumOccurrenceIssue)
+lm(EnumOccurrenceIssue)
+
   occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
   occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
