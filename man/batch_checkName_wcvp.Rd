@@ -8,7 +8,8 @@ batch_checkName_wcvp(
   occ = NA,
   wcvp_names = "",
   if_author_fails_try_without_combinations = TRUE,
-  wcvp_selected_fields = "standard"
+  wcvp_selected_fields = "standard",
+  show_process = TRUE
 )
 }
 \arguments{
@@ -18,7 +19,10 @@ batch_checkName_wcvp(
 
 \item{if_author_fails_try_without_combinations}{option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.}
 
-\item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.}
+\item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.
+The default is 'standard'}
+
+\item{show_process}{a logical value indicating to show the evolution of the processing. The default is TRUE}
 }
 \value{
 list with two data frames: summary, species list and occ_checkName_wcvp, with WCVP fields
