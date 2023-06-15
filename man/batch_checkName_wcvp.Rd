@@ -2,7 +2,7 @@
 % Please edit documentation in R/batch_checkName_wcvp.R
 \name{batch_checkName_wcvp}
 \alias{batch_checkName_wcvp}
-\title{In batch, use the WCVP database to check accepted names and update synonyms.}
+\title{In batch, use the WCVP database to check accepted names and update synonyms}
 \usage{
 batch_checkName_wcvp(
   occ = NA,
@@ -12,11 +12,13 @@ batch_checkName_wcvp(
 )
 }
 \arguments{
-\item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard').}
+\item{occ}{GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')}
 
-\item{wcvp_names}{WCVP table, wcvp_names.csv file from http://sftp.kew.org/pub/data-repositories/WCVP/ If NA, automatically load the latest version of the database by the function ParsGBIF::get_wcvp(read_only_to_memory = TRUE)$wcvp_names.}
+\item{wcvp_names}{get data frame in ParsGBIF::get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+or configure function to save a copy on local disk to optimize loading, see details in help(get_wcvp)}
 
-\item{if_author_fails_try_without_combinations}{option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.}
+\item{if_author_fails_try_without_combinations}{option for partial verification of the authorship of the species.
+Remove the authors of combinations, in parentheses.}
 
 \item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.
 The default is 'standard'}
@@ -27,7 +29,7 @@ list with two data frames: summary, species list and occ_checkName_wcvp, with WC
 \description{
 In batch, use the \href{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
 \href{http://sftp.kew.org/pub/data-repositories/WCVP/}{database}
-\href{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms.
+\href{https://powo.science.kew.org/about-wcvp}{(about WCVP)} to check accepted names and update synonyms
 }
 \details{
 See help(checkName_wcvp) and \href{http://sftp.kew.org/pub/data-repositories/WCVP/}{about WCVP database}
