@@ -42,12 +42,16 @@
 #' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
 #'                                     columns = 'standard')
 #'
-#' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+#' # wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+#' data(wcvp_names_Achatocarpaceae)
+#'
+#' head(wcvp_names)
 #'
 #' res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
 #'                                                  wcvp_names =  wcvp_names,
 #'                                                  if_author_fails_try_without_combinations = TRUE,
-#'                                                  wcvp_selected_fields = 'standard')
+#'                                                  wcvp_selected_fields = 'standard',
+#'                                                  show_process = TRUE)
 #'
 #' names(res_batch_checkName_wcvp)
 #'
