@@ -11,7 +11,6 @@
 #' @param if_author_fails_try_without_combinations option for partial verification of the authorship of the species. Remove the authors of combinations, in parentheses.
 #' @param wcvp_selected_fields WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.
 #' The default is 'standard'
-#' @param show_process a logical value indicating to show the evolution of the processing. The default is TRUE
 #'
 #' @details See help(checkName_wcvp) and [about WCVP database](http://sftp.kew.org/pub/data-repositories/WCVP/)
 #'
@@ -69,8 +68,7 @@
 batch_checkName_wcvp <- function(occ = NA,
                                  wcvp_names = '',
                                  if_author_fails_try_without_combinations = TRUE,
-                                 wcvp_selected_fields = 'standard',
-                                 show_process = TRUE)
+                                 wcvp_selected_fields = 'standard')
 {
 
   if(class(wcvp_names)!='data.frame')
@@ -191,10 +189,7 @@ batch_checkName_wcvp <- function(occ = NA,
   {
     sp_tmp <- name_search_wcvp[i]
 
-    if(show_process==TRUE)
-    {
-      print( paste0( i, '-',tot_rec ,' ',  sp_tmp))
-    }
+    print( paste0( i, '-',tot_rec ,' ',  sp_tmp))
 
     x_tmp <- checkName_wcvp(searchedName = sp_tmp,
                             wcvp_names = wcvp_names,
