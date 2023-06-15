@@ -35,7 +35,9 @@ devtools::install_github("pablopains/ParsGBIF")
 **ParsGBIF makes it easy to get species occurrence records based on
 GBIF.**
 
-### Obtaining occurrence data of the herbarium specimen in GBIF
+### 1. GBIF data preparation
+
+#### 1.1. Obtaining occurrence data of the herbarium specimen in GBIF
 
 1.  Access a registered account in [GBIF](gbif.org)
 
