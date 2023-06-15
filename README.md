@@ -26,6 +26,8 @@ pages accessed via help(function_name).
 You can install the development version of ParsGBIF from
 [GitHub](https://github.com/) with:
 
+To install ParsGBIF, run
+
 ``` r
 devtools::install_github("pablopains/ParsGBIF")
 ```
