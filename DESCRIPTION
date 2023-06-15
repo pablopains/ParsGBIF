@@ -35,7 +35,6 @@ Imports:
     utils,
     rWCVP
 Remotes: 
-    github::pablopains/ParsGBIF,
-    github::matildabrown/rWCVPdata
+    github::pablopains/ParsGBIF
 Depends: 
     R (>= 3.5.0)
