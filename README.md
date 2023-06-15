@@ -39,21 +39,19 @@ GBIF.**
 
 #### 1.1. Obtaining occurrence data of the herbarium specimen in GBIF
 
-1.  Access a registered account in [GBIF](gbif.org)
+1.1.1. Access a registered account in [GBIF](gbif.org)
 
-2.  Filter occurrences with the following parameters:
+1.1.2. Filter occurrences with the following parameters: \* Basis of
+record: *Preserved specimen* \* Occurrence status: *present* \*
+Scientific name: *Botanical family name* or **filter by other fields**
 
-- Basis of record: *Preserved specimen*
-- Occurrence status: *present*
-- Scientific name: *Botanical family name* or **filter by other fields**
+1.1.3. Request to download information in **DARWIN CORE ARCHIVE FORMAT**
 
-3.  Request to download information in **DARWIN CORE ARCHIVE FORMAT**
+1.1.4. Download compressed file and unzip downloaded file
 
-4.  Download compressed file and unzip downloaded file
-
-5.  Use the **occurrence.txt** file as input to the
-    prepare_gbif_occurrence_data(gbif_occurrece_file = ‘occurrence.txt’)
-    function
+1.1.5. Use the **occurrence.txt** file as input to the
+prepare_gbif_occurrence_data(gbif_occurrece_file = ‘occurrence.txt’)
+function
 
 ### Preparing occurrence data to use in ParsGBIF package
 
