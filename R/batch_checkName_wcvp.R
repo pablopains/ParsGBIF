@@ -64,6 +64,7 @@
 #' @import dplyr
 #' @import stringr
 #' @import tidyselect
+#' @import magrittr
 #'
 #' @export
 batch_checkName_wcvp <- function(occ = NA,

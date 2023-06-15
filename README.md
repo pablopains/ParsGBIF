@@ -484,29 +484,8 @@ head(wcvp_names)
 res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
                                                  wcvp_names =  wcvp_names,
                                                  if_author_fails_try_without_combinations = TRUE,
-                                                 wcvp_selected_fields = 'standard')
-#> [1] "1-22 Achatocarpus nigricans Triana"
-#> [1] "2-22 Achatocarpus obovatus Schinz & Autran"
-#> [1] "3-22 Achatocarpus balansae Schinz & Autran"
-#> [1] "4-22 Achatocarpus pubescens C.H.Wright"
-#> [1] "5-22 Achatocarpus gracilis H.Walter"
-#> [1] "6-22 Achatocarpus brevipedicellatus H.Walter"
-#> [1] "7-22 Achatocarpus bicornutus Schinz & Autran"
-#> [1] "8-22 Phaulothamnus spinescens A.Gray"
-#> [1] "9-22 Achatocarpus microcarpus Schinz & Autran"
-#> [1] "10-22 Achatocarpus spinulosus Griseb."
-#> [1] "11-22 Achatocarpus praecox Griseb."
-#> [1] "12-22 Achatocarpus praecox var. bicornutus (Schinz & Autran) Botta"
-#> [1] "13-22 Achatocarpus praecox f. praecox"
-#> [1] "14-22 Achatocarpus praecox f. obovatus (Schinz & Autran) Hauman"
-#> [1] "15-22 Achatocarpus mexicanus H.Walter"
-#> [1] "16-22 Achatocarpus hasslerianus Heimerl"
-#> [1] "17-22 Achatocarpus praecox f. spinulosus (Schinz & Autran) Hauman"
-#> [1] "18-22 Achatocarpus oaxacanus Standl."
-#> [1] "19-22 Achatocarpus mollis H.Walter"
-#> [1] "20-22 Achatocarpus brasiliensis H.Walter"
-#> [1] "21-22 Achatocarpus praecox var. praecox"
-#> [1] "22-22 Ampelocera hondurensis Donn.Sm."
+                                                 wcvp_selected_fields = 'standard',
+                                                 show_process = FALSE)
 
 names(res_batch_checkName_wcvp)
 #> [1] "occ_checkName_wcvp" "summary"
