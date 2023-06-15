@@ -46,9 +46,9 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
   1.1.1. Access a registered account in [GBIF](gbif.org) 
   
   1.1.2. Filter occurrences with the following parameters:
-    * Basis of record: _Preserved specimen_
-    * Occurrence status: _present_
-    * Scientific name: _Botanical family name_ or __filter by other fields__
+  * Basis of record: _Preserved specimen_
+  * Occurrence status: _present_
+  * Scientific name: _Botanical family name_ or __filter by other fields__
 
   1.1.3. Request to download information in __DARWIN CORE ARCHIVE FORMAT__
   
