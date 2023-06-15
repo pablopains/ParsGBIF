@@ -13,13 +13,13 @@
 #'
 #' @details See help(checkName_wcvp) and [about WCVP database](http://sftp.kew.org/pub/data-repositories/WCVP/)
 #'
-#'#' @author Pablo Hendrigo Alves de Melo,
+#' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
 #'         Alexandre Monro
 #'
 #' @seealso \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
 #'
-#' @return Data frame with WCVP fields
+#' @return list with two data frames: summary, species list and occ_checkName_wcvp, with WCVP fields
 #'
 #' @import dplyr
 #' @import stringr
@@ -28,17 +28,19 @@
 #' @importFrom dplyr mutate
 #'
 #' @examples
-#' # These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+#' # These examples take >10 minutes to run and require 'ParsGBIF::get_wcvp()'
 #' \donttest{
-#' # load package
+#'
 #' library(ParsGBIF)
 #'
 #' help(batch_checkName_wcvp)
 #'
-#' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+#' occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 #'
-#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+#' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
 #'                                     columns = 'standard')
+#'
+#' wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 #'
 #' res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
 #'                                                  wcvp_names =  wcvp_names,
@@ -47,9 +49,10 @@
 #'
 #' names(res_batch_checkName_wcvp)
 #'
-#' head(res_batch_checkName_wcvp$wcvpSummary)
+#' head(res_batch_checkName_wcvp$summary)
 #'
-#' head(res_batch_checkName_wcvp$wcvpOccurrence)
+#' head(res_batch_checkName_wcvp$occ_checkName_wcvp)
+#'
 #' }
 #'
 #' @import dplyr
@@ -58,26 +61,20 @@
 #'
 #' @export
 batch_checkName_wcvp <- function(occ = NA,
-                                 wcvp_names = NA,
+                                 wcvp_names = '',
                                  if_author_fails_try_without_combinations = TRUE,
                                  wcvp_selected_fields = 'standard')
 {
-  # https://powo.science.kew.org/about-wcvp
 
-  # require(dplyr)
-  # require(stringr)
-  # require(tidyselect)
-
-  if(any(is.na(wcvp_names))==TRUE)
+  if(class(wcvp_names)!='data.frame')
   {
-    wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+    stop("wcvp_names:  Inform wcvp_names data frame!")
   }
 
   if(!wcvp_selected_fields %in% c('standard','all'))
   {
-    stop("Unknown option!")
+    stop("wcvp_selected_fields: standard or all!")
   }
-
 
   if (wcvp_selected_fields == 'standard')
   {

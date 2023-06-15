@@ -6,7 +6,7 @@
 \usage{
 checkName_wcvp(
   searchedName = "Hemistylus brasiliensis Wedd.",
-  wcvp_names = NA,
+  wcvp_names = "",
   if_author_fails_try_without_combinations = TRUE
 )
 }

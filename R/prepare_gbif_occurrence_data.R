@@ -26,6 +26,8 @@
 #' @examples
 #' \donttest{
 #'
+#' library(ParsGBIF)
+#'
 #' help(prepare_gbif_occurrence_data)
 #'
 #' occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'

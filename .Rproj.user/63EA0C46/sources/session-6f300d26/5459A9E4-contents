@@ -1,0 +1,92 @@
+#' @details ParsGBIF - package  creation - Only in development times
+{
+  rm(list = ls())
+
+
+  # EnumOccurrenceIssue <- readr::read_csv("C:/ParsGBIF/data/EnumOccurrenceIssue.csv",
+  #                                        locale = readr::locale(encoding = "UTF-8"),
+  #                                        show_col_types = FALSE)
+  #
+  # save(EnumOccurrenceIssue,
+  #      file = "C:/ParsGBIF - github.com/data/EnumOccurrenceIssue.RData",
+  #      ascii = TRUE)
+
+  # install.packages("rcmdcheck")
+  # install.packages("devtools")
+
+  library(devtools)
+  # library(rcmdcheck)
+  # library(pdflatex)
+  setwd("C:\\ParsGBIF - github.com")
+
+  # here::dr_here()
+  # here::i_am('C:\\ParsGBIF - github.com')
+
+  
+  roxygen2::roxygenize(package.dir = "C:\\ParsGBIF - github.com",
+                       roclets = c("collate", "namespace", "rd"),
+                       clean=TRUE)
+  
+  # or
+  # devtools::document(as.package("C:\\ParsGBIF - github.com"),
+  #                    roclets =  c("collate", "namespace", "rd"))
+  
+  devtools::load_all(as.package("C:\\ParsGBIF - github.com"))
+  
+  # devtools::check("C:\\ParsGBIF - github.com")
+  
+
+  devtools::build_manual(path = "C:\\ParsGBIF - github.com")
+  # devtools::build_readme(path = "C:\\ParsGBIF - github.com")
+  devtools::build(path = "C:\\ParsGBIF - github.com")
+  
+  
+
+   rm(list = ls())
+   setwd("C:\\ParsGBIF - github.com")
+   
+   library(tinytex)
+   library(roxygen2); # Read in the roxygen2 R package
+   library(rcmdcheck)
+   roxygen2::roxygenize(package.dir = "C:\\ParsGBIF - github.com",
+              roclets = c("collate", "namespace", "rd"),
+              clean=TRUE)
+   
+   
+   # roxygen2::roxygenise(package.dir = "C:\\ParsGBIF - github.com",
+   #                      roclets = c("collate", "namespace", "rd"),
+   #                      clean=TRUE);      # Builds the help files
+   
+   update_collate(getwd())
+   
+   ck_res <- rcmdcheck::rcmdcheck(path="C:\\ParsGBIF - github.com",
+                                  # build_args=c("--force", "--keep-empty-dirs"),
+                                  check_dir = "C:\\ParsGBIF\\teste pacote")
+   
+   parse_check(ck_res,
+               file = 'C:\\ParsGBIF\\teste pacote\\ParsGBIF.Rcheck\\00check')
+   
+   rcmdcheck::check_details(ck_res)
+  
+library(ParsGBIF)
+  rcmdcheck::cran_check_results('ParsGBIF')
+
+
+  help(update_collectorsDictionary)
+
+  help(prepare_collectorsDictionary)
+
+  help(batch_checkName_wcvp)
+
+
+
+  rm(list = ls())
+  devtools::install_github("pablopains/ParsGBIF")
+  library(ParsGBIF)
+  
+  help(prepare_gbif_occurrence_data)
+  
+  help(extract_gbif_issue)
+  
+
+}

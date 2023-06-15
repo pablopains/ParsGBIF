@@ -96,25 +96,33 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 ```
 
 
-### Extracting GBIF issue to rank the quality of geographic coordinates 
+### Using the WCVP database to check accepted names and update synonyms
 
-```{r example_extract_gbif_issue, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
+```{r example_batch_checkName_wcvp, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
 
-  occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
+help(batch_checkName_wcvp)
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
-                                     columns = 'standard')
-  
-  
- occ_gbif_issue <- extract_gbif_issue(occ = occ)
+occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
- names(occ_gbif_issue)
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+                                    columns = 'standard')
 
- head(occ_gbif_issue$summary)
+wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 
- colnames(occ_gbif_issue$occ_gbif_issue)
- 
- head(occ_gbif_issue$occ_gbif_issue)
+wcvp_names <- get_wcvp(path_results = 'C:\\ParsGBIF - github.com',
+                       update = FALSE)$wcvp_names
+
+
+res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
+                                                 wcvp_names =  wcvp_names,
+                                                 if_author_fails_try_without_combinations = TRUE,
+                                                 wcvp_selected_fields = 'standard')
+
+names(res_batch_checkName_wcvp)
+
+head(res_batch_checkName_wcvp$summary)
+
+head(res_batch_checkName_wcvp$occ_checkName_wcvp)
 
 ```

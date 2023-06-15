@@ -26,6 +26,8 @@ Select data fields and rename field names prefixed with "Ctrl_"
 \examples{
 \donttest{
 
+library(ParsGBIF)
+
 help(prepare_gbif_occurrence_data)
 
 occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'

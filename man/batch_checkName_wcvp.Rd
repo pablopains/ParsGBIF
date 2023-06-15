@@ -6,7 +6,7 @@
 \usage{
 batch_checkName_wcvp(
   occ = NA,
-  wcvp_names = NA,
+  wcvp_names = "",
   if_author_fails_try_without_combinations = TRUE,
   wcvp_selected_fields = "standard"
 )
@@ -21,7 +21,7 @@ batch_checkName_wcvp(
 \item{wcvp_selected_fields}{WCVP fields selected as return, 'standard' basic columns, 'all' all available columns.}
 }
 \value{
-Data frame with WCVP fields
+list with two data frames: summary, species list and occ_checkName_wcvp, with WCVP fields
 }
 \description{
 In batch, use the \href{https://powo.science.kew.org//}{World Checklist of Vascular Plants}
@@ -30,23 +30,21 @@ In batch, use the \href{https://powo.science.kew.org//}{World Checklist of Vascu
 }
 \details{
 See help(checkName_wcvp) and \href{http://sftp.kew.org/pub/data-repositories/WCVP/}{about WCVP database}
-
-#' @author Pablo Hendrigo Alves de Melo,
-Nadia Bystriakova &
-Alexandre Monro
 }
 \examples{
-# These examples take >10 seconds to run and require 'ParsGBIF::get_wcvp()'
+# These examples take >10 minutes to run and require 'ParsGBIF::get_wcvp()'
 \donttest{
-# load package
+
 library(ParsGBIF)
 
 help(batch_checkName_wcvp)
 
-wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
-occ <- prepare_gbif_occurrence_data(gbif_occurrece_file =  'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt',
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                     columns = 'standard')
+
+wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 
 res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
                                                  wcvp_names =  wcvp_names,
@@ -55,12 +53,18 @@ res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
 
 names(res_batch_checkName_wcvp)
 
-head(res_batch_checkName_wcvp$wcvpSummary)
+head(res_batch_checkName_wcvp$summary)
 
-head(res_batch_checkName_wcvp$wcvpOccurrence)
+head(res_batch_checkName_wcvp$occ_checkName_wcvp)
+
 }
 
 }
 \seealso{
 \code{\link[ParsGBIF]{get_wcvp}}, \code{\link[ParsGBIF]{checkName_wcvp}}
+}
+\author{
+Pablo Hendrigo Alves de Melo,
+Nadia Bystriakova &
+Alexandre Monro
 }

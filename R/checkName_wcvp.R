@@ -102,15 +102,13 @@
 #'
 #' @export
 checkName_wcvp <- function(searchedName = 'Hemistylus brasiliensis Wedd.',
-                              wcvp_names =  NA,
+                              wcvp_names =  '',
                               if_author_fails_try_without_combinations = TRUE)
 {
-  # https://powo.science.kew.org/about-wcvp#unplacednames
 
-
-  if(any(is.na(wcvp_names))==TRUE)
+  if(class(wcvp_names)!='data.frame')
   {
-    wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+    stop("wcvp_names:  Inform wcvp_names data frame!")
   }
 
   x <- {}

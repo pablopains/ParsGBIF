@@ -21,10 +21,11 @@
 #' @examples
 #' \donttest{
 #'
+#' library(ParsGBIF)
+#'
 #' help(extract_gbif_issue)
 #'
-#' occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/
-#' occurrence.txt'
+#' occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 #'
 #' occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
 #'                                     columns = 'standard')
@@ -52,8 +53,6 @@
 extract_gbif_issue <- function(occ = NA,
                                enumOccurrenceIssue = NA)
 {
-  # require(dplyr)
-
   {
     if (is.na(enumOccurrenceIssue))
     {
