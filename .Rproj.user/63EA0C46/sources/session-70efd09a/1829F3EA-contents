@@ -5,8 +5,8 @@
 #' @format ## `EnumOccurrenceIssue`
 #' A data frame with 69 rows and 9 columns:
 #' \describe{
-#'   \item{Constant}{GBIF Constant}
-#'   \item{Description}{Description}
+#'   \item{constant}{GBIF Constant}
+#'   \item{description}{Description}
 #'   \item{definition}{definition}
 #'   \item{type}{type}
 #'   \item{priority}{priority}

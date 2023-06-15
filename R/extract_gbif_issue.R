@@ -62,8 +62,8 @@ extract_gbif_issue <- function(occ = NA,
       EnumOccurrenceIssue <- enumOccurrenceIssue
     }
 
-    issue_table <- data.frame(t(EnumOccurrenceIssue$Constant))
-    colnames(issue_table) <- EnumOccurrenceIssue$Constant
+    issue_table <- data.frame(t(EnumOccurrenceIssue$constant))
+    colnames(issue_table) <- EnumOccurrenceIssue$constant
 
     issue_key <- colnames(issue_table)
     issue_table[1:NROW(occ),issue_key] <- rep(FALSE, NROW(occ))
