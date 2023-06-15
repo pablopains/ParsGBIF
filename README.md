@@ -24,7 +24,7 @@ pages accessed via help(function_name).
 ## Installation
 
 You can install the development version of ParsGBIF from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/).
 
 To install ParsGBIF, run
 
@@ -39,13 +39,15 @@ GBIF.**
 
 ### 1. GBIF data preparation
 
-#### 1.1. Obtaining occurrence data of the herbarium specimen in GBIF
+#### 1.1. Obtaining occurrence data of the herbarium specimen from GBIF
 
 1.1.1. Access a registered account in [GBIF](gbif.org)
 
-1.1.2. Filter occurrences with the following parameters: \* Basis of
-record: *Preserved specimen* \* Occurrence status: *present* \*
-Scientific name: *Botanical family name* or **filter by other fields**
+1.1.2. Filter occurrences with the following parameters:
+
+- Basis of record: *Preserved specimen*
+- Occurrence status: *present*
+- Scientific name: *Botanical family name* or **filter by other fields**
 
 1.1.3. Request to download information in **DARWIN CORE ARCHIVE FORMAT**
 
@@ -55,7 +57,10 @@ Scientific name: *Botanical family name* or **filter by other fields**
 prepare_gbif_occurrence_data(gbif_occurrece_file = ‘occurrence.txt’)
 function
 
-### Preparing occurrence data to use in ParsGBIF package
+#### 1.2. Preparing occurrence data downloaded from GBIF
+
+To prepare occurrence data downloaded from GBIF to be used by ParsGBIF
+functions, run prepere_gbif_occurrence_data.
 
 ``` r
   library(ParsGBIF)
@@ -113,6 +118,26 @@ function
 #> #   Ctrl_recordedBy <chr>, Ctrl_georeferenceVerificationStatus <chr>,
 #> #   Ctrl_occurrenceStatus <chr>, Ctrl_eventDate <dttm>, Ctrl_year <dbl>,
 #> #   Ctrl_month <dbl>, Ctrl_day <dbl>, Ctrl_habitat <chr>, …
+```
+
+When parsing data, the user can choose between “standard” and “all”
+columns to be selected. The “standard” format has 54 data fields
+(columns), and the “all” format, 257 data fields (columns).
+
+``` r
+  library(ParsGBIF)
+
+  help(select_gbif_fields)
+  
+  col_standard <- select_gbif_fields(columns = 'standard')
+  
+  str(col_standard)
+#>  chr [1:54] "bibliographicCitation" "language" "institutionCode" ...
+
+  col_all <- select_gbif_fields(columns = 'all')
+
+  str(col_all)
+#>  chr [1:257] "gbifID" "abstract" "accessRights" "accrualMethod" ...
 ```
 
 ### Extracting GBIF issue to rank the quality of geographic coordinates
