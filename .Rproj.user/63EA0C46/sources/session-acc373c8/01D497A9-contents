@@ -1,3 +1,6 @@
 rm(list = ls())
 devtools::install_github("pablopains/ParsGBIF")
 library(ParsGBIF)
+
+
+library(rWCVPdata)
