@@ -5,9 +5,18 @@
 \alias{EnumOccurrenceIssue}
 \title{Enumeration GBIF issue}
 \format{
-\subsection{\code{EnumOccurrenceIssue}}{
-
-A data frame with 69 rows and 9 columns:
+A data frame with 69 rows and 9 columns
+}
+\source{
+\url{https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html}
+}
+\usage{
+data(EnumOccurrenceIssue)
+}
+\description{
+An enumeration of validation rules for single occurrence records.
+}
+\details{
 \describe{
 \item{constant}{GBIF Constant}
 \item{description}{Description}
@@ -19,15 +28,5 @@ A data frame with 69 rows and 9 columns:
 \item{reasoning}{reasoning}
 \item{notes}{notes}
 }
-}
-}
-\source{
-\url{https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html}
-}
-\usage{
-EnumOccurrenceIssue
-}
-\description{
-An enumeration of validation rules for single occurrence records.
 }
 \keyword{datasets}

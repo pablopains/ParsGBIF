@@ -2,8 +2,6 @@
 #'
 #' An enumeration of validation rules for single occurrence records.
 #'
-#' @format ## `EnumOccurrenceIssue`
-#' A data frame with 69 rows and 9 columns:
 #' \describe{
 #'   \item{constant}{GBIF Constant}
 #'   \item{description}{Description}
@@ -15,5 +13,11 @@
 #'   \item{reasoning}{reasoning}
 #'   \item{notes}{notes}
 #' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name EnumOccurrenceIssue
+#' @usage data(EnumOccurrenceIssue)
+#' @format A data frame with 69 rows and 9 columns
 #' @source <https://gbif.github.io/parsers/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html>
-"EnumOccurrenceIssue"
+NULL

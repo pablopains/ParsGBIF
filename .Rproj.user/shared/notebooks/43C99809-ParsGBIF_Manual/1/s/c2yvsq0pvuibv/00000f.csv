@@ -1,7 +1,0 @@
-"0","print(citation(""ParsGBIF""), bibtex = FALSE)
-"
-"2","Warning: DESCRIPTION file of package 'ParsGBIF' is missing or broken"
-"1","Melo P, Bystriakova N, Monro A (2023). “ParsGBIF: An R package for parsing species
-occurrence records.” _Methods in Ecology and Evolution_, *1*(11), 1-11. doi:doi.....
-<https://doi.org/doi.....>.
-"

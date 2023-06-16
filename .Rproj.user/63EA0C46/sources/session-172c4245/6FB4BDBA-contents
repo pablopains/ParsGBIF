@@ -25,9 +25,9 @@ ParsGBIF package is designed to convert [Global Biodiversity Information Facilit
 
 ## Installation
 
-You can install the development version of ParsGBIF from [GitHub](https://github.com/).
-
+You can install the development version of ParsGBIF from [GitHub](https://github.com/pablopains/ParsGBIF).
 To install ParsGBIF, run 
+
 ``` r
 devtools::install_github("pablopains/ParsGBIF")
 ```
@@ -37,14 +37,11 @@ Please site ParsGBIF as:
 print(citation("ParsGBIF"), bibtex = FALSE)
 ```
 
-
 ## Example
-
 __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 
 ### 1. GBIF data preparation
 #### 1.1. Obtaining occurrence data of the herbarium specimen from GBIF
-
   1.1.1. Access a registered account in [GBIF](gbif.org) 
   
   1.1.2. Filter occurrences with the following parameters:
@@ -64,50 +61,43 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 To prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions, run prepere_gbif_occurrence_data.
 
 ```{r example_prepare_gbif_occurrence_data, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
-
-  help(prepare_gbif_occurrence_data)
-
   occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
-                                     columns = 'standard')
+  occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file, columns = 'standard')
 
   colnames(occ)
  
   head(occ)
 ```
 
-
 When parsing data, the user can choose between “standard” and “all” columns to be selected. The “standard” format has 54 data fields (columns), and the “all” format, 257 data fields (columns).
 
 ```{r example_select_gbif_fields, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
-
-  help(select_gbif_fields)
-  
-  col_standard <- select_gbif_fields(columns = 'standard')
+  col_standard <- ParsGBIF::select_gbif_fields(columns = 'standard')
   
   str(col_standard)
 
-  col_all <- select_gbif_fields(columns = 'all')
+  col_all <- ParsGBIF::select_gbif_fields(columns = 'all')
 
   str(col_all)
 ```
 
 
 ### 2. Extracting GBIF issue to rank the quality of geographic coordinates 
+```{r example_extract_gbif_issue1, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
+help(EnumOccurrenceIssue)
+```
+
 
 ```{r example_extract_gbif_issue, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
-
   occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+  occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                      columns = 'standard')
   
   
- occ_gbif_issue <- extract_gbif_issue(occ = occ)
+ occ_gbif_issue <- ParsGBIF::extract_gbif_issue(occ = occ)
 
  names(occ_gbif_issue)
 
