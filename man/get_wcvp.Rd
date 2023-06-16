@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_wcvp.R
 \name{get_wcvp}
 \alias{get_wcvp}
-\title{get_wcvp}
+\title{Get WCVP database}
 \usage{
 get_wcvp(
   url_source = "http://sftp.kew.org/pub/data-repositories/WCVP/",
@@ -24,9 +24,7 @@ get_wcvp(
 \item{load_distribution}{TRUE to load file with geographical distribution of species, if read_only_to_memory FALSE}
 }
 \value{
-README_WCVP.xlsx,
-wcvp_distribution.csv,
-wcvp_names.csv
+list with two data frames: wcvp_names and wcvp_distribution
 }
 \description{
 Download World Checklist of Vascular Plants (WCVP) database

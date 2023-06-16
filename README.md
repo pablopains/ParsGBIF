@@ -140,7 +140,7 @@ columns to be selected. The “standard” format has 54 data fields
 #>  chr [1:257] "gbifID" "abstract" "accessRights" "accrualMethod" ...
 ```
 
-### Extracting GBIF issue to rank the quality of geographic coordinates
+### 2. Extracting GBIF issue to rank the quality of geographic coordinates
 
 ``` r
   library(ParsGBIF)
@@ -428,85 +428,25 @@ columns to be selected. The “standard” format has 54 data fields
 #> 6             FALSE                  FALSE            FALSE               FALSE
 ```
 
-### Using the WCVP database to check accepted names and update synonyms
+### 3. Using the WCVP database to check accepted names and update synonyms
 
 ``` r
 library(ParsGBIF)
 
 help(batch_checkName_wcvp)
 
+
+# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+# wcvp_names_Achatocarpaceae is a subset of data from the wcvp names database used only to demonstrate the use of the ParsGBIF package. See below alternatives of loading wcvp name database.
+
+data(wcvp_names_Achatocarpaceae)
+wcvp_names <- wcvp_names_Achatocarpaceae
+
 occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
 occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                     columns = 'standard')
-
-# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
-data(wcvp_names_Achatocarpaceae)
-
-head(wcvp_names)
-#>   plant_name_id ipni_id taxon_rank taxon_status          family genus_hybrid
-#> 1        500145  1109-1      Genus     Accepted Achatocarpaceae             
-#> 2        500150  2261-2    Species     Accepted Achatocarpaceae             
-#> 3        500151  2262-2    Species     Accepted Achatocarpaceae             
-#> 4        500156 58636-1    Species     Accepted Achatocarpaceae             
-#> 5        500152  2263-2    Species      Synonym Achatocarpaceae             
-#> 6        500159 58638-1    Species     Accepted Achatocarpaceae             
-#>          genus species_hybrid      species infraspecific_rank infraspecies
-#> 1 Achatocarpus                                                            
-#> 2 Achatocarpus                    gracilis                                
-#> 3 Achatocarpus                hasslerianus                                
-#> 4 Achatocarpus                   nigricans                                
-#> 5 Achatocarpus                   mexicanus                                
-#> 6 Achatocarpus                     praecox                                
-#>   parenthetical_author primary_author publication_author
-#> 1                              Triana                   
-#> 2                            H.Walter H.G.A.Engler (ed.)
-#> 3                             Heimerl                   
-#> 4                              Triana                   
-#> 5                            H.Walter H.G.A.Engler (ed.)
-#> 6                             Griseb.                   
-#>                place_of_publication volume_and_page first_published
-#> 1              Ann. Sci. Nat., Bot. , sér. 4, 9: 45          (1858)
-#> 2                        Pflanzenr.   , IV, 83: 137          (1909)
-#> 3  Verh. K. K. Zool.-Bot. Ges. Wien          62: 14          (1912)
-#> 4              Ann. Sci. Nat., Bot. , sér. 4, 9: 46          (1858)
-#> 5                        Pflanzenr.   , IV, 83: 139          (1909)
-#> 6 Abh. Königl. Ges. Wiss. Göttingen          24: 32          (1879)
-#>   nomenclatural_remarks                   geographic_area lifeform_description
-#> 1                       Mexico to N. Argentina and Brazil                     
-#> 2                                               W. Mexico                 tree
-#> 3                                                Paraguay        shrub or tree
-#> 4                         Mexico to Venezuela and Bolivia        shrub or tree
-#> 5                                                  Mexico        shrub or tree
-#> 6                         Peru to Brazil and N. Argentina        shrub or tree
-#>       climate_description                taxon_name taxon_authors
-#> 1                                      Achatocarpus        Triana
-#> 2 seasonally dry tropical     Achatocarpus gracilis      H.Walter
-#> 3             subtropical Achatocarpus hasslerianus       Heimerl
-#> 4            wet tropical    Achatocarpus nigricans        Triana
-#> 5 seasonally dry tropical    Achatocarpus mexicanus      H.Walter
-#> 6             subtropical      Achatocarpus praecox       Griseb.
-#>   accepted_plant_name_id basionym_plant_name_id replaced_synonym_author
-#> 1                 500145                     NA                        
-#> 2                 500150                     NA                        
-#> 3                 500151                     NA                        
-#> 4                 500156                     NA                        
-#> 5                 500156                     NA                        
-#> 6                 500159                     NA                        
-#>   homotypic_synonym parent_plant_name_id powo_id hybrid_formula reviewed
-#> 1                NA                   NA  1109-1                       Y
-#> 2                NA               500145  2261-2                       Y
-#> 3                NA               500145  2262-2                       Y
-#> 4                NA               500145 58636-1                       Y
-#> 5                NA                   NA  2263-2                       Y
-#> 6                NA               500145 58638-1                       Y
-#>                TAXON_NAME_U TAXON_AUTHORS_U
-#> 1              ACHATOCARPUS          TRIANA
-#> 2     ACHATOCARPUS GRACILIS        H.WALTER
-#> 3 ACHATOCARPUS HASSLERIANUS         HEIMERL
-#> 4    ACHATOCARPUS NIGRICANS          TRIANA
-#> 5    ACHATOCARPUS MEXICANUS        H.WALTER
-#> 6      ACHATOCARPUS PRAECOX         GRISEB.
 
 res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
                                                  wcvp_names =  wcvp_names,
@@ -618,4 +558,56 @@ head(res_batch_checkName_wcvp$occ_checkName_wcvp)
 #> 4                  100                       100         Accepted
 #> 5                  100                       100         Accepted
 #> 6                  100                       100         Accepted
+```
+
+There are two ways to load WCVP name database:
+
+- ParsGBIF::get_wcvp() function
+
+- rWCVPdata package
+
+#### 3.1. Getting WCVP database from ParsGBIF::get_wcvp() function
+
+There is a potion to save the local copy, indicated to optimize future
+loads. Or always read the latest database version from <source> which
+always requires a download.
+
+``` r
+help(get_wcvp)
+
+path_data <- tempdir() # you can change this folder
+
+wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
+                  read_only_to_memory = FALSE,
+                  path_results = path_data,
+                  update = FALSE,
+                  load_distribution = TRUE)
+
+names(wcvp)
+
+head(wcvp$wcvp_names)
+
+colnames(wcvp$wcvp_names)
+
+head(wcvp$wcvp_distribution)
+
+colnames(wcvp$wcvp_distribution)
+```
+
+#### 3.2. Getting WCVP database from rWCVPdata package
+
+Use the database version available in the package. After installing the
+package, loading the database is very fast. Small adjustments are needed
+for the data to be used by the ParsGBIF functions.
+
+``` r
+# devtools::install_github(“matildabrown/rWCVPdata”) library(rWCVPdata)
+
+library(rWCVPdata)
+
+wcvp_names <- rWCVPdata::wcvp_names %\>%
+
+# Small adjustments
+dplyr::mutate(TAXON_NAME_U = toupper(taxon_name), 
+              TAXON_AUTHORS_U = toupper(taxon_authors))
 ```

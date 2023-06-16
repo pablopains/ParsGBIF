@@ -1,4 +1,5 @@
-#' @title get_wcvp
+#' @title Get WCVP database
+#'
 #' @name get_wcvp
 #'
 #' @description Download World Checklist of Vascular Plants (WCVP) database
@@ -11,10 +12,7 @@
 #'
 #' @details http://sftp.kew.org/pub/data-repositories/WCVP/ This is the public SFTP (Secure File Transfer Protocol) site of the Royal Botanic Gardens, Kew. This space contains data resources publicly accessible to the user `anonymous'.  No password required for access. Use of data made available via this site may be subject to legal and licensing restrictions. The README in the top-level directory for each data resource provides specific information about its terms of use.
 #'
-#' @return
-#'   README_WCVP.xlsx,
-#'   wcvp_distribution.csv,
-#'   wcvp_names.csv
+#' @return list with two data frames: wcvp_names and wcvp_distribution
 #'
 #' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
@@ -72,6 +70,7 @@ get_wcvp <- function(url_source = "http://sftp.kew.org/pub/data-repositories/WCV
   # ultima versao
   nomes <- 'wcvp.zip'
   destfile <- paste0(path_results,'/',nomes)
+
 
   # update?
 

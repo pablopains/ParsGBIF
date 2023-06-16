@@ -1,31 +1,27 @@
 ---
-output: github_document
-editor_options: 
-  chunk_output_type: console
-html_document:
-  df_print: paged
+title: "ParsGBIF Manual"
+
+author:
+  - Pablo Hendrigo Alves de Melo^[Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais, pablopains@yahoo.com.br]
+  - Nadia Bystriakova^[Natural History Museum, London, n_bystriakova@yahoo.com]
+  - Alexandre Monro^[Royal Botanic Gardens, Kew, a.monro@kew.org]
+  
+date: "`r Sys.Date()`"
+  
+output: word_document
+
+template: template.tex
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
 ```
 
-# ParsGBIF
+# ParsGBIF Manual
 
-<!-- badges: start -->
 
-[![R-CMD-check](https://github.com/p/ParsGBIF/pablopains/R-CMD-check/badge.svg)](https://github.com/pablopains/ParsGBIF/actions) [![Codecov test coverage](https://codecov.io/gh/pablopains/ParsGBIF/branch/main/graph/badge.svg)](https://app.codecov.io/gh/pablopains/ParsGBIF?branch=main) [![R-CMD-check](https://github.com/pablopains/ParsGBIF/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pablopains/ParsGBIF/actions/workflows/R-CMD-check.yaml)
+ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
-<!-- badges: end -->
-
-ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) plant specimen occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
 ## Installation
 
@@ -35,6 +31,12 @@ To install ParsGBIF, run
 ``` r
 devtools::install_github("pablopains/ParsGBIF")
 ```
+
+Please site ParsGBIF as:
+```{r}
+print(citation("ParsGBIF"), bibtex = FALSE)
+```
+
 
 ## Example
 
@@ -117,8 +119,11 @@ When parsing data, the user can choose between “standard” and “all” colu
 
 ```
 
+#### 2.1. GBIF Issue is a database...
 
-### 3. Using the WCVP database to check accepted names and update synonyms
+
+
+### 3. Check species names against WCVP database
 
 
 ```{r example_batch_checkName_wcvp, eval=TRUE, message=FALSE, warning=FALSE}
