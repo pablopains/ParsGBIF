@@ -22,7 +22,6 @@ options(tinytex.verbose = TRUE)
 
 ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
-
 ## Installation
 
 You can install the development version of ParsGBIF from [GitHub](https://github.com/pablopains/ParsGBIF).
@@ -65,8 +64,6 @@ To prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions
 
   occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file, columns = 'standard')
 
-  colnames(occ)
- 
   head(occ)
 ```
 
@@ -83,10 +80,14 @@ When parsing data, the user can choose between “standard” and “all” colu
 ```
 
 
-### 2. Extracting GBIF issue to rank the quality of geographic coordinates 
-```{r example_extract_gbif_issue1, eval=TRUE, message=FALSE, warning=FALSE}
+#### 1.3. Extracting GBIF issue 
+```{r aaa, eval=TRUE, message=FALSE, warning=FALSE}
 library(ParsGBIF)
+data(EnumOccurrenceIssue)
+colnames(EnumOccurrenceIssue)
+
 help(EnumOccurrenceIssue)
+print(?ParsGBIF::EnumOccurrenceIssue)
 ```
 
 
@@ -103,99 +104,115 @@ help(EnumOccurrenceIssue)
 
  head(occ_gbif_issue$summary)
 
- colnames(occ_gbif_issue$occ_gbif_issue)
- 
- head(occ_gbif_issue$occ_gbif_issue)
-
 ```
 
-#### 2.1. GBIF Issue is a database...
+### 2. Check species names against WCVP database
 
+The World Checklist of Vascular Plants (WCVP) database is available from the (Royal Botanic Gardens, Kew) [https://powo.science.kew.org/about-wcvp]. It can be downloaded to a folder of the user’s choice or into memory using get_wcvp function. The output has 33 columns.
 
-
-### 3. Check species names against WCVP database
-
-
-```{r example_batch_checkName_wcvp, eval=TRUE, message=FALSE, warning=FALSE}
+```{r example_wcvp_names, eval=TRUE, message=FALSE, warning=FALSE}
 library(ParsGBIF)
-
-help(batch_checkName_wcvp)
-
+data(wcvp_names_Achatocarpaceae)
+wcvp_names <- wcvp_names_Achatocarpaceae
 
 # wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 
-# wcvp_names_Achatocarpaceae is a subset of data from the wcvp names database used only to demonstrate the use of the ParsGBIF package. See below alternatives of loading wcvp name database.
+colnames(wcvp_names)
+```
 
+Species’ names can be checked against WCVP database one by one or in a batch mode. To verify individual names, the function checkName_wcvp is used.
+
+```{r example_checkName_wcvp, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
 data(wcvp_names_Achatocarpaceae)
 wcvp_names <- wcvp_names_Achatocarpaceae
+
+# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
+
+name.checked <- checkName_wcvp(searchedName = 'Achatocarpus mollis H.Walter',
+               wcvp_names = wcvp_names,
+               if_author_fails_try_without_combinations = TRUE)
+name.checked[,c(3:5,22,23,40)]
+```
+
+To check names in a batch mode, there is batch_checkName_wcvp function. It uses the occurrence data (occ) and WCVP names list (wcvp_names) generated in the previous steps.
+
+```{r example_batch_checkName_wcvp, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
+data(wcvp_names_Achatocarpaceae)
+wcvp_names <- wcvp_names_Achatocarpaceae
+
+# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 
 occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
 occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                     columns = 'standard')
 
-res_batch_checkName_wcvp <- batch_checkName_wcvp(occ = occ,
+names.checked <- batch_checkName_wcvp(occ = occ,
                                                  wcvp_names =  wcvp_names,
                                                  if_author_fails_try_without_combinations = TRUE,
                                                  wcvp_selected_fields = 'standard')
 
-names(res_batch_checkName_wcvp)
+names(names.checked)
 
-head(res_batch_checkName_wcvp$summary)
+head(names.checked$summary)
 
-head(res_batch_checkName_wcvp$occ_checkName_wcvp)
+```
+
+To bring species’ names into line with the format used by WCVP, the function standardize_scientificName inserts space between the hybrid separator (x) and specific epithet, and also standardizes abbreviations of infrataxa (variety, subspecies, form).
+
+```{r example_standardize_scientificName, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
+
+# hybrid separator
+standardize_scientificName('Leucanthemum ×superbum (Bergmans ex J.W.Ingram) D.H.Kent')
+
+# variety 
+standardize_scientificName('Platymiscium pubescens subsp. fragrans (Rusby) Klitg.')
+
+# subspecies
+
+```
+
+The funtion get_lastNameRecordedB returns the last name of the main collector in recordedBy field.
+
+```{r example_get_lastNameRecordedBy, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
+get_lastNameRecordedBy('Melo, P.H.A, Bystriakova, N. & Monro, A.')
+
+get_lastNameRecordedBy('Monro, A.; Bystriakova, N. & Melo, P.H.A')
+
+get_lastNameRecordedBy('Bystriakova, N., Monro, A.,Melo, P.H.A')
 
 ```
 
 
-There are two ways to load WCVP name database: 
+### 3. Collectors Dictionary
 
-* ParsGBIF::get_wcvp() function 
+To extract the last name of the main collector based on the recordedBy field and assemble a list relating the last name of the main collector and the raw data from the recordedBy, use the prepare_collectorsDictionary function. It uses the occurrence data (occ) generated in the previous step.
 
-* rWCVPdata package
+It is recommended to curate the main collector's surname automatically extracted from the recordedBy field. The aim is to standardize the main collector's last name, so that a botanical collector is always recognized by the same last name, standardized in capital letters and with non-ascii characters replaced.
 
+Once cured, the collector's dictionary can be reused in the future. If the searched recordedBy exists in the collector's dictionary, the function returns the last name of the main collector referring to recordedBy (In this case the collectorDictionary field will be indicated with 'checked'), otherwise, it returns the last name of the main collector, extracted from the recordedBy field.
 
-#### 3.1. Getting WCVP database from ParsGBIF::get_wcvp() function
+```{r example_prepare_collectorsDictionary, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
+data(wcvp_names_Achatocarpaceae)
+wcvp_names <- wcvp_names_Achatocarpaceae
 
-There is a potion to save the local copy, indicated to optimize future loads. Or always read the latest database version from <source> which always requires a download.
+# wcvp_names <- get_wcvp(read_only_to_memory = TRUE)$wcvp_names
 
-```{r example_checkName_wcvp, eval=FALSE, message=FALSE, warning=FALSE}
-help(get_wcvp)
+occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
-path_data <- tempdir() # you can change this folder
+occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+                                    columns = 'standard')
 
-wcvp <- get_wcvp(url_source = 'http://sftp.kew.org/pub/data-repositories/WCVP/',
-                  read_only_to_memory = FALSE,
-                  path_results = path_data,
-                  update = FALSE,
-                  load_distribution = TRUE)
+collectorsDictionary.dataset <- prepare_collectorsDictionary(occ = occ)
 
-names(wcvp)
+names(names.checked)
 
-head(wcvp$wcvp_names)
-
-colnames(wcvp$wcvp_names)
-
-head(wcvp$wcvp_distribution)
-
-colnames(wcvp$wcvp_distribution)
-```
-
-
-#### 3.2. Getting WCVP database from rWCVPdata package
-
-Use the database version available in the package. After installing the package, loading the database is very fast. Small adjustments are needed for the data to be used by the ParsGBIF functions.
-
-```{r example_install_rWCVPdata, eval=FALSE, message=FALSE, warning=FALSE}
-# devtools::install_github(“matildabrown/rWCVPdata”) library(rWCVPdata)
-
-library(rWCVPdata)
-
-wcvp_names <- rWCVPdata::wcvp_names %\>%
-
-# Small adjustments
-dplyr::mutate(TAXON_NAME_U = toupper(taxon_name), 
-              TAXON_AUTHORS_U = toupper(taxon_authors))
+head(names.checked$summary)
 
 ```
 

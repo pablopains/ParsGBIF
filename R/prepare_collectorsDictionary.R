@@ -97,7 +97,7 @@ prepare_collectorsDictionary <- function(occ=NA,
   }
 
    collectorDictionary <- collectorDictionary %>%
-      dplyr::rename(Ctrl_nameRecordedBy_Standard_CNCFlora = Ctrl_nameRecordedBy_Standard)
+      dplyr::rename(Ctrl_nameRecordedBy_Standard_x = Ctrl_nameRecordedBy_Standard)
 
    print("Extracting the main collector's surname....")
 
@@ -115,11 +115,11 @@ prepare_collectorsDictionary <- function(occ=NA,
    recordedBy_Standart <- dplyr::left_join(recordedBy_Standart,
                    collectorDictionary,
                    by = c('Ctrl_recordedBy')) %>%
-      dplyr::mutate(collectorDictionary=ifelse(!is.na(Ctrl_nameRecordedBy_Standard_CNCFlora),
+      dplyr::mutate(collectorDictionary=ifelse(!is.na(Ctrl_nameRecordedBy_Standard_x),
                                        'checked',
                                        '')) %>%
       dplyr::mutate(Ctrl_nameRecordedBy_Standard = ifelse(collectorDictionary=='checked',
-                                                          Ctrl_nameRecordedBy_Standard_CNCFlora,
+                                                          Ctrl_nameRecordedBy_Standard_x,
                                                           Ctrl_nameRecordedBy_Standard)) %>%
       dplyr::arrange(collectorDictionary, Ctrl_nameRecordedBy_Standard, Ctrl_recordedBy) %>%
    dplyr::mutate(Ctrl_notes = Ctrl_notes %>% as.character(),
@@ -130,24 +130,25 @@ prepare_collectorsDictionary <- function(occ=NA,
                  Ctrl_fullName = Ctrl_fullName %>% as.character(),
                  Ctrl_fullNameII = Ctrl_fullNameII %>% as.character(),
                  CVStarrVirtualHerbarium_PersonDetails = CVStarrVirtualHerbarium_PersonDetails %>% as.character()) %>%
-     dplyr::select(Ctrl_notes,
-                   Ctrl_update,
-                   Ctrl_nameRecordedBy_Standard,
+     # dplyr::select(Ctrl_notes,
+     #               Ctrl_update,
+     #               Ctrl_nameRecordedBy_Standard,
+     #               Ctrl_recordedBy,
+     #               collectorDictionary,
+     #
+     #               collectorName,
+     #               Ctrl_fullName,
+     #               Ctrl_fullNameII,
+     #               CVStarrVirtualHerbarium_PersonDetails)
+     dplyr::select(Ctrl_nameRecordedBy_Standard,
                    Ctrl_recordedBy,
+                   Ctrl_notes,
+                   collectorDictionary,
+                   Ctrl_update,
                    collectorName,
                    Ctrl_fullName,
                    Ctrl_fullNameII,
                    CVStarrVirtualHerbarium_PersonDetails)
-
-   # dplyr::select(Ctrl_nameRecordedBy_Standard,
-   #               Ctrl_recordedBy,
-   #               Ctrl_notes,
-   #               collectorDictionary,
-   #               Ctrl_update,
-   #               collectorName,
-   #               Ctrl_fullName,
-   #               Ctrl_fullNameII,
-   #               CVStarrVirtualHerbarium_PersonDetails)
 
    return(recordedBy_Standart)
 }

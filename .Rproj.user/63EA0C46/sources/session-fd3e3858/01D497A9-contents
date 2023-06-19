@@ -3,6 +3,17 @@ devtools::install_github("pablopains/ParsGBIF")
 library(ParsGBIF)
 
 
+??"EnumOccurrenceIssue"
+
+print(?ParsGBIF::EnumOccurrenceIssue)
+
+example(EnumOccurrenceIssue)
+
+demo("EnumOccurrenceIssue", package="ParsGBIF")
+
+apropos('EnumOccurrenceIssue')
+
+print(help(EnumOccurrenceIssue))
 
 data(wcvp_names_Achatocarpaceae)
 head(wcvp_names_Achatocarpaceae)

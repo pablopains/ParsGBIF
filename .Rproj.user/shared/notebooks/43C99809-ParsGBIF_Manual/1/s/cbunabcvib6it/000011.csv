@@ -1,5 +1,0 @@
-"0","help(ParsGBIF::prepare_gbif_occurrence_data)
-"
-"2","Error in help(ParsGBIF::prepare_gbif_occurrence_data) : 
-  'topic' should be a name, length-one character vector or reserved word
-"

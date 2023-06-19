@@ -1,48 +1,47 @@
 ---
-output: github_document
-editor_options: 
-  chunk_output_type: console
-html_document:
-  df_print: paged
+title: "ParsGBIF Manual"
+
+author:
+  - Pablo Hendrigo Alves de Melo^[Instituto Federal de Educação, Ciência e Tecnologia de Minas Gerais, pablopains@yahoo.com.br]
+  - Nadia Bystriakova^[Natural History Museum, London, n_bystriakova@yahoo.com]
+  - Alexandre Monro^[Royal Botanic Gardens, Kew, a.monro@kew.org]
+  
+date: "`r Sys.Date()`"
+  
+output: word_document
+
+template: template.tex
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
 ```
 
-# ParsGBIF
+# ParsGBIF Manual
 
-<!-- badges: start -->
 
-[![R-CMD-check](https://github.com/p/ParsGBIF/pablopains/R-CMD-check/badge.svg)](https://github.com/pablopains/ParsGBIF/actions) [![Codecov test coverage](https://codecov.io/gh/pablopains/ParsGBIF/branch/main/graph/badge.svg)](https://app.codecov.io/gh/pablopains/ParsGBIF?branch=main) [![R-CMD-check](https://github.com/pablopains/ParsGBIF/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pablopains/ParsGBIF/actions/workflows/R-CMD-check.yaml)
+ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) species occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
-<!-- badges: end -->
-
-ParsGBIF package is designed to convert [Global Biodiversity Information Facility - GBIF](https://www.gbif.org/) plant specimen occurrence data to a more comprehensible format to be used for further analysis, e.g. spatial. The package provides tools for verifying and standardizing species scientific names, and for selecting the most informative species records when duplicates are available. The Manual provides a brief introduction to ParsGBIF, with more information available from Help pages accessed via help(function_name).
 
 ## Installation
 
-You can install the development version of ParsGBIF from [GitHub](https://github.com/).
-
+You can install the development version of ParsGBIF from [GitHub](https://github.com/pablopains/ParsGBIF).
 To install ParsGBIF, run 
+
 ``` r
 devtools::install_github("pablopains/ParsGBIF")
 ```
 
-## Example
+Please site ParsGBIF as:
+```{r}
+print(citation("ParsGBIF"), bibtex = FALSE)
+```
 
+## Example
 __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 
 ### 1. GBIF data preparation
 #### 1.1. Obtaining occurrence data of the herbarium specimen from GBIF
-
   1.1.1. Access a registered account in [GBIF](gbif.org) 
   
   1.1.2. Filter occurrences with the following parameters:
@@ -62,67 +61,65 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 To prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions, run prepere_gbif_occurrence_data.
 
 ```{r example_prepare_gbif_occurrence_data, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
-
-  help(prepare_gbif_occurrence_data)
-
   occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
-                                     columns = 'standard')
+  occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file, columns = 'standard')
 
   colnames(occ)
  
   head(occ)
 ```
 
-
 When parsing data, the user can choose between “standard” and “all” columns to be selected. The “standard” format has 54 data fields (columns), and the “all” format, 257 data fields (columns).
 
 ```{r example_select_gbif_fields, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
-
-  help(select_gbif_fields)
-  
-  col_standard <- select_gbif_fields(columns = 'standard')
+  col_standard <- ParsGBIF::select_gbif_fields(columns = 'standard')
   
   str(col_standard)
 
-  col_all <- select_gbif_fields(columns = 'all')
+  col_all <- ParsGBIF::select_gbif_fields(columns = 'all')
 
   str(col_all)
 ```
 
 
-### 2. Extracting GBIF issue to rank the quality of geographic coordinates 
+#### 1.3. Extracting GBIF issue 
+```{r aaa, eval=TRUE, message=FALSE, warning=FALSE}
+library(ParsGBIF)
+data(EnumOccurrenceIssue)
+colnames(EnumOccurrenceIssue)
+
+help(EnumOccurrenceIssue)
+print(?ParsGBIF::EnumOccurrenceIssue)
+```
+
 
 ```{r example_extract_gbif_issue, eval=TRUE, message=FALSE, warning=FALSE}
-  library(ParsGBIF)
-
   occ_file <- 'https://raw.githubusercontent.com/pablopains/ParsGBIF/main/dataGBIF/Achatocarpaceae/occurrence.txt'
 
-  occ <- prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
+  occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file,
                                      columns = 'standard')
   
   
- occ_gbif_issue <- extract_gbif_issue(occ = occ)
+ occ_gbif_issue <- ParsGBIF::extract_gbif_issue(occ = occ)
 
  names(occ_gbif_issue)
 
  head(occ_gbif_issue$summary)
 
- colnames(occ_gbif_issue$occ_gbif_issue)
- 
- head(occ_gbif_issue$occ_gbif_issue)
-
 ```
 
+### 2. Check species names against WCVP database
 
-### 3. Using the WCVP database to check accepted names and update synonyms
-
+The World Checklist of Vascular Plants (WCVP) database is available from the [Royal Botanic Gardens, Kew] (https://powo.science.kew.org/about-wcvp). It can be downloaded to a folder of the user’s choice or into memory using get_wcvp function. The output has 33 columns.
 
 ```{r example_batch_checkName_wcvp, eval=TRUE, message=FALSE, warning=FALSE}
 library(ParsGBIF)
+data(wcvp_names_Achatocarpaceae)
+
+wcvp_names <- wcvp_names_Achatocarpaceae
+
+colnames(wcvp_names)
 
 help(batch_checkName_wcvp)
 
