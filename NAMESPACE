@@ -2,6 +2,7 @@
 
 export(batch_checkName_wcvp)
 export(checkName_wcvp)
+export(export_data)
 export(extract_gbif_issue)
 export(get_lastNameRecordedBy)
 export(get_wcvp)

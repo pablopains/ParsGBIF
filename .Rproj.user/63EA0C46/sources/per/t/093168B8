@@ -1,26 +1,26 @@
 {
-    "id": "0D050821",
-    "path": "C:/ParsGBIF/criacao pacote/create_package.R",
+    "id": "093168B8",
+    "path": "C:/ParsGBIF/criacao pacote/workflow_project.R",
     "project_path": null,
     "type": "r_source",
-    "hash": "0",
+    "hash": "3969979397",
     "contents": "",
     "dirty": false,
-    "created": 1687208193007.0,
+    "created": 1687213362197.0,
     "source_on_save": false,
-    "relative_order": 2,
+    "relative_order": 5,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "61,3",
-        "scrollLine": "47"
+        "cursorPosition": "372,0",
+        "scrollLine": "365"
     },
     "folds": "",
-    "lastKnownWriteTime": 1686917084,
+    "lastKnownWriteTime": 1686180404,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1686917084,
+    "last_content_update": 1686180404,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -37,8 +37,6 @@
 #' head(res_gbif_issue$occ_gbif_issue)
 #' head(res_checkName_wcvp$occ_checkName_wcvp)
 #' head(res_collectorsDictionary$occ_collectorsDictionary)
-
-
 #' res_digital_voucher_and_sample_identification <- select_digital_voucher_and_sample_identification(occ = occ,
 #'                                                                                                   occ_gbif_issue = res_gbif_issue$occ_gbif_issue,
 #'                                                                                                   occ_checkName_wcvp = res_checkName_wcvp$occ_checkName_wcvp,
@@ -209,6 +207,9 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                     Ctrl_numberTaxonNamesSample = 0)
 
     occ <- occ %>%
+      dplyr::mutate(Ctrl_useful_spatial_analysis = ifelse(rowSums(occ[,EnumOccurrenceIssue$constant[index_tmp3 == TRUE]])==0,TRUE,FALSE))
+
+    occ <- occ %>%
       dplyr::mutate(Ctrl_geospatial_quality = ifelse(rowSums(occ[,EnumOccurrenceIssue$constant[index_tmp3 == TRUE]])>0, -9,
                                                 ifelse(rowSums(occ[,EnumOccurrenceIssue$constant[index_tmp2 == TRUE]])>0, -3,
                                                        ifelse(rowSums(occ[,EnumOccurrenceIssue$constant[index_tmp1 == TRUE]])>0, -1, 0))))
@@ -245,7 +246,8 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                     Ctrl_sampleTaxonName,
                     Ctrl_matchStatusDuplicates,
                     Ctrl_sampleIdentificationStatus,
-                    Ctrl_numberTaxonNamesSample)
+                    Ctrl_numberTaxonNamesSample,
+                    Ctrl_useful_spatial_analysis)
 
     index <- str_sub(occ$Ctrl_key_family_recordedBy_recordNumber, str_count(occ$Ctrl_key_family_recordedBy_recordNumber)-2, str_count(occ$Ctrl_key_family_recordedBy_recordNumber)) %in% '_NA'
     occ$Ctrl_key_family_recordedBy_recordNumber[index==TRUE] <- str_sub(occ$Ctrl_key_family_recordedBy_recordNumber[index==TRUE], 1, str_count(occ$Ctrl_key_family_recordedBy_recordNumber[index==TRUE])-2)
@@ -503,7 +505,8 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
                   Ctrl_sampleTaxonName,
                   Ctrl_matchStatusDuplicates,
                   Ctrl_sampleIdentificationStatus,
-                  Ctrl_numberTaxonNamesSample)
+                  Ctrl_numberTaxonNamesSample,
+                  Ctrl_useful_spatial_analysis)
 
   return(list(occ_digital_voucher_and_sample_identification = occ,
               occ_join_results = cbind(occ_gbif_issue, occ_in, occ_checkName_wcvp, occ_collectorsDictionary, occ)
