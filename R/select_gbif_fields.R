@@ -6,322 +6,270 @@
 #' @param columns 'standard' basic columns about what, when, where, and who collected, 'all' all available columns or list column names
 #'
 #' @details
-#' standard:
-#'  c(
-#' 'bibliographicCitation',
-#' 'language',
-#' 'institutionCode',
-#' 'collectionCode',
-#' 'datasetName',
-#' 'basisOfRecord',
-#' 'informationWithheld',
-#' 'dataGeneralizations'/,
-#' 'occurrenceID', # occ_search(occurrenceId='BRA:UNEMAT:HPAN:6089')
-#' 'catalogNumber',
-#' 'recordNumber',
-#' 'recordedBy',
-#' 'georeferenceVerificationStatus',
-#' 'occurrenceStatus',
-#' 'eventDate',
-#' 'year',
-#' 'month',
-#' 'day',
-#' 'habitat',
-#' 'fieldNotes',
-#' 'eventRemarks',
-#' 'locationID',
-#' 'higherGeography',
-#' 'islandGroup',
-#' 'island',
-#' 'countryCode',
-#' 'stateProvince',
-#' 'county',
-#' 'municipality',
-#' 'locality',
-#' 'verbatimLocality',
-#' 'locationRemarks',
-#' 'decimalLatitude',
-#' 'decimalLongitude',
-#' 'verbatimCoordinateSystem',
-#' 'verbatimIdentification',
-#' 'identificationQualifier',
-#' 'typeStatus',
-#' 'identifiedBy',
-#' 'dateIdentified',
-#' 'scientificName',
-#' 'family',
-#' 'taxonRank',
-#' 'nomenclaturalCode',
-#' 'taxonomicStatus',
-#' 'issue',
-#' 'mediaType',
-#' 'hasCoordinate',
-#' 'hasGeospatialIssues',
-#' 'verbatimScientificName',
-#' 'level0Name',
-#' 'level1Name',
-#' 'level2Name',
-#' 'level3Name')
+#'
+#' "standard" : indicated by **(standard)**
+#'
+#' or
 #'
 #' 'all':
-#'  c(
-#'  'gbifID',
-#'  'abstract',
-#'  'accessRights',
-#'  'accrualMethod',
-#'  'accrualPeriodicity',
-#'  'accrualPolicy',
-#'  'alternative',
-#'  'audience',
-#'  'available',
-#'  'bibliographicCitation',
-#'  'conformsTo',
-#'  'contributor',
-#'  'coverage',
-#'  'created',
-#'  'creator',
-#'  'date',
-#'  'dateAccepted',
-#'  'dateCopyrighted',
-#'  'dateSubmitted',
-#'  'description',
-#'  'educationLevel',
-#'  'extent',
-#'  'format',
-#'  'hasFormat',
-#'  'hasPart',
-#'  'hasVersion',
-#'  'identifier',
-#'  'instructionalMethod',
-#'  'isFormatOf',
-#'  'isPartOf',
-#'  'isReferencedBy',
-#'  'isReplacedBy',
-#'  'isRequiredBy',
-#'  'isVersionOf',
-#'  'issued',
-#'  'language',
-#'  'license',
-#'  'mediator',
-#'  'medium',
-#'  'modified',
-#'  'provenance',
-#'  'publisher',
-#'  'references',
-#'  'relation',
-#'  'replaces',
-#'  'requires',
-#'  'rights',
-#'  'rightsHolder',
-#'  'source',
-#'  'spatial',
-#'  'subject',
-#'  'tableOfContents',
-#'  'temporal',
-#'  'title',
-#'  'type',
-#'  'valid',
-#'  'institutionID',
-#'  'collectionID',
-#'  'datasetID',
-#'  'institutionCode',
-#'  'collectionCode',
-#'  'datasetName',
-#'  'ownerInstitutionCode',
-#'  'basisOfRecord',
-#'  'informationWithheld',
-#'  'dataGeneralizations',
-#'  'dynamicProperties',
-#'  'occurrenceID',
-#'  'catalogNumber',
-#'  'recordNumber',
-#'  'recordedBy',
-#'  'recordedByID',
-#'  'individualCount',
-#'  'organismQuantity',
-#'  'organismQuantityType',
-#'  'sex',
-#'  'lifeStage',
-#'  'reproductiveCondition',
-#'  'behavior',
-#'  'establishmentMeans',
-#'  'degreeOfEstablishment',
-#'  'pathway',
-#'  'georeferenceVerificationStatus',
-#'  'occurrenceStatus',
-#'  'preparations',
-#'  'disposition',
-#'  'associatedOccurrences',
-#'  'associatedReferences',
-#'  'associatedSequences',
-#'  'associatedTaxa',
-#'  'otherCatalogNumbers',
-#'  'occurrenceRemarks',
-#'  'organismID',
-#'  'organismName',
-#'  'organismScope',
-#'  'associatedOrganisms',
-#'  'previousIdentifications',
-#'  'organismRemarks',
-#'  'materialSampleID',
-#'  'eventID',
-#'  'parentEventID',
-#'  'fieldNumber',
-#'  'eventDate',
-#'  'eventTime',
-#'  'startDayOfYear',
-#'  'endDayOfYear',
-#'  'year',
-#'  'month',
-#'  'day',
-#'  'verbatimEventDate',
-#'  'habitat',
-#'  'samplingProtocol',
-#'  'sampleSizeValue',
-#'  'sampleSizeUnit',
-#'  'samplingEffort',
-#'  'fieldNotes',
-#'  'eventRemarks',
-#'  'locationID',
-#'  'higherGeographyID',
-#'  'higherGeography',
-#'  'continent',
-#'  'waterBody',
-#'  'islandGroup',
-#'  'island',
-#'  'countryCode',
-#'  'stateProvince',
-#'  'county',
-#'  'municipality',
-#'  'locality',
-#'  'verbatimLocality',
-#'  'verbatimElevation',
-#'  'verticalDatum',
-#'  'verbatimDepth',
-#'  'minimumDistanceAboveSurfaceInMeters',
-#'  'maximumDistanceAboveSurfaceInMeters',
-#'  'locationAccordingTo',
-#'  'locationRemarks',
-#'  'decimalLatitude',
-#'  'decimalLongitude',
-#'  'coordinateUncertaintyInMeters',
-#'  'coordinatePrecision',
-#'  'pointRadiusSpatialFit',
-#'  'verbatimCoordinateSystem',
-#'  'verbatimSRS',
-#'  'footprintWKT',
-#'  'footprintSRS',
-#'  'footprintSpatialFit',
-#'  'georeferencedBy',
-#'  'georeferencedDate',
-#'  'georeferenceProtocol',
-#'  'georeferenceSources',
-#'  'georeferenceRemarks',
-#'  'geologicalContextID',
-#'  'earliestEonOrLowestEonothem',
-#'  'latestEonOrHighestEonothem',
-#'  'earliestEraOrLowestErathem',
-#'  'latestEraOrHighestErathem',
-#'  'earliestPeriodOrLowestSystem',
-#'  'latestPeriodOrHighestSystem',
-#'  'earliestEpochOrLowestSeries',
-#'  'latestEpochOrHighestSeries',
-#'  'earliestAgeOrLowestStage',
-#'  'latestAgeOrHighestStage',
-#'  'lowestBiostratigraphicZone',
-#'  'highestBiostratigraphicZone',
-#'  'lithostratigraphicTerms',
-#'  'group',
-#'  'formation',
-#'  'member',
-#'  'bed',
-#'  'identificationID',
-#'  'verbatimIdentification',
-#'  'identificationQualifier',
-#'  'typeStatus',
-#'  'identifiedBy',
-#'  'identifiedByID',
-#'  'dateIdentified',
-#'  'identificationReferences',
-#'  'identificationVerificationStatus',
-#'  'identificationRemarks',
-#'  'taxonID',
-#'  'scientificNameID',
-#'  'acceptedNameUsageID',
-#'  'parentNameUsageID',
-#'  'originalNameUsageID',
-#'  'nameAccordingToID',
-#'  'namePublishedInID',
-#'  'taxonConceptID',
-#'  'scientificName',
-#'  'acceptedNameUsage',
-#'  'parentNameUsage',
-#'  'originalNameUsage',
-#'  'nameAccordingTo',
-#'  'namePublishedIn',
-#'  'namePublishedInYear',
-#'  'higherClassification',
-#'  'kingdom',
-#'  'phylum',
-#'  'class',
-#'  'order',
-#'  'family',
-#'  'subfamily',
-#'  'genus',
-#'  'genericName',
-#'  'subgenus',
-#'  'infragenericEpithet',
-#'  'specificEpithet',
-#'  'infraspecificEpithet',
-#'  'cultivarEpithet',
-#'  'taxonRank',
-#'  'verbatimTaxonRank',
-#'  'vernacularName',
-#'  'nomenclaturalCode',
-#'  'taxonomicStatus',
-#'  'nomenclaturalStatus',
-#'  'taxonRemarks',
-#'  'datasetKey',
-#'  'publishingCountry',
-#'  'lastInterpreted',
-#'  'elevation',
-#'  'elevationAccuracy',
-#'  'depth',
-#'  'depthAccuracy',
-#'  'distanceAboveSurface',
-#'  'distanceAboveSurfaceAccuracy',
-#'  'issue',
-#'  'mediaType',
-#'  'hasCoordinate',
-#'  'hasGeospatialIssues',
-#'  'taxonKey',
-#'  'acceptedTaxonKey',
-#'  'kingdomKey',
-#'  'phylumKey',
-#'  'classKey',
-#'  'orderKey',
-#'  'familyKey',
-#'  'genusKey',
-#'  'subgenusKey',
-#'  'speciesKey',
-#'  'species',
-#'  'acceptedScientificName',
-#'  'verbatimScientificName',
-#'  'typifiedName',
-#'  'protocol',
-#'  'lastParsed',
-#'  'lastCrawled',
-#'  'repatriated',
-#'  'relativeOrganismQuantity',
-#'  'level0Gid',
-#'  'level0Name',
-#'  'level1Gid',
-#'  'level1Name',
-#'  'level2Gid',
-#'  'level2Name',
-#'  'level3Gid',
-#'  'level3Name',
-#'  'iucnRedListCategory')
+#'
+#'  * 'gbifID'
+#'  * 'abstract'
+#'  * 'accessRights'
+#'  * 'accrualMethod'
+#'  * 'accrualPeriodicity'
+#'  * 'accrualPolicy'
+#'  * 'alternative'
+#'  * 'audience'
+#'  * 'available'
+#'  * 'bibliographicCitation' **(standard)**
+#'  * 'conformsTo'
+#'  * 'contributor'
+#'  * 'coverage'
+#'  * 'created'
+#'  * 'creator'
+#'  * 'date'
+#'  * 'dateAccepted'
+#'  * 'dateCopyrighted'
+#'  * 'dateSubmitted'
+#'  * 'description'
+#'  * 'educationLevel'
+#'  * 'extent'
+#'  * 'format'
+#'  * 'hasFormat'
+#'  * 'hasPart'
+#'  * 'hasVersion'
+#'  * 'identifier'
+#'  * 'instructionalMethod'
+#'  * 'isFormatOf'
+#'  * 'isPartOf'
+#'  * 'isReferencedBy'
+#'  * 'isReplacedBy'
+#'  * 'isRequiredBy'
+#'  * 'isVersionOf'
+#'  * 'issued'
+#'  * 'language' **(standard)**
+#'  * 'license'
+#'  * 'mediator'
+#'  * 'medium'
+#'  * 'modified'
+#'  * 'provenance'
+#'  * 'publisher'
+#'  * 'references'
+#'  * 'relation'
+#'  * 'replaces'
+#'  * 'requires'
+#'  * 'rights'
+#'  * 'rightsHolder'
+#'  * 'source'
+#'  * 'spatial'
+#'  * 'subject'
+#'  * 'tableOfContents'
+#'  * 'temporal'
+#'  * 'title'
+#'  * 'type'
+#'  * 'valid'
+#'  * 'institutionID'
+#'  * 'collectionID'
+#'  * 'datasetID'
+#'  * 'institutionCode' **(standard)**
+#'  * 'collectionCode' **(standard)**
+#'  * 'datasetName' **(standard)**
+#'  * 'ownerInstitutionCode'
+#'  * 'basisOfRecord' **(standard)**
+#'  * 'informationWithheld' **(standard)**
+#'  * 'dataGeneralizations' **(standard)**
+#'  * 'dynamicProperties'
+#'  * 'occurrenceID' **(standard)** # occ_search(occurrenceId='BRA:UNEMAT:HPAN:6089')
+#'  * 'catalogNumber' **(standard)**
+#'  * 'recordNumber' **(standard)**
+#'  * 'recordedBy' **(standard)**
+#'  * 'recordedByID'
+#'  * 'individualCount'
+#'  * 'organismQuantity'
+#'  * 'organismQuantityType'
+#'  * 'sex'
+#'  * 'lifeStage'
+#'  * 'reproductiveCondition'
+#'  * 'behavior'
+#'  * 'establishmentMeans'
+#'  * 'degreeOfEstablishment'
+#'  * 'pathway'
+#'  * 'georeferenceVerificationStatus' **(standard)**
+#'  * 'occurrenceStatus' **(standard)**
+#'  * 'preparations'
+#'  * 'disposition'
+#'  * 'associatedOccurrences'
+#'  * 'associatedReferences'
+#'  * 'associatedSequences'
+#'  * 'associatedTaxa'
+#'  * 'otherCatalogNumbers'
+#'  * 'occurrenceRemarks'
+#'  * 'organismID'
+#'  * 'organismName'
+#'  * 'organismScope'
+#'  * 'associatedOrganisms'
+#'  * 'previousIdentifications'
+#'  * 'organismRemarks'
+#'  * 'materialSampleID'
+#'  * 'eventID'
+#'  * 'parentEventID'
+#'  * 'fieldNumber'
+#'  * 'eventDate' **(standard)**
+#'  * 'eventTime'
+#'  * 'startDayOfYear'
+#'  * 'endDayOfYear'
+#'  * 'year' **(standard)**
+#'  * 'month' **(standard)**
+#'  * 'day' **(standard)**
+#'  * 'verbatimEventDate'
+#'  * 'habitat' **(standard)**
+#'  * 'samplingProtocol'
+#'  * 'sampleSizeValue'
+#'  * 'sampleSizeUnit'
+#'  * 'samplingEffort'
+#'  * 'fieldNotes' **(standard)**
+#'  * 'eventRemarks' **(standard)**
+#'  * 'locationID'   **(standard)**
+#'  * 'higherGeographyID'
+#'  * 'higherGeography' **(standard)**
+#'  * 'continent'
+#'  * 'waterBody'
+#'  * 'islandGroup' **(standard)**
+#'  * 'island' **(standard)**
+#'  * 'countryCode' **(standard)**
+#'  * 'stateProvince' **(standard)**
+#'  * 'county' **(standard)**
+#'  * 'municipality' **(standard)**
+#'  * 'locality' **(standard)**
+#'  * 'verbatimLocality' **(standard)**
+#'  * 'verbatimElevation'
+#'  * 'verticalDatum'
+#'  * 'verbatimDepth'
+#'  * 'minimumDistanceAboveSurfaceInMeters'
+#'  * 'maximumDistanceAboveSurfaceInMeters'
+#'  * 'locationAccordingTo'
+#'  * 'locationRemarks' **(standard)**
+#'  * 'decimalLatitude' **(standard)**
+#'  * 'decimalLongitude' **(standard)**
+#'  * 'coordinateUncertaintyInMeters'
+#'  * 'coordinatePrecision'
+#'  * 'pointRadiusSpatialFit'
+#'  * 'verbatimCoordinateSystem' **(standard)**
+#'  * 'verbatimSRS'
+#'  * 'footprintWKT'
+#'  * 'footprintSRS'
+#'  * 'footprintSpatialFit'
+#'  * 'georeferencedBy'
+#'  * 'georeferencedDate'
+#'  * 'georeferenceProtocol'
+#'  * 'georeferenceSources'
+#'  * 'georeferenceRemarks'
+#'  * 'geologicalContextID'
+#'  * 'earliestEonOrLowestEonothem'
+#'  * 'latestEonOrHighestEonothem'
+#'  * 'earliestEraOrLowestErathem'
+#'  * 'latestEraOrHighestErathem'
+#'  * 'earliestPeriodOrLowestSystem'
+#'  * 'latestPeriodOrHighestSystem'
+#'  * 'earliestEpochOrLowestSeries'
+#'  * 'latestEpochOrHighestSeries'
+#'  * 'earliestAgeOrLowestStage'
+#'  * 'latestAgeOrHighestStage'
+#'  * 'lowestBiostratigraphicZone'
+#'  * 'highestBiostratigraphicZone'
+#'  * 'lithostratigraphicTerms'
+#'  * 'group'
+#'  * 'formation'
+#'  * 'member'
+#'  * 'bed'
+#'  * 'identificationID'
+#'  * 'verbatimIdentification' **(standard)**
+#'  * 'identificationQualifier' **(standard)**
+#'  * 'typeStatus' **(standard)**
+#'  * 'identifiedBy' **(standard)**
+#'  * 'identifiedByID'
+#'  * 'dateIdentified' **(standard)**
+#'  * 'identificationReferences'
+#'  * 'identificationVerificationStatus'
+#'  * 'identificationRemarks'
+#'  * 'taxonID'
+#'  * 'scientificNameID'
+#'  * 'acceptedNameUsageID'
+#'  * 'parentNameUsageID'
+#'  * 'originalNameUsageID'
+#'  * 'nameAccordingToID'
+#'  * 'namePublishedInID'
+#'  * 'taxonConceptID'
+#'  * 'scientificName' **(standard)**
+#'  * 'acceptedNameUsage'
+#'  * 'parentNameUsage'
+#'  * 'originalNameUsage'
+#'  * 'nameAccordingTo'
+#'  * 'namePublishedIn'
+#'  * 'namePublishedInYear'
+#'  * 'higherClassification'
+#'  * 'kingdom'
+#'  * 'phylum'
+#'  * 'class'
+#'  * 'order'
+#'  * 'family' **(standard)**
+#'  * 'subfamily'
+#'  * 'genus'
+#'  * 'genericName'
+#'  * 'subgenus'
+#'  * 'infragenericEpithet'
+#'  * 'specificEpithet'
+#'  * 'infraspecificEpithet'
+#'  * 'cultivarEpithet'
+#'  * 'taxonRank' **(standard)**
+#'  * 'verbatimTaxonRank'
+#'  * 'vernacularName'
+#'  * 'nomenclaturalCode' **(standard)**
+#'  * 'taxonomicStatus' **(standard)**
+#'  * 'nomenclaturalStatus'
+#'  * 'taxonRemarks'
+#'  * 'datasetKey'
+#'  * 'publishingCountry'
+#'  * 'lastInterpreted'
+#'  * 'elevation'
+#'  * 'elevationAccuracy'
+#'  * 'depth'
+#'  * 'depthAccuracy'
+#'  * 'distanceAboveSurface'
+#'  * 'distanceAboveSurfaceAccuracy'
+#'  * 'issue' **(standard)**
+#'  * 'mediaType' **(standard)**
+#'  * 'hasCoordinate' **(standard)**
+#'  * 'hasGeospatialIssues' **(standard)**
+#'  * 'taxonKey'
+#'  * 'acceptedTaxonKey'
+#'  * 'kingdomKey'
+#'  * 'phylumKey'
+#'  * 'classKey'
+#'  * 'orderKey'
+#'  * 'familyKey'
+#'  * 'genusKey'
+#'  * 'subgenusKey'
+#'  * 'speciesKey'
+#'  * 'species'
+#'  * 'acceptedScientificName'
+#'  * 'verbatimScientificName' **(standard)**
+#'  * 'typifiedName'
+#'  * 'protocol'
+#'  * 'lastParsed'
+#'  * 'lastCrawled'
+#'  * 'repatriated'
+#'  * 'relativeOrganismQuantity'
+#'  * 'level0Gid'
+#'  * 'level0Name' **(standard)**
+#'  * 'level1Gid'
+#'  * 'level1Name' **(standard)**
+#'  * 'level2Gid'
+#'  * 'level2Name' **(standard)**
+#'  * 'level3Gid'
+#'  * 'level3Name' **(standard)**
+#'  * 'iucnRedListCategory'
 #'
 #' @return
 #' list of the columns names

@@ -1,0 +1,52 @@
+# direcionar memória para processamento temporário em disco
+{
+   if (!dir.exists("c:/R_temp")){dir.create("c:/R_temp")}
+   tempdir <- function() "c:/R_temp"
+   unlockBinding("tempdir", baseenv())
+   assignInNamespace("tempdir", tempdir, ns="base", envir=baseenv())
+   assign("tempdir", tempdir, baseenv())
+   lockBinding("tempdir", baseenv())
+   tempdir()
+}
+
+library(ParsGBIF)
+
+path_data <- 'C:\\Dados\\Kew\\data\\download\\Myrtaceae'
+
+occ_file <- paste0(path_data,'\\','occurrence.txt')
+occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file, columns = 'standard')
+
+occ_gbif_issue <- ParsGBIF::extract_gbif_issue(occ = occ)
+wcvp_names <- ParsGBIF::get_wcvp(path_results = 'C:\\Dados\\Kew\\data',
+                                 update = FALSE)$wcvp_names
+
+occ_file <- paste0('C:\\Dados\\Kew\\data\\download\\Rubiaceae\\occurrence.txt')
+occ <- ParsGBIF::prepare_gbif_occurrence_data(gbif_occurrece_file = occ_file, columns = 'standard')
+
+
+collectorsDictionary.dataset <- prepare_collectorsDictionary(occ = occ,
+                                                             collectorDictionary_file = 'C:\\Dados\\Kew\\data\\download\\Myrtaceae\\file_collectorsDictionary_dataset_check.CSV')
+
+file.collectorsDictionary.dataset <-  paste0(path_data,'\\','file_collectorsDictionary_dataset_TEST_x_Rubiaceae.csv')
+write.csv(collectorsDictionary.dataset,
+          file.collectorsDictionary.dataset,
+          row.names = FALSE,
+          fileEncoding = "UTF-8",
+          na = "")
+
+
+
+names.checked <- batch_checkName_wcvp(occ = occ,
+                                      wcvp_names =  wcvp_names,
+                                      if_author_fails_try_without_combinations = TRUE,
+                                      wcvp_selected_fields = 'standard')
+
+file.occ_checkName_wcvp <-  paste0(path_data,'\\','file_occ_checkName_wcvp.csv')
+write.csv(names.checked$occ_checkName_wcvp,
+          file.occ_checkName_wcvp,
+          row.names = FALSE,
+          fileEncoding = "UTF-8",
+          na = "")
+
+
+

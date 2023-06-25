@@ -1,4 +1,4 @@
-#' @title Create fields with the primary collector's last name and a key to group duplicates of a sample
+#' @title Create a key to group duplicates of a sample
 #' @name update_collectorsDictionary
 #'
 #' @description Include recordedByStandardized field with verified main collector's last name.
@@ -17,9 +17,9 @@
 #' key_year_recordedBy_recordNumber
 #'
 #' @return list with three data frames:
-#' occ_collectorsDictionary: with update result fields only,
+#' occ_collectorsDictionary, with update result fields only,
 #' summary and
-#' CollectorsDictionary_add with new collectors that can be added to the
+#' CollectorsDictionary_add, with new collectors that can be added to the
 #' collector dictionary that can be reused in the future.
 #'
 #' @author Pablo Hendrigo Alves de Melo,

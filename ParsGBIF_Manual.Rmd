@@ -297,6 +297,15 @@ If so, the accepted TAXON_NAME identified at or below the specified level is use
             na = "")
 ```
 
+### 5. Export of results
+
+Separate records into three data frames  
+Export of results:  
+
+* Useful data for spatial and taxonomic analysis  
+* Data in need of revision of spatial information or without identification  
+* Duplicates of the previous two datasets  
+
 
 ```{r example_export, eval=TRUE, message=FALSE, warning=FALSE}
 

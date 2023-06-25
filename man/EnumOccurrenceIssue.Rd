@@ -9,8 +9,10 @@ An enumeration of validation rules for single occurrence records.}
 A data frame with 69 rows and 9 columns
 }
 \source{
-\href{https://www.gbif.org/article/5i3CQEZ6DuWiycgMaaakCo/gbif-infrastructure-data-processing}{GBIF Infrastructure: Data processing} /n
-\href{https://gbif.github.io/gbif-api/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html}{An enumeration of validation rules for single occurrence records}
+\itemize{
+\item \href{https://www.gbif.org/article/5i3CQEZ6DuWiycgMaaakCo/gbif-infrastructure-data-processing}{GBIF Infrastructure: Data processing}
+\item \href{https://gbif.github.io/gbif-api/apidocs/org/gbif/api/vocabulary/OccurrenceIssue.html}{An enumeration of validation rules for single occurrence records}
+}
 }
 \usage{
 data(EnumOccurrenceIssue)

@@ -16,322 +16,270 @@ list of the columns names
 Select columns in GBIF occurrence data
 }
 \details{
-standard:
-c(
-'bibliographicCitation',
-'language',
-'institutionCode',
-'collectionCode',
-'datasetName',
-'basisOfRecord',
-'informationWithheld',
-'dataGeneralizations'/,
-'occurrenceID', # occ_search(occurrenceId='BRA:UNEMAT:HPAN:6089')
-'catalogNumber',
-'recordNumber',
-'recordedBy',
-'georeferenceVerificationStatus',
-'occurrenceStatus',
-'eventDate',
-'year',
-'month',
-'day',
-'habitat',
-'fieldNotes',
-'eventRemarks',
-'locationID',
-'higherGeography',
-'islandGroup',
-'island',
-'countryCode',
-'stateProvince',
-'county',
-'municipality',
-'locality',
-'verbatimLocality',
-'locationRemarks',
-'decimalLatitude',
-'decimalLongitude',
-'verbatimCoordinateSystem',
-'verbatimIdentification',
-'identificationQualifier',
-'typeStatus',
-'identifiedBy',
-'dateIdentified',
-'scientificName',
-'family',
-'taxonRank',
-'nomenclaturalCode',
-'taxonomicStatus',
-'issue',
-'mediaType',
-'hasCoordinate',
-'hasGeospatialIssues',
-'verbatimScientificName',
-'level0Name',
-'level1Name',
-'level2Name',
-'level3Name')
+"standard" : indicated by \strong{(standard)}
+
+or
 
 'all':
-c(
-'gbifID',
-'abstract',
-'accessRights',
-'accrualMethod',
-'accrualPeriodicity',
-'accrualPolicy',
-'alternative',
-'audience',
-'available',
-'bibliographicCitation',
-'conformsTo',
-'contributor',
-'coverage',
-'created',
-'creator',
-'date',
-'dateAccepted',
-'dateCopyrighted',
-'dateSubmitted',
-'description',
-'educationLevel',
-'extent',
-'format',
-'hasFormat',
-'hasPart',
-'hasVersion',
-'identifier',
-'instructionalMethod',
-'isFormatOf',
-'isPartOf',
-'isReferencedBy',
-'isReplacedBy',
-'isRequiredBy',
-'isVersionOf',
-'issued',
-'language',
-'license',
-'mediator',
-'medium',
-'modified',
-'provenance',
-'publisher',
-'references',
-'relation',
-'replaces',
-'requires',
-'rights',
-'rightsHolder',
-'source',
-'spatial',
-'subject',
-'tableOfContents',
-'temporal',
-'title',
-'type',
-'valid',
-'institutionID',
-'collectionID',
-'datasetID',
-'institutionCode',
-'collectionCode',
-'datasetName',
-'ownerInstitutionCode',
-'basisOfRecord',
-'informationWithheld',
-'dataGeneralizations',
-'dynamicProperties',
-'occurrenceID',
-'catalogNumber',
-'recordNumber',
-'recordedBy',
-'recordedByID',
-'individualCount',
-'organismQuantity',
-'organismQuantityType',
-'sex',
-'lifeStage',
-'reproductiveCondition',
-'behavior',
-'establishmentMeans',
-'degreeOfEstablishment',
-'pathway',
-'georeferenceVerificationStatus',
-'occurrenceStatus',
-'preparations',
-'disposition',
-'associatedOccurrences',
-'associatedReferences',
-'associatedSequences',
-'associatedTaxa',
-'otherCatalogNumbers',
-'occurrenceRemarks',
-'organismID',
-'organismName',
-'organismScope',
-'associatedOrganisms',
-'previousIdentifications',
-'organismRemarks',
-'materialSampleID',
-'eventID',
-'parentEventID',
-'fieldNumber',
-'eventDate',
-'eventTime',
-'startDayOfYear',
-'endDayOfYear',
-'year',
-'month',
-'day',
-'verbatimEventDate',
-'habitat',
-'samplingProtocol',
-'sampleSizeValue',
-'sampleSizeUnit',
-'samplingEffort',
-'fieldNotes',
-'eventRemarks',
-'locationID',
-'higherGeographyID',
-'higherGeography',
-'continent',
-'waterBody',
-'islandGroup',
-'island',
-'countryCode',
-'stateProvince',
-'county',
-'municipality',
-'locality',
-'verbatimLocality',
-'verbatimElevation',
-'verticalDatum',
-'verbatimDepth',
-'minimumDistanceAboveSurfaceInMeters',
-'maximumDistanceAboveSurfaceInMeters',
-'locationAccordingTo',
-'locationRemarks',
-'decimalLatitude',
-'decimalLongitude',
-'coordinateUncertaintyInMeters',
-'coordinatePrecision',
-'pointRadiusSpatialFit',
-'verbatimCoordinateSystem',
-'verbatimSRS',
-'footprintWKT',
-'footprintSRS',
-'footprintSpatialFit',
-'georeferencedBy',
-'georeferencedDate',
-'georeferenceProtocol',
-'georeferenceSources',
-'georeferenceRemarks',
-'geologicalContextID',
-'earliestEonOrLowestEonothem',
-'latestEonOrHighestEonothem',
-'earliestEraOrLowestErathem',
-'latestEraOrHighestErathem',
-'earliestPeriodOrLowestSystem',
-'latestPeriodOrHighestSystem',
-'earliestEpochOrLowestSeries',
-'latestEpochOrHighestSeries',
-'earliestAgeOrLowestStage',
-'latestAgeOrHighestStage',
-'lowestBiostratigraphicZone',
-'highestBiostratigraphicZone',
-'lithostratigraphicTerms',
-'group',
-'formation',
-'member',
-'bed',
-'identificationID',
-'verbatimIdentification',
-'identificationQualifier',
-'typeStatus',
-'identifiedBy',
-'identifiedByID',
-'dateIdentified',
-'identificationReferences',
-'identificationVerificationStatus',
-'identificationRemarks',
-'taxonID',
-'scientificNameID',
-'acceptedNameUsageID',
-'parentNameUsageID',
-'originalNameUsageID',
-'nameAccordingToID',
-'namePublishedInID',
-'taxonConceptID',
-'scientificName',
-'acceptedNameUsage',
-'parentNameUsage',
-'originalNameUsage',
-'nameAccordingTo',
-'namePublishedIn',
-'namePublishedInYear',
-'higherClassification',
-'kingdom',
-'phylum',
-'class',
-'order',
-'family',
-'subfamily',
-'genus',
-'genericName',
-'subgenus',
-'infragenericEpithet',
-'specificEpithet',
-'infraspecificEpithet',
-'cultivarEpithet',
-'taxonRank',
-'verbatimTaxonRank',
-'vernacularName',
-'nomenclaturalCode',
-'taxonomicStatus',
-'nomenclaturalStatus',
-'taxonRemarks',
-'datasetKey',
-'publishingCountry',
-'lastInterpreted',
-'elevation',
-'elevationAccuracy',
-'depth',
-'depthAccuracy',
-'distanceAboveSurface',
-'distanceAboveSurfaceAccuracy',
-'issue',
-'mediaType',
-'hasCoordinate',
-'hasGeospatialIssues',
-'taxonKey',
-'acceptedTaxonKey',
-'kingdomKey',
-'phylumKey',
-'classKey',
-'orderKey',
-'familyKey',
-'genusKey',
-'subgenusKey',
-'speciesKey',
-'species',
-'acceptedScientificName',
-'verbatimScientificName',
-'typifiedName',
-'protocol',
-'lastParsed',
-'lastCrawled',
-'repatriated',
-'relativeOrganismQuantity',
-'level0Gid',
-'level0Name',
-'level1Gid',
-'level1Name',
-'level2Gid',
-'level2Name',
-'level3Gid',
-'level3Name',
-'iucnRedListCategory')
+\itemize{
+\item 'gbifID'
+\item 'abstract'
+\item 'accessRights'
+\item 'accrualMethod'
+\item 'accrualPeriodicity'
+\item 'accrualPolicy'
+\item 'alternative'
+\item 'audience'
+\item 'available'
+\item 'bibliographicCitation' \strong{(standard)}
+\item 'conformsTo'
+\item 'contributor'
+\item 'coverage'
+\item 'created'
+\item 'creator'
+\item 'date'
+\item 'dateAccepted'
+\item 'dateCopyrighted'
+\item 'dateSubmitted'
+\item 'description'
+\item 'educationLevel'
+\item 'extent'
+\item 'format'
+\item 'hasFormat'
+\item 'hasPart'
+\item 'hasVersion'
+\item 'identifier'
+\item 'instructionalMethod'
+\item 'isFormatOf'
+\item 'isPartOf'
+\item 'isReferencedBy'
+\item 'isReplacedBy'
+\item 'isRequiredBy'
+\item 'isVersionOf'
+\item 'issued'
+\item 'language' \strong{(standard)}
+\item 'license'
+\item 'mediator'
+\item 'medium'
+\item 'modified'
+\item 'provenance'
+\item 'publisher'
+\item 'references'
+\item 'relation'
+\item 'replaces'
+\item 'requires'
+\item 'rights'
+\item 'rightsHolder'
+\item 'source'
+\item 'spatial'
+\item 'subject'
+\item 'tableOfContents'
+\item 'temporal'
+\item 'title'
+\item 'type'
+\item 'valid'
+\item 'institutionID'
+\item 'collectionID'
+\item 'datasetID'
+\item 'institutionCode' \strong{(standard)}
+\item 'collectionCode' \strong{(standard)}
+\item 'datasetName' \strong{(standard)}
+\item 'ownerInstitutionCode'
+\item 'basisOfRecord' \strong{(standard)}
+\item 'informationWithheld' \strong{(standard)}
+\item 'dataGeneralizations' \strong{(standard)}
+\item 'dynamicProperties'
+\item 'occurrenceID' \strong{(standard)} # occ_search(occurrenceId='BRA:UNEMAT:HPAN:6089')
+\item 'catalogNumber' \strong{(standard)}
+\item 'recordNumber' \strong{(standard)}
+\item 'recordedBy' \strong{(standard)}
+\item 'recordedByID'
+\item 'individualCount'
+\item 'organismQuantity'
+\item 'organismQuantityType'
+\item 'sex'
+\item 'lifeStage'
+\item 'reproductiveCondition'
+\item 'behavior'
+\item 'establishmentMeans'
+\item 'degreeOfEstablishment'
+\item 'pathway'
+\item 'georeferenceVerificationStatus' \strong{(standard)}
+\item 'occurrenceStatus' \strong{(standard)}
+\item 'preparations'
+\item 'disposition'
+\item 'associatedOccurrences'
+\item 'associatedReferences'
+\item 'associatedSequences'
+\item 'associatedTaxa'
+\item 'otherCatalogNumbers'
+\item 'occurrenceRemarks'
+\item 'organismID'
+\item 'organismName'
+\item 'organismScope'
+\item 'associatedOrganisms'
+\item 'previousIdentifications'
+\item 'organismRemarks'
+\item 'materialSampleID'
+\item 'eventID'
+\item 'parentEventID'
+\item 'fieldNumber'
+\item 'eventDate' \strong{(standard)}
+\item 'eventTime'
+\item 'startDayOfYear'
+\item 'endDayOfYear'
+\item 'year' \strong{(standard)}
+\item 'month' \strong{(standard)}
+\item 'day' \strong{(standard)}
+\item 'verbatimEventDate'
+\item 'habitat' \strong{(standard)}
+\item 'samplingProtocol'
+\item 'sampleSizeValue'
+\item 'sampleSizeUnit'
+\item 'samplingEffort'
+\item 'fieldNotes' \strong{(standard)}
+\item 'eventRemarks' \strong{(standard)}
+\item 'locationID'   \strong{(standard)}
+\item 'higherGeographyID'
+\item 'higherGeography' \strong{(standard)}
+\item 'continent'
+\item 'waterBody'
+\item 'islandGroup' \strong{(standard)}
+\item 'island' \strong{(standard)}
+\item 'countryCode' \strong{(standard)}
+\item 'stateProvince' \strong{(standard)}
+\item 'county' \strong{(standard)}
+\item 'municipality' \strong{(standard)}
+\item 'locality' \strong{(standard)}
+\item 'verbatimLocality' \strong{(standard)}
+\item 'verbatimElevation'
+\item 'verticalDatum'
+\item 'verbatimDepth'
+\item 'minimumDistanceAboveSurfaceInMeters'
+\item 'maximumDistanceAboveSurfaceInMeters'
+\item 'locationAccordingTo'
+\item 'locationRemarks' \strong{(standard)}
+\item 'decimalLatitude' \strong{(standard)}
+\item 'decimalLongitude' \strong{(standard)}
+\item 'coordinateUncertaintyInMeters'
+\item 'coordinatePrecision'
+\item 'pointRadiusSpatialFit'
+\item 'verbatimCoordinateSystem' \strong{(standard)}
+\item 'verbatimSRS'
+\item 'footprintWKT'
+\item 'footprintSRS'
+\item 'footprintSpatialFit'
+\item 'georeferencedBy'
+\item 'georeferencedDate'
+\item 'georeferenceProtocol'
+\item 'georeferenceSources'
+\item 'georeferenceRemarks'
+\item 'geologicalContextID'
+\item 'earliestEonOrLowestEonothem'
+\item 'latestEonOrHighestEonothem'
+\item 'earliestEraOrLowestErathem'
+\item 'latestEraOrHighestErathem'
+\item 'earliestPeriodOrLowestSystem'
+\item 'latestPeriodOrHighestSystem'
+\item 'earliestEpochOrLowestSeries'
+\item 'latestEpochOrHighestSeries'
+\item 'earliestAgeOrLowestStage'
+\item 'latestAgeOrHighestStage'
+\item 'lowestBiostratigraphicZone'
+\item 'highestBiostratigraphicZone'
+\item 'lithostratigraphicTerms'
+\item 'group'
+\item 'formation'
+\item 'member'
+\item 'bed'
+\item 'identificationID'
+\item 'verbatimIdentification' \strong{(standard)}
+\item 'identificationQualifier' \strong{(standard)}
+\item 'typeStatus' \strong{(standard)}
+\item 'identifiedBy' \strong{(standard)}
+\item 'identifiedByID'
+\item 'dateIdentified' \strong{(standard)}
+\item 'identificationReferences'
+\item 'identificationVerificationStatus'
+\item 'identificationRemarks'
+\item 'taxonID'
+\item 'scientificNameID'
+\item 'acceptedNameUsageID'
+\item 'parentNameUsageID'
+\item 'originalNameUsageID'
+\item 'nameAccordingToID'
+\item 'namePublishedInID'
+\item 'taxonConceptID'
+\item 'scientificName' \strong{(standard)}
+\item 'acceptedNameUsage'
+\item 'parentNameUsage'
+\item 'originalNameUsage'
+\item 'nameAccordingTo'
+\item 'namePublishedIn'
+\item 'namePublishedInYear'
+\item 'higherClassification'
+\item 'kingdom'
+\item 'phylum'
+\item 'class'
+\item 'order'
+\item 'family' \strong{(standard)}
+\item 'subfamily'
+\item 'genus'
+\item 'genericName'
+\item 'subgenus'
+\item 'infragenericEpithet'
+\item 'specificEpithet'
+\item 'infraspecificEpithet'
+\item 'cultivarEpithet'
+\item 'taxonRank' \strong{(standard)}
+\item 'verbatimTaxonRank'
+\item 'vernacularName'
+\item 'nomenclaturalCode' \strong{(standard)}
+\item 'taxonomicStatus' \strong{(standard)}
+\item 'nomenclaturalStatus'
+\item 'taxonRemarks'
+\item 'datasetKey'
+\item 'publishingCountry'
+\item 'lastInterpreted'
+\item 'elevation'
+\item 'elevationAccuracy'
+\item 'depth'
+\item 'depthAccuracy'
+\item 'distanceAboveSurface'
+\item 'distanceAboveSurfaceAccuracy'
+\item 'issue' \strong{(standard)}
+\item 'mediaType' \strong{(standard)}
+\item 'hasCoordinate' \strong{(standard)}
+\item 'hasGeospatialIssues' \strong{(standard)}
+\item 'taxonKey'
+\item 'acceptedTaxonKey'
+\item 'kingdomKey'
+\item 'phylumKey'
+\item 'classKey'
+\item 'orderKey'
+\item 'familyKey'
+\item 'genusKey'
+\item 'subgenusKey'
+\item 'speciesKey'
+\item 'species'
+\item 'acceptedScientificName'
+\item 'verbatimScientificName' \strong{(standard)}
+\item 'typifiedName'
+\item 'protocol'
+\item 'lastParsed'
+\item 'lastCrawled'
+\item 'repatriated'
+\item 'relativeOrganismQuantity'
+\item 'level0Gid'
+\item 'level0Name' \strong{(standard)}
+\item 'level1Gid'
+\item 'level1Name' \strong{(standard)}
+\item 'level2Gid'
+\item 'level2Name' \strong{(standard)}
+\item 'level3Gid'
+\item 'level3Name' \strong{(standard)}
+\item 'iucnRedListCategory'
+}
 }
 \examples{
 \donttest{

@@ -60,14 +60,14 @@
 #' @param enumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
 #'
 #' @details
-#' matchStatusDuplicates - "matched", "unmatched: no recordedBy and no recordNumber",
+#' * matchStatusDuplicates - "matched", "unmatched: no recordedBy and no recordNumber",
 #' "unmatched: no recordNumber" or "unmatched: no recordedBy"
-#' numberTaxonNamesSample -  count of the different accepted scientific names,
+#' * numberTaxonNamesSample -  count of the different accepted scientific names,
 #' identified up to or below the specific level, listed in the sample duplicates, or Zero,
 #' if there is no identification, equal to or below the specific level, for the sample.
-#' sampleTaxonName - TAXON_name accepted and identified up to or below the specific level
+#' * sampleTaxonName - TAXON_name accepted and identified up to or below the specific level
 #' selected for the sample.
-#' sampleIdentificationStatus - 'Identified', 'divergent identifications', or 'unidentified'
+#' * sampleIdentificationStatus - 'Identified', 'divergent identifications', or 'unidentified'
 #'
 #' @return list with two data frames: occ_digital voucher_and:
 #' occ_digital_voucher_and_sample_identification, only with selection result fields and

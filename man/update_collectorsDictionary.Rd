@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{update_collectorsDictionary}
 \alias{update_collectorsDictionary}
-\title{Create fields with the primary collector's last name and a key to group duplicates of a sample}
+\title{Create a key to group duplicates of a sample}
 \usage{
 update_collectorsDictionary(
   occ = NA,
@@ -21,9 +21,9 @@ update_collectorsDictionary(
 }
 \value{
 list with three data frames:
-occ_collectorsDictionary: with update result fields only,
+occ_collectorsDictionary, with update result fields only,
 summary and
-CollectorsDictionary_add with new collectors that can be added to the
+CollectorsDictionary_add, with new collectors that can be added to the
 collector dictionary that can be reused in the future.
 }
 \description{

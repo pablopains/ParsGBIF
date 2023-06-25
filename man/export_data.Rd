@@ -2,7 +2,7 @@
 % Please edit documentation in R/export_data.R
 \name{export_data}
 \alias{export_data}
-\title{Export data to analyze or review}
+\title{Export of results}
 \usage{
 export_data(occ_digital_voucher_file = "", occ_digital_voucher = NA)
 }
@@ -13,15 +13,21 @@ export_data(occ_digital_voucher_file = "", occ_digital_voucher = NA)
 }
 \value{
 list with three data frames:
-occ_in (data useful for spatial and taxonomic analysis),
-occ_out_to_recover (data in need of spatial data revision or without identification) and
-occ_dup (duplicates).
+occ_in, Useful data for spatial and taxonomic analysis,
+occ_out_to_recover, data in need of spatial data revision or without identification and
+occ_dup, duplicates.
 }
 \description{
-Separate records into data frames to analyze or review
+Separate records into three data frames
+Export of results:
+\itemize{
+\item Useful data for spatial and taxonomic analysis
+\item Data in need of revision of spatial information or without identification
+\item Duplicates of the previous two datasets
+}
 }
 \details{
-...
+Each data frame should be used as needed
 }
 \examples{
 \donttest{

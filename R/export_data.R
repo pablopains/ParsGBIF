@@ -1,18 +1,21 @@
-#' @title Export data to analyze or review
+#' @title Export of results
 #' @name export_data
 #'
-#' @description Separate records into data frames to analyze or review
-#'
+#' @description Separate records into three data frames
+#' Export of results:
+#' * Useful data for spatial and taxonomic analysis
+#' * Data in need of revision of spatial information or without identification
+#' * Duplicates of the previous two datasets
 #'
 #' @param occ_digital_voucher_file CSV fila result of function select_digital_voucher_and_sample_identification()$occ_digital_voucher_and_sample_identification
 #' @param occ_digital_voucher data frame result of function select_digital_voucher_and_sample_identification()$occ_digital_voucher_and_sample_identification
 #'
-#' @details ...
+#' @details Each data frame should be used as needed
 #'
 #' @return list with three data frames:
-#' occ_in (data useful for spatial and taxonomic analysis),
-#' occ_out_to_recover (data in need of spatial data revision or without identification) and
-#' occ_dup (duplicates).
+#' occ_in, Useful data for spatial and taxonomic analysis,
+#' occ_out_to_recover, data in need of spatial data revision or without identification and
+#' occ_dup, duplicates.
 #'
 #'
 #' @author Pablo Hendrigo Alves de Melo,

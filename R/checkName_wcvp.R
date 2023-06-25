@@ -12,23 +12,32 @@
 #'
 #' @details About the World Checklist of Vascular Plants https://powo.science.kew.org/about-wcvp
 #' searchNotes values:
-#' Accepted - When only one authorless scientific name is present in the list of TAXON_name with and TAXON_STATUS equal to "Accepted",
+#'
+#' * Accepted - When only one authorless scientific name is present in the list of TAXON_name with
+#' and TAXON_STATUS equal to "Accepted",
 #' verified_speciesName = 100.
-#' Accepted among homonyms - When more than one authorless scientific name is present in the TAXON_name list, but only one of the homonyms displays TAXON_STATUS equal to "Accepted",
+#' * Accepted among homonyms - When more than one authorless scientific name is present in the
+#' TAXON_name list, but only one of the homonyms displays TAXON_STATUS equal to "Accepted",
 #' verified_speciesName = number of matches/100.
-#' Homonyms - When more than one authorless scientific name is present in the TAXON_name list and more than one, or none among the homonyms, display TAXON_STATUS equal to "Accepted",
+#' * Homonyms - When more than one authorless scientific name is present in the TAXON_name list
+#' and more than one, or none among the homonyms, display TAXON_STATUS equal to "Accepted",
 #' verified_speciesName = number of matches/100.
-#' Before searching for homonyms, there was a failure in trying to find the matching match between authorless scientific name in TAXON_name and author in TAXON_AUTHORS, in these cases verified_author equal to 0 (zero),
-#' Not Found: When the authorless scientific name is not present in the TAXON_NAME LIST
-#' Unplaced: o	When only one authorless scientific name is present in the list of TAXON_name with and TAXON_STATUS = "Unplaced"
-#' Updated: When only one authorless scientific name is present in the list of TAXON_name and ACCEPTED_PLANT_NAME_ID are not empty (and ACCEPTED_PLANT_NAME_ID is different from the ID of the species consulted)
-#' taxon_status_of_searchedName, plant_name_id_of_searchedName and taxon_authors_of_searchedName values:
-#' When searchNotes equals "Updated" – The fields record the information of the scientific name originally consulted.
-#' When searchNotes equals "Homonyms" - Fields record the information of homonymous synonyms separated by "|".
-#' verified_author values:
-#' When value equal to 100 – when there is matched match between authorless scientific name in TAXON_name and author in TAXON_AUTHORS.
-#' When value equal to 50 – when there is combined correspondence between authorless scientific name in TAXON_name and author, without (combination), in TAXON_AUTHORS.
-#' When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON_name, author is not present in TAXON_AUTHORS.
+#' Before searching for homonyms, there was a failure in trying to find the matching match between
+#' authorless scientific name in TAXON_name and author in TAXON_AUTHORS, in these cases
+#' verified_author equal to 0 (zero),
+#' * Not Found: When the authorless scientific name is not present in the TAXON_NAME LIST
+#' * Unplaced: o	When only one authorless scientific name is present in the list of TAXON_name with and TAXON_STATUS = "Unplaced"
+#' * Updated: When only one authorless scientific name is present in the list of TAXON_name and ACCEPTED_PLANT_NAME_ID
+#' are not empty (and ACCEPTED_PLANT_NAME_ID is different from the ID of the species consulted) taxon_status_of_searchedName, plant_name_id_of_searchedName and taxon_authors_of_searchedName values:
+#'
+#'    * When searchNotes equals "Updated" – The fields record the information of the scientific name originally consulted.
+#'    * When searchNotes equals "Homonyms" - Fields record the information of homonymous synonyms separated by "|".
+#'
+#' * verified_author values:
+#'
+#'    * When value equal to 100 – when there is matched match between authorless scientific name in TAXON_name and author in TAXON_AUTHORS.
+#'    * When value equal to 50 – when there is combined correspondence between authorless scientific name in TAXON_name and author, without (combination), in TAXON_AUTHORS.
+#'    * When value equal to 0 – regardless of the correspondence between authorless scientific name in TAXON_name, author is not present in TAXON_AUTHORS.
 #'
 #' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
