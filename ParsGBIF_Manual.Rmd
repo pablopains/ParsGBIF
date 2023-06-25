@@ -40,14 +40,14 @@ print(citation("ParsGBIF"), bibtex = FALSE)
 __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
 
 ### 1. GBIF data preparation
-#### 1.1. Obtaining occurrence data of the herbarium specimen from GBIF
+#### 1.1. Obtaining occurrence data of the species records from GBIF
   1.1.1. Access a registered account in [GBIF](gbif.org) 
   
-  1.1.2. Filter occurrences with the following parameters:
+  1.1.2. Filter occurrences using available fields, for instance:
   
   * Basis of record: _Preserved specimen_
   * Occurrence status: _present_
-  * Scientific name: _Botanical family name_ or __filter by other fields__
+  * Scientific name: _Botanical family name_ (e.g. Achatocarpaceae) or __filter by other fields__
 
   1.1.3. Request to download information in __DARWIN CORE ARCHIVE FORMAT__
   
@@ -57,7 +57,7 @@ __ParsGBIF makes it easy to get species occurrence records based on GBIF.__
   
 #### 1.2. Preparing occurrence data downloaded from GBIF 
 
-To prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions, run prepere_gbif_occurrence_data.
+To prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions, run prepare_gbif_occurrence_data.
 
 ```{r example_prepare_gbif_occurrence_data, eval=TRUE, message=FALSE, warning=FALSE}
   library(ParsGBIF)
@@ -83,6 +83,14 @@ When parsing data, the user can choose between “standard” and “all” colu
 
 
 #### 1.3. Extracting GBIF issue 
+
+There are many things that can go wrong and we continously encounter unexpected data.
+In order to help us and publishers improve the data, we flag records with various issues
+that we have encountered. This is also very useful for data consumers as you can include
+these issues as filters in occurrence searches. Not all issues indicate bad data.
+Some are merley flagging the fact that GBIF has altered values during processing.
+On the details page of any occurrence record you will see the list of issues in the notice at the bottom.
+
 ```{r aaa, eval=TRUE, message=FALSE, warning=FALSE}
   data(EnumOccurrenceIssue)
 
@@ -197,6 +205,11 @@ Once verified, the collector's dictionary can be reused in the future.
 
 #### 3.3 Update dictionary collectors
 
+Create a key to group duplicates of a sample.
+
+It also returns new collectors to be added to the collector dictionary that can be reused in the future.
+
+
 ```{r example_update_collectorsDictionary, eval=TRUE, message=FALSE, warning=FALSE}
 
   occ_collectorsDictionary <- update_collectorsDictionary(occ=occ,
@@ -211,6 +224,56 @@ Once verified, the collector's dictionary can be reused in the future.
 
  
 ### 4. Select digital voucher
+
+To group duplicates and choose the digital voucher:
+
+1) If the key for grouping duplicates is complete with collector information and collection number, sample duplicates can be grouped. In this case, the voucher with the highest score is selected among the duplicates in the sample.
+
+2) If the key to group duplicates is incomplete, sample duplicates cannot be grouped due to missing collector information and/or collection number. In this case, each record is considered a sample, without duplicates, and a voucher is selected for each sample.
+
+#### How is the information score calculated? 
+
+moreInformativeRecord = sum of **textual quality** + **quality of geospatial information**.  
+
+#### How is the **quality of textual** information calculated?
+
+##### The **Text quality** is the sum of the number of flags with text quality equal to TRUE.  
+
+Is there information about the collector?  
+Is there information about the collection number?  
+Is there information about the year of collection?  
+Is there information about the institution code?  
+Is there information about the catalog number?  
+Is there information about the collection site?  
+Is there information about the municipality of collection?  
+Is there information about the state/province of collection?  
+Is there information about the bibliographic citation?  
+
+#### How is the **quality of geospatial information** calculated?
+
+##### The **quality of geospatial information** is based on geographic issues made available by GBIF.
+
+GIBF issues on the quality of geospatial information were classified into three levels.
+
+* Not applicable, with selection_score equal to 0
+* Does not affect coordinating accuracy, with selection_score equal to -1
+* Potentially affect coordinate accuracy, with selection_score equal to -3
+* Records to be excluded from spatial analysis, with selection_score equal to -9
+
+#### How is the taxonomic identification of the sample chosen?
+
+1) When the key to group the duplicates is complete:
+
+The accepted TAXON_NAME identified at or below the specified level and the most frequent among the duplicates is chosen.
+
+In case of a tie in frequency, in alphabetical order, the first accepted TAXON_NAME identified up to or below the specific level is chosen.
+
+If there is no identification, equal to or less than the specific level, for the sample, the sample is indicated as unidentified.
+
+2) When the key to group the duplicates is incomplete:
+
+If so, the accepted TAXON_NAME identified at or below the specified level is used. If there is no identification, equal to or less than the specific level, the sample is indicated as unidentified.
+
 
 ```{r example_select_digital_voucher_and_sample_identification, eval=TRUE, message=FALSE, warning=FALSE}
 

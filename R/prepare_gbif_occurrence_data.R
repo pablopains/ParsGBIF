@@ -2,10 +2,10 @@
 #'
 #' @name prepare_gbif_occurrence_data
 #'
-#' @description Prepare GBIF herbarium specimen occurrence data for use in the package
+#' @description Prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions
 #'
-#' @param gbif_occurrece_file the name of the file from which the GBIF herbarium specimen occurrence
-#' data is to be read
+#' @param gbif_occurrece_file The name of the file from which the with occurrence data
+#' downloaded from GBIF (by default "occurrence.txt")
 #' @param columns Character vector of strings to indicate column names of the GBIF occurrence file.
 #' Use 'standard' to select basic columns for use in the package, 'all' to select all available columns.
 #' The default is 'standard'

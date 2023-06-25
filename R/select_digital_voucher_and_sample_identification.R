@@ -1,8 +1,57 @@
-#' @title select_digital_voucher_and_sample_identification
+#' @title Select a sample among available duplicates
 #' @name select_digital_voucher_and_sample_identification
 #'
-#' @description Extract gbif issue
+#' @description To group duplicates and choose the digital voucher:
 #'
+#' 1) If the key for grouping duplicates is complete with collector information and collection number, sample duplicates can be grouped. In this case, the voucher with the highest score is selected among the duplicates in the sample.
+#'
+#' 2) If the key to group duplicates is incomplete, sample duplicates cannot be grouped due to missing collector information and/or collection number. In this case, each record is considered a sample, without duplicates, and a voucher is selected for each sample.
+#'
+#' How is the information score calculated?
+#'
+#' moreInformativeRecord = sum of textual quality + quality of geospatial information.
+#'
+#' How is the quality of textual information calculated?
+#'
+#' The Text quality is the sum of the number of flags with text quality equal to TRUE.
+#'
+#' Is there information about the collector?
+#' Is there information about the collection number?
+#' Is there information about the year of collection?
+#' Is there information about the institution code?
+#' Is there information about the catalog number?
+#' Is there information about the collection site?
+#' Is there information about the municipality of collection?
+#' Is there information about the state/province of collection?
+#' Is there information about the bibliographic citation?
+#'
+#' How is the quality of geospatial information calculated?
+#'
+#' The quality of geospatial information is based on geographic issues made available by GBIF.
+#'
+#' GIBF issues on the quality of geospatial information were classified into three levels.
+#'
+#' * Not applicable, with selection_score equal to 0
+#' * Does not affect coordinating accuracy, with selection_score equal to -1
+#' * Potentially affect coordinate accuracy, with selection_score equal to -3
+#' * Records to be excluded from spatial analysis, with selection_score equal to -9
+#'
+#' How is the taxonomic identification of the sample chosen?
+#'
+#' 1) When the key to group the duplicates is complete:
+#' The accepted TAXON_NAME identified at or below the specified level and the most frequent
+#' among the duplicates is chosen.
+#'
+#' In case of a tie in frequency, in alphabetical order, the first accepted TAXON_NAME
+#' identified up to or below the specific level is chosen.
+#'
+#' If there is no identification, equal to or less than the specific level, for the sample,
+#' the sample is indicated as unidentified.
+#'
+#' 2) When the key to group the duplicates is incomplete:
+#' If so, the accepted TAXON_NAME identified at or below the specified level is used.
+#' If there is no identification, equal to or less than the specific level,
+#' the sample is indicated as unidentified.
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param occ_gbif_issue = result of function extract_gbif_issue()$occ_gbif_issue
@@ -11,17 +60,18 @@
 #' @param enumOccurrenceIssue An enumeration of validation rules for single occurrence records by GBIF file, if NA, will be used, data(EnumOccurrenceIssue)
 #'
 #' @details
-#' To group duplicates: 1) If the key to group duplicates is incomplete: Sample duplicates cannot be grouped due to missing collector information and/or collection number. Each record is considered a sample, with no duplicates. Select a voucher for each sample.
-#' Or, 2) If the key to group duplicates is complete: Group duplicates. Select a voucher, with the highest information score, among the duplicates in the sample.
-#' How to calculate the information score?
-#' moreInformativeRecord = sum of verbatim quality + quality of geospatial information. verbatim quality = sum of the number of flags with verbatim quality equal to TRUE. quality of geospatial information = If there is a geospatial issue, consider the one with the highest priority, with the highest score.
-#' To select sample taxonomic identification: 1) If the key for grouping duplicates is complete: select the accepted TAXON_NAME, identified up to or below the specific level, most frequent among the duplicates in the sample. If tie between frequency of accepted TAXON_NAME, identified up to or below the specific level: select the first accepted TAXON_NAME, identified up to or below the specific level, in alphabetical order. If there is no identification, at or below the specific level, for the sample: Indicate as unidentified sample.
-#' Or, 2) If the key for grouping duplicates is incomplete: select TAXON_NAME, if accepted and identified up to or below the specified level. If there is no identification, at or below the specific level, for the sample: Indicate as unidentified sample.
-#' @return
-#' matchStatusDuplicates - "matched", "unmatched: no recordedBy and no recordNumber", "unmatched: no recordNumber" or "unmatched: no recordedBy"
-#' numberTaxonNamesSample -  count of the different accepted scientific names, identified up to or below the specific level, listed in the sample duplicates, or Zero, if there is no identification, equal to or below the specific level, for the sample.
-#' sampleTaxonName - TAXON_name accepted and identified up to or below the specific level selected for the sample.
+#' matchStatusDuplicates - "matched", "unmatched: no recordedBy and no recordNumber",
+#' "unmatched: no recordNumber" or "unmatched: no recordedBy"
+#' numberTaxonNamesSample -  count of the different accepted scientific names,
+#' identified up to or below the specific level, listed in the sample duplicates, or Zero,
+#' if there is no identification, equal to or below the specific level, for the sample.
+#' sampleTaxonName - TAXON_name accepted and identified up to or below the specific level
+#' selected for the sample.
 #' sampleIdentificationStatus - 'Identified', 'divergent identifications', or 'unidentified'
+#'
+#' @return list with two data frames: occ_digital voucher_and:
+#' occ_digital_voucher_and_sample_identification, only with selection result fields and
+#' occ_join_results, with all data processing fields.
 #'
 #' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &
@@ -216,7 +266,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
 
     occ <- occ %>%
-      dplyr::mutate(Ctrl_verbatim_quality = (  temColetor +
+      dplyr::mutate(Ctrl_verbatim_quality = (temColetor +
                                             temNumeroColeta +
                                             temAnoColeta +
                                             temCodigoInstituicao +
@@ -291,7 +341,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
       if(str_sub(r, str_count(r), str_count(r)) == '_' |
          grepl('__', r) |
-         grepl('SEM-COLETOR',r))
+         grepl('UNKNOWN-COLLECTOR',r))
       {
 
         FAMILY__ <- grepl('__', r) & str_locate(r, '__')[2] == str_count(r) %>% ifelse(is.na(.), FALSE,.)
@@ -301,7 +351,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
           # FAMILY_recordedBy_ <- (str_sub(r, str_count(r), str_count(r)) == '_' &
           #                          !str_sub(r, str_count(r)-1, str_count(r)-1) == '_') |
-          #   grepl('SEM-COLETOR',r) %>% ifelse(is.na(.), FALSE,.)
+          #   grepl('UNKNOWN-COLLECTOR',r) %>% ifelse(is.na(.), FALSE,.)
           #
           # if (FAMILY_recordedBy_==FALSE)
           # {
@@ -312,7 +362,7 @@ select_digital_voucher_and_sample_identification <-  function(occ = NA,
 
           FAMILY_recordedBy_ <- (grepl('__', r) &
                                    str_locate(r, '__')[2] != str_count(r)) |
-            grepl('SEM-COLETOR',r) %>% ifelse(is.na(.), FALSE,.)
+            grepl('UNKNOWN-COLLECTOR',r) %>% ifelse(is.na(.), FALSE,.)
 
           if (FAMILY_recordedBy_==FALSE)
           {

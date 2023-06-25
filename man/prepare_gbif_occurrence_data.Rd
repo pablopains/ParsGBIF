@@ -7,8 +7,8 @@
 prepare_gbif_occurrence_data(gbif_occurrece_file = "", columns = "standard")
 }
 \arguments{
-\item{gbif_occurrece_file}{the name of the file from which the GBIF herbarium specimen occurrence
-data is to be read}
+\item{gbif_occurrece_file}{The name of the file from which the with occurrence data
+downloaded from GBIF (by default "occurrence.txt")}
 
 \item{columns}{Character vector of strings to indicate column names of the GBIF occurrence file.
 Use 'standard' to select basic columns for use in the package, 'all' to select all available columns.
@@ -18,7 +18,7 @@ The default is 'standard'}
 data.frame with renamed selected fields with prefix "Ctrl_"
 }
 \description{
-Prepare GBIF herbarium specimen occurrence data for use in the package
+Prepare occurrence data downloaded from GBIF to be used by ParsGBIF functions
 }
 \details{
 Select data fields and rename field names prefixed with "Ctrl_"

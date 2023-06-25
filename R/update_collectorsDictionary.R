@@ -1,19 +1,26 @@
-#' @title update_collectorsDictionary
+#' @title Create fields with the primary collector's last name and a key to group duplicates of a sample
 #' @name update_collectorsDictionary
 #'
 #' @description Include recordedByStandardized field with verified main collector's last name.
 #' Include recordNumber_Standard field with only numbers from recordNumber.
-#' Create a key to group duplicates in the key_family_recordedBy_recordNumber field, composed of the fields: family + recordedByStandardized + recordNumber_Standard.
+#' Create a key to group duplicates in the key_family_recordedBy_recordNumber field,
+#' composed of the fields: family + recordedByStandardized + recordNumber_Standard.
 #'
 #' @param occ GBIF occurrence table with selected columns as select_gbif_fields(columns = 'standard')
 #' @param collectorDictionary_checked_file Verified collector dictionary file - point to a file on your local disk
 #' @param collectorDictionary_file Collector dictionary file - point to a file on your local disk or upload via git at https://raw.githubusercontent.com/pablopains/ParsGBIF/main/collectorDictionary/CollectorsDictionary.csv.
-#' @details ....
 #'
-#' @return
-#' occ_collectorsDictionary: nameRecordedBy_Standard, recordNumber_Standard, key_family_recordedBy_recordNumber, key_year_recordedBy_recordNumber
-#' summary,
-#' collectorsDictionary_add
+#' @details Fields created for each incident record:
+#' nameRecordedBy_Standard,
+#' recordNumber_Standard,
+#' key_family_recordedBy_recordNumber,
+#' key_year_recordedBy_recordNumber
+#'
+#' @return list with three data frames:
+#' occ_collectorsDictionary: with update result fields only,
+#' summary and
+#' CollectorsDictionary_add with new collectors that can be added to the
+#' collector dictionary that can be reused in the future.
 #'
 #' @author Pablo Hendrigo Alves de Melo,
 #'         Nadia Bystriakova &

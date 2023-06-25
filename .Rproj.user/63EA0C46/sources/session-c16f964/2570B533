@@ -1,0 +1,26 @@
+{
+    "id": "2570B533",
+    "path": "C:/ParsGBIF - github.com/R/select_digital_voucher_and_sample_identification.R",
+    "project_path": "R/select_digital_voucher_and_sample_identification.R",
+    "type": "r_source",
+    "hash": "2734216019",
+    "contents": "",
+    "dirty": false,
+    "created": 1687291746924.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "73,20",
+        "scrollLine": "61"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1687719523,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1687719523143,
+    "read_only": false,
+    "read_only_alternatives": []
+}
